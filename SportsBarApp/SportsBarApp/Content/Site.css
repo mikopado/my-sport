@@ -61,3 +61,18 @@ h3{
 .navbar-right li a, .navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus{
     background-color: #267F00;
 }
+/*Login*/
+.btn-info{
+    width: 70%;
+}
+.checkbox label{
+    padding-left: 5px;
+}
+.checkbox{
+    margin-left: 20px;
+}
+
+footer{
+    position:relative;
+    bottom: 5px;
+}
