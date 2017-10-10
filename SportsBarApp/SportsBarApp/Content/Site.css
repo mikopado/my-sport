@@ -38,6 +38,8 @@ h1{
 }
 h3{
     color: white;
+    font-size: 2.4em;
+    font-weight: bold;
 }
 /*Set navbar */
 .navbar-brand, h1, .navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {

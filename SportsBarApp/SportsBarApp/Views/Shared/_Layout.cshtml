@@ -1,5 +1,5 @@
 ﻿@{ 
-    var currentView = (ViewContext.View as RazorView).ViewPath.ToString();
+    ViewBag.CurrentView = (ViewContext.View as RazorView).ViewPath.ToString();
 }
 <!DOCTYPE html>
 <html>
@@ -34,7 +34,7 @@
         </div>
     </div>
         @*if the view is the home page do not render the div body content and therefore render full-screen image*@
-        @if (!currentView.Equals(@ViewBag.HomeView))
+        @if (!ViewBag.CurrentView.Equals(ViewBag.HomeView))
         {
             <div class="container body-content">
                 @RenderBody()
