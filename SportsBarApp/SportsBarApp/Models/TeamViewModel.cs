@@ -8,7 +8,7 @@ namespace SportsBarApp.Models
     public class TeamViewModel
     {
         public string Team { get; set; }
-        public IList<Article> Articles { get; set; }
+        public IList<string> Articles { get; set; }
 
     }
 }

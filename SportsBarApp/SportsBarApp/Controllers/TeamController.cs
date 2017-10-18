@@ -30,7 +30,7 @@ namespace SportsBarApp.Controllers
         [Route("team/articles/{team}")]
         public ActionResult DisplayArticles(TeamViewModel model, string team)
         {
-            model.Articles = new List<Article>() { new Article(model.Team), new Article(model.Team), new Article(model.Team), new Article(model.Team) };
+            model.Articles = new List<string>() { (new Article(model.Team)).CreateArticle(), (new Article(model.Team)).CreateArticle(), (new Article(model.Team)).CreateArticle(), (new Article(model.Team)).CreateArticle() };
             return View(model);
         }
     }
