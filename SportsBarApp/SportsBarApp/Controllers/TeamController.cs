@@ -16,7 +16,8 @@ namespace SportsBarApp.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SelectFavouriteTeam(TeamViewModel model)        {
+        public ActionResult SelectFavouriteTeam(TeamViewModel model)
+        {
             
             return RedirectToAction("DisplayArticles", "Team", model);
         }
