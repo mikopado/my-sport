@@ -42,6 +42,7 @@ namespace SportsBarApp.Controllers
         public ActionResult Create()
         {
             ViewBag.GlobalId = GetCurrentProfileId();
+            
             return View();
         }
 
@@ -52,7 +53,7 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Profile profile)
         {
-            
+            profile.Email = User.Identity.GetUserName();
             if (ModelState.IsValid)
             {
                 db.Profiles.Add(profile);
