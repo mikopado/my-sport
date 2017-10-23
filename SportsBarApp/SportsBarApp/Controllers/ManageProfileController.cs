@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -10,14 +11,16 @@ using SportsBarApp.Models;
 
 namespace SportsBarApp.Controllers
 {
-    public class ProfileController : Controller
+    [Authorize]
+    public class ManageProfileController : Controller
     {
         private ProfileDbContext db = new ProfileDbContext();
 
         // GET: Profile
         public ActionResult Index()
         {
-            return View(db.Profiles.ToList());
+            var userId = GetCurrentProfileId();          
+            return View(db.Profiles.Where(x => x.GlobalId == userId).First());
         }
 
         // GET: Profile/Details/5
@@ -38,6 +41,7 @@ namespace SportsBarApp.Controllers
         // GET: Profile/Create
         public ActionResult Create()
         {
+            ViewBag.GlobalId = GetCurrentProfileId();
             return View();
         }
 
@@ -55,7 +59,7 @@ namespace SportsBarApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             return View(profile);
         }
 
@@ -123,6 +127,11 @@ namespace SportsBarApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public Guid GetCurrentProfileId()
+        {
+            return new Guid(User.Identity.GetUserId());
         }
     }
 }

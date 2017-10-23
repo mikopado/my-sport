@@ -1,0 +1,53 @@
+﻿@model SportsBarApp.Models.Profile
+@{
+    ViewBag.Title = "SportsBar";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="navbar navbar navbar-fixed-top">
+        <div class="container">
+            @Html.Partial("Navbar")
+
+            @Html.TextBox("Search", null, new { id = "search", @class = "form-control pull-left", placeholder = "Search", type = "search", style = "display:inline; width:100%;" })
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li></li>
+                    <li></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayFor(m => m.FirstName)
+                    </dt>
+
+                    <dd>
+                        
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    sbdvjsdnavnsalmnlsamdsdvnmsadnvmnsanasnvnas
+                    sjdvnnsvnslanvlsanvknsavka
+                </p>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</body>
+</html>

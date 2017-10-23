@@ -25,6 +25,9 @@ namespace SportsBarApp.Models
         public string FavouriteTeams { get; set; }
         [Display(Name = "Favourite Sport")]
         public string FavouriteSports { get; set; }
+        [Display(Name = "Profile Image")]
+        public string ProfilePic { get; set; }
+        public Guid GlobalId { get; set; }
 
 
     }

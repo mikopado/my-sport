@@ -17,10 +17,13 @@ namespace SportsBarApp.Models
     
         public ProfileDbContext() : base("name=ProfileDbContext")
         {
+            //To allow changes in database schema when domain classes are modified. Do not use in production
+            Database.SetInitializer<ProfileDbContext>(new DropCreateDatabaseIfModelChanges<ProfileDbContext>());
         }
 
         public System.Data.Entity.DbSet<SportsBarApp.Models.Profile> Profiles { get; set; }
         public System.Data.Entity.DbSet<SportsBarApp.Models.Team> Teams { get; set; }
         public System.Data.Entity.DbSet<SportsBarApp.Models.Sport> Sports { get; set; }
+        
     }
 }

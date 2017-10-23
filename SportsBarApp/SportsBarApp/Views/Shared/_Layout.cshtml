@@ -12,36 +12,40 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>    
-    @Html.Partial("Navbar")
-    <div class="navbar-collapse collapse">
-            @*<ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-    </ul>*@
-            @Html.Partial("_LoginPartial")
-        </div>
-        @*if the view is the home page do not render the div body content and therefore render full-screen image*@
-        @if (!ViewBag.CurrentView.Equals(ViewBag.HomeView))
-        {
-            <div class="container body-content">
-                @RenderBody()
-                
-                <footer class="text-center">
-                    <hr />
-                    <p>&copy; @DateTime.Now.Year - Sports Bar</p>
-                </footer>
+<body>
+    <div class="navbar navbar navbar-fixed-top">
+        <div class="container">
+            @Html.Partial("Navbar")
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>*@
+                @Html.Partial("_LoginPartial")
             </div>
-        }
-        else
-        {
-            @RenderBody()          
-        }
-    
+         </div>
+    </div>
+            @*if the view is the home page do not render the div body content and therefore render full-screen image*@
+            @if (!ViewBag.CurrentView.Equals(ViewBag.HomeView))
+            {
+                <div class="container body-content">
+                    @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                    <footer class="text-center">
+                        <hr />
+                        <p>&copy; @DateTime.Now.Year - Sports Bar</p>
+                    </footer>
+                </div>
+            }
+            else
+            {
+                @RenderBody()
+            }
+
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
 </body>
 </html>
