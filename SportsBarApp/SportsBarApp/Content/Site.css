@@ -54,15 +54,16 @@ h3{
 .navbar-right li a:active, .navbar-right li a {
     color: white;
     font-weight: bold;
-    font-size: 1.2em;
-    
+    font-size: 1.2em;    
 }
-.navbar-right li:first-child {
-    margin-right: 100px;
+.navbar-right li {
+    margin-right: 50px;
 }
-.navbar-right li a, .navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus{
-    background-color: #267F00;
+.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus{
+    color: navy;
+    background-color: transparent;
 }
+
 /*Login*/
 .btn-info{
     width: 70%;
@@ -79,3 +80,40 @@ footer{
     bottom: 5px;
 }
 
+/*Home Page Profile*/
+.navbar-collapse li{
+
+}
+#wrapper-wall{
+   margin-top: 40px;
+   
+}
+#wrapper-wall div.col-md-3:first-child{
+    padding: 0;
+}
+#wrapper-wall div.col-md-3:last-child {
+    padding-right: 0;
+}
+#wrapper-wall div.col-md-3{    
+    border: hidden;
+    height: 100vh;
+    background-color: ghostwhite;
+
+}
+
+#wrapper-wall table img {
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#wrapper-wall table {
+    border-collapse: separate;
+    border-spacing: 5px 30px; 
+}
+#wrapper-wall table td{
+    padding-right: 20px;
+}
+#wrapper-wall table tr {
+    font-weight: bold;
+}

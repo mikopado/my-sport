@@ -22,8 +22,9 @@ namespace SportsBarApp.Models
         }
 
         public System.Data.Entity.DbSet<SportsBarApp.Models.Profile> Profiles { get; set; }
-        public System.Data.Entity.DbSet<SportsBarApp.Models.Team> Teams { get; set; }
-        public System.Data.Entity.DbSet<SportsBarApp.Models.Sport> Sports { get; set; }
-        
+        //public System.Data.Entity.DbSet<SportsBarApp.Models.Team> Teams { get; set; }
+        //public System.Data.Entity.DbSet<SportsBarApp.Models.Sport> Sports { get; set; }
+        //public System.Data.Entity.DbSet<SportsBarApp.Models.Image> Images { get; set; }
+
     }
 }

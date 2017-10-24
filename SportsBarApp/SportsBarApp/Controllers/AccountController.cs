@@ -79,7 +79,7 @@ namespace SportsBarApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "ManageProfilePage");
+                    return RedirectToAction("Index", "ManageProfile");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

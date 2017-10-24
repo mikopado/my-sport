@@ -22,7 +22,7 @@
         @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
         <div>
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "Passwords must have at least one non letter or digit character.", new { @class = "text-danger col-md-offset-4" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger col-md-offset-4" })
         </div>
     </div>
     <div class="form-group">

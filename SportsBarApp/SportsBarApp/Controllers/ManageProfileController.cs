@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsBarApp.Models;
+using System.IO;
 
 namespace SportsBarApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace SportsBarApp.Controllers
         public ActionResult Index()
         {
             var userId = GetCurrentProfileId();          
-            return View(db.Profiles.Where(x => x.GlobalId == userId).First());
+            return View(db.Profiles.Where(x => x.GlobalId == userId).Single());
         }
 
         // GET: Profile/Details/5
@@ -54,8 +55,11 @@ namespace SportsBarApp.Controllers
         public ActionResult Create(Profile profile)
         {
             profile.Email = User.Identity.GetUserName();
+
+            
             if (ModelState.IsValid)
             {
+               
                 db.Profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,7 +67,7 @@ namespace SportsBarApp.Controllers
             
             return View(profile);
         }
-
+        
         // GET: Profile/Edit/5
         public ActionResult Edit(int? id)
         {
