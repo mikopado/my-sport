@@ -30,7 +30,7 @@ namespace SportsBarApp
                       "~/Content/jquery-ui.min.css",
                       "~/Content/jquery-ui.structure.min.css",
                       "~/Content/jquery-ui.theme.min.css",
-                      "~/Content/Site.css"));
+                      "~/Content/site.css"));
         }
     }
 }

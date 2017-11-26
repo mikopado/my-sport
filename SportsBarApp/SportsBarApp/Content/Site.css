@@ -33,6 +33,7 @@ textarea {
     align-items: center;
     justify-content: center; 
 }
+
 h1{
     font-size: 5em;     
 }
@@ -42,13 +43,20 @@ h3{
     font-weight: bold;
 }
 /*Set navbar */
+.navbar {
+    background-color: #68E0FF;
+    border-width: 0;
+}
 .navbar-brand, h1, .navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
     font-family: 'Coustard', serif;
     color: navy;
 }
-.navbar {
-    background-color: #68E0FF;
-    border-width: 0;
+button.navbar-toggle {
+    border: 1px solid #68f0b6;
+    background-color: lightgray;
+}
+span.icon-bar{
+    background-color: lightyellow;
 }
 
 .navbar-right li a:active, .navbar-right li a {
@@ -81,9 +89,7 @@ footer{
 }
 
 /*Home Page Profile*/
-.navbar-collapse li{
 
-}
 #wrapper-wall{
    margin-top: 40px;
    
@@ -116,4 +122,9 @@ footer{
 }
 #wrapper-wall table tr {
     font-weight: bold;
+}
+#search.form-control{
+    display: inline-block;
+    max-width: 70%;
+    margin-top: 5px;
 }

@@ -11,6 +11,9 @@ namespace SportsBarApp.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.IsHomePage = true;
+            ViewBag.Login = false;
+            ViewBag.Register = false;
             return View();
         }
 
