@@ -128,3 +128,38 @@ footer{
     max-width: 70%;
     margin-top: 5px;
 }
+
+/*MyProfile*/
+.profile-links a{
+    color: #4d7499;
+    font-weight: bold;
+    font-size: 1.2em;  
+    display: block;
+}
+.profile-links a:hover, .profile-links a:active, .profile-links a:focus {
+    color: #4d7499;
+    background-color: transparent;
+    text-decoration: none;
+}
+section.profile-links a{
+    margin-top: 60px;
+}
+
+div.profile-links {
+    display: flex;
+    justify-content: space-between;   
+}
+#details, #edit{
+    margin-top: 60px;
+}
+#details dt{
+    text-align: start;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+#edit .control-label{
+    text-align: left;
+}
+
+
+

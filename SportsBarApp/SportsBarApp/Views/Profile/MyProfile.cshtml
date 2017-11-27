@@ -1,0 +1,19 @@
+﻿@model SportsBarApp.Models.Profile
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
+
+    var partial = "Details";
+    if(ViewBag.Partial != null)
+    {
+        if (ViewBag.Partial.Equals("Edit"))
+        {
+            partial = "Edit";
+        }
+    }
+
+}
+
+@Html.Partial(partial)
+
+

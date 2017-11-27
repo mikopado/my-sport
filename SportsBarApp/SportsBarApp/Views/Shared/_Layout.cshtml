@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="http://fonts.googleapis.com/css?family=Leckerli+One|Coustard:900" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -25,7 +25,7 @@
             </div>
          </div>
     </div>
-    @if (!ViewBag.IsHomePage)
+    @if (ViewBag.HomePage != null && ViewBag.IsHomePage)
     {
         <div class="container body-content">
             @RenderBody()

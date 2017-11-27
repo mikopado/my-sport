@@ -293,7 +293,10 @@
     <Content Include="Views\Profile\Details.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutProfile.cshtml" />
+    <Content Include="Views\Shared\_LayoutProfileWall.cshtml" />
+    <Content Include="Views\Profile\MyProfile.cshtml" />
+    <Content Include="Views\Shared\_LayoutMyProfile.cshtml" />
+    <Content Include="Views\Shared\_NavbarProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

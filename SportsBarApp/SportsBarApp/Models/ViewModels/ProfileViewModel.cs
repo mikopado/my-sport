@@ -34,9 +34,7 @@ namespace SportsBarApp.Models
                 FirstName = profile.FirstName,
                 LastName = profile.LastName,
                 Birthday = profile.DateOfBirth,
-                City = profile.City,
-                Email = profile.Email,
-                NickName = profile.NickName,
+                City = profile.City,                
                 Country = profile.Country
             };
         }
@@ -49,9 +47,7 @@ namespace SportsBarApp.Models
                 FirstName = viewModel.FirstName,
                 LastName = viewModel.LastName,
                 DateOfBirth = viewModel.Birthday,
-                City = viewModel.City,
-                Email = viewModel.Email,
-                NickName = viewModel.NickName,
+                City = viewModel.City,                
                 Country = viewModel.Country
             };
         }

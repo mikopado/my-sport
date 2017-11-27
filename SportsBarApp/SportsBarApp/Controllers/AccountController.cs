@@ -61,8 +61,7 @@ namespace SportsBarApp.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Login = true;
-            ViewBag.Register = false;
+           
             return View();
         }
 
@@ -73,8 +72,7 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            ViewBag.Login = true;
-            ViewBag.Register = false;
+           
 
             if (!ModelState.IsValid)
             {
@@ -147,8 +145,7 @@ namespace SportsBarApp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Login = false;
-            ViewBag.Register = true;
+            
             return View();
         }
 
@@ -159,8 +156,7 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            ViewBag.Login = false;
-            ViewBag.Register = true;
+            
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };

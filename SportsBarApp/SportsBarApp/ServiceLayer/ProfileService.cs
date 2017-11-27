@@ -43,15 +43,17 @@ namespace SportsBarApp.ServiceLayer
             repo.Remove(profile);
         }
 
-        public Guid GetCurrentProfileId(IPrincipal User)
+        public Guid GetCurrentProfileId(IPrincipal user)
         {
-            return new Guid(User.Identity.GetUserId());
+            return new Guid(user.Identity.GetUserId());
         }
 
-        public string GetCurrentUser(IPrincipal User)
+        public bool EnsureIsUserProfile(Profile profile, IPrincipal user)
         {
-            return User.Identity.GetUserName();
+            return profile.GlobalId == GetCurrentProfileId(user);
         }
+
+        
 
         public void DisposeContext()
         {

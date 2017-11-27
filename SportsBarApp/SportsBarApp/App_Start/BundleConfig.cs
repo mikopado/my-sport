@@ -25,7 +25,7 @@ namespace SportsBarApp
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui.min.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Content/bootstrap-lumen.css",
                       "~/Content/jquery-ui.min.css",
                       "~/Content/jquery-ui.structure.min.css",

@@ -1,7 +1,7 @@
 ﻿@model SportsBarApp.Models.Profile
 @{
     ViewBag.Title = "SportsBar";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";
 }
 
 
@@ -17,14 +17,7 @@
                         @Html.DisplayFor(m => m.FirstName) @Html.DisplayFor(m => m.LastName)
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(m => m.NickName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.NickName)
-                    </td>
-                </tr>
+               
                 <tr>
                     <td>
                         @Html.LabelFor(m => m.DateOfBirth, "DOB")
@@ -98,7 +91,6 @@
     </div>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+
 
 

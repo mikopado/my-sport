@@ -28,6 +28,13 @@ namespace SportsBarApp.Controllers
             return View(service.GetProfileByUserId(userId));
         }
 
+        public ActionResult MyProfile()        {
+
+            var userId = service.GetCurrentProfileId(User);
+
+            return View(service.GetProfileByUserId(userId));
+        }
+
         // GET: Profile/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,7 +47,9 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(profile);
+
+            ViewBag.Partial = "Details";
+            return View("MyProfile", profile);
         }
 
         // GET: Profile/Create
@@ -58,8 +67,7 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Profile profile)
         {
-            profile.Email = service.GetCurrentUser(User);
-            
+           
             if (ModelState.IsValid)
             {
 
@@ -82,7 +90,8 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(profile);
+            ViewBag.Partial = "Edit";
+            return View("MyProfile", profile);
         }
 
         // POST: Profile/Edit/5
@@ -97,7 +106,8 @@ namespace SportsBarApp.Controllers
                 service.Edit(profile);
                 return RedirectToAction("Index");
             }
-            return View(profile);
+            ViewBag.Partial = "Edit";
+            return View("MyProfile", profile);
         }
 
         // GET: Profile/Delete/5
