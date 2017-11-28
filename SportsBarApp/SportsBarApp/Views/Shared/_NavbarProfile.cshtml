@@ -12,14 +12,26 @@
         </div>
 
         <div class="navbar-collapse collapse">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
 
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Home", "Index")</li>
-                <li>@Html.ActionLink("My Profile", "MyProfile")</li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-            </ul>
-
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Home", "Index")</li>
+                    <li>@Html.ActionLink("My Profile", "MyProfile")</li>
+                    <li><div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/Manage/ChangePassword">Settings</a>
+                            
+                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log out</a>                                                        
+                        </div>
+                    </div></li>
+                </ul>
+            }
+           
 
         </div>
     </div>

@@ -14,6 +14,8 @@
         
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProfileId)
+        @Html.HiddenFor(model => model.GlobalId, new {id="GlobalId", value=ViewBag.GlobalID })
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })

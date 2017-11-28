@@ -28,7 +28,8 @@ namespace SportsBarApp.Controllers
             return View(service.GetProfileByUserId(userId));
         }
 
-        public ActionResult MyProfile()        {
+        public ActionResult MyProfile()
+        {
 
             var userId = service.GetCurrentProfileId(User);
 
@@ -74,7 +75,7 @@ namespace SportsBarApp.Controllers
                 service.Add(profile);
                 return RedirectToAction("Index");
             }
-            
+            ViewBag.GlobalId = service.GetCurrentProfileId(User);
             return View(profile);
         }
         
@@ -91,6 +92,7 @@ namespace SportsBarApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.Partial = "Edit";
+            ViewBag.GlobalId = service.GetCurrentProfileId(User);
             return View("MyProfile", profile);
         }
 
@@ -99,14 +101,18 @@ namespace SportsBarApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams")] Profile profile)
+        public ActionResult Edit([Bind(Include = "ProfileId, FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams,GlobalId")] Profile profile)
         {
+            ViewBag.GlobalId = service.GetCurrentProfileId(User);
             if (ModelState.IsValid)
             {
                 service.Edit(profile);
-                return RedirectToAction("Index");
+                ViewBag.Partial = "Details";
+                return RedirectToAction("MyProfile", profile);
+                
             }
             ViewBag.Partial = "Edit";
+            
             return View("MyProfile", profile);
         }
 
@@ -133,6 +139,21 @@ namespace SportsBarApp.Controllers
             Profile profile = service.Find(id);
             service.Remove(profile);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CheckProfileExist()
+        {
+            Profile profile = service.GetProfileByUserId(service.GetCurrentProfileId(User));
+
+            if (Request.IsAuthenticated)
+            {
+                if (profile == null)
+                {
+                    return RedirectToAction("Create");
+                }
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

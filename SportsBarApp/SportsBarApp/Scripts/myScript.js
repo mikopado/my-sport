@@ -1,7 +1,12 @@
 ﻿$(function () {
 
     $(function () {
-        $(".datePicker").datepicker();        
+        $(".datePicker").datepicker({
+
+            dateFormat: "dd/mm/yy",
+            changeYear: true,
+            maxDate : '0'
+        });        
         
     });
 

@@ -217,6 +217,7 @@ namespace SportsBarApp.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewBag.ViewEmail = User.Identity.GetUserName();
             return View();
         }
 

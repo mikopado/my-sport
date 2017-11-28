@@ -67,10 +67,18 @@ span.icon-bar{
 .navbar-right li {
     margin-right: 50px;
 }
-.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus{
-    color: navy;
+.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus,
+#dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active {
+        color: navy;
+        background-color: transparent;
+    }
+#dropdownMenuLink {
     background-color: transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
 }
+
 
 /*Login*/
 .btn-info{
@@ -171,6 +179,25 @@ div.profile-links {
     box-shadow: 1px 1px 1px 1px;
     padding: 15px;    
 }
+/*datePicker*/
+select.ui-datepicker-year {
+    background-color: #65d2ee;
+}
+
+/*change password*/
+input#ViewEmail.form-control{
+    background-color: white;
+}
+h2.text-success{   
+    position: relative;
+    top: 30vh;    
+}
+#goback {
+    position: relative;
+    top: 50vh;
+}
+
+
 
 
 
