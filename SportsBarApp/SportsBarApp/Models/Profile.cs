@@ -19,9 +19,9 @@ namespace SportsBarApp.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         
-        [Required]
+        
         [Display(Name = "Date of Birth")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         public string City { get; set; }        

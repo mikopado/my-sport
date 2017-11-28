@@ -1,12 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="http://fonts.googleapis.com/css?family=Leckerli+One|Coustard:900" rel="stylesheet" type="text/css" />
 
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
 <body>
     @Html.Partial("_NavbarProfile")
@@ -31,5 +33,8 @@
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jqueryui")
 @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jqueryval")
+
+    
 </body>
 </html>

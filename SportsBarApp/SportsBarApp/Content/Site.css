@@ -154,11 +154,22 @@ div.profile-links {
 }
 #details dt{
     text-align: start;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     margin-left: 10px;
 }
-#edit .control-label{
+
+    
+#edit .control-label {
     text-align: left;
+}
+#details section{
+    display: flex;
+    justify-content: space-between;
+    max-width: 50%;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 1px 1px;
+    padding: 15px;    
 }
 
 

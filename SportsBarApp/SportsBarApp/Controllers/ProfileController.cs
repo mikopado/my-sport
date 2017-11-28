@@ -99,7 +99,7 @@ namespace SportsBarApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,City,Email,Birthday")] Profile profile)
+        public ActionResult Edit([Bind(Include = "FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams")] Profile profile)
         {
             if (ModelState.IsValid)
             {
