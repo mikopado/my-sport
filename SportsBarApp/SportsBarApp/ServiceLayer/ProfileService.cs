@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using SportsBarApp.Models;
 using SportsBarApp.Models.DAL;
+using SportsBarApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace SportsBarApp.ServiceLayer
     {
         private IRepository<Profile> repo;
         private IRepository<Image> imageRepo;
+        private IRepository<Post> postRepo;
+        private IRepository<Comment> commentRepo;
+        private IRepository<ProfileWallViewModel> wallRepo;
 
         public ProfileService(IRepository<Profile> repo)
         {
@@ -24,9 +28,24 @@ namespace SportsBarApp.ServiceLayer
             this.imageRepo = image;
         }
 
+        public ProfileService(IRepository<Post> post)
+        {
+            this.postRepo = post;
+        }
+        public ProfileService(IRepository<ProfileWallViewModel> wall)
+        {
+            this.wallRepo = wall;
+        }
+
         public Profile GetProfileByUserId(Guid id)
         {
             return repo.GetElement(x => x.GlobalId == id);
+        }
+
+
+        public int GetProfileId(Guid guid)
+        {
+            return GetProfileByUserId(guid).ProfileId;
         }
 
         public Profile Find(int? id)
@@ -49,14 +68,14 @@ namespace SportsBarApp.ServiceLayer
             repo.Remove(profile);
         }
 
-        public Guid GetCurrentProfileId(IPrincipal user)
+        public Guid GetCurrentUserId(IPrincipal user)
         {
             return new Guid(user.Identity.GetUserId());
         }
 
         public bool EnsureIsUserProfile(Profile profile, IPrincipal user)
         {
-            return profile.GlobalId == GetCurrentProfileId(user);
+            return profile.GlobalId == GetCurrentUserId(user);
         }
 
         public void AddOrUpdate(Image image)
@@ -71,8 +90,17 @@ namespace SportsBarApp.ServiceLayer
             }
 
         }
+        public void Add(Post post)
+        {
+            postRepo.Add(post);
+        }
+        public IEnumerable<Post> GetPosts()
+        {
+            IEnumerable<Post> posts = postRepo.GetElements(x => x.Id != 0);
+            return posts;
+        }
 
-        
+
 
         public void DisposeContext()
         {

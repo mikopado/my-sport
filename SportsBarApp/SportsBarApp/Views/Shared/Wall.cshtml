@@ -1,1 +1,25 @@
-﻿
+﻿@model IEnumerable<SportsBarApp.Models.Post>
+
+@foreach (var item in Model)
+{
+
+    @Html.TextArea("Post", item.Message, null)
+    using (Html.BeginForm("UploadComment", "Profile", FormMethod.Post))
+    {
+        @Html.Hidden("PostId", item.Id)
+        @Html.TextArea("Text", "", 4, 20, null)
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Comment" class="btn btn-info" />
+            </div>
+        </div>
+    }
+    foreach (var comm in item.Comments)
+    {
+        @Html.TextArea("Comments", comm.Text, new { })
+    }
+
+}
+
+
+

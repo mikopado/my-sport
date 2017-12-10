@@ -13,6 +13,7 @@ using System.Security.Principal;
 using SportsBarApp.ServiceLayer;
 using SportsBarApp.Models.DAL;
 using System.Threading.Tasks;
+using SportsBarApp.Models.ViewModels;
 
 namespace SportsBarApp.Controllers
 {
@@ -21,19 +22,28 @@ namespace SportsBarApp.Controllers
     {
         private ProfileService profileService = new ProfileService(new AppRepository<Profile>(new ProfileDbContext()));
         private ProfileService imageService = new ProfileService(new AppRepository<Image>(new ProfileDbContext()));
+        private ProfileService postService = new ProfileService(new AppRepository<Post>(new ProfileDbContext()));
+        private ProfileService wallService = new ProfileService(new AppRepository<ProfileWallViewModel>(new ProfileDbContext()));
 
         // GET: Profile
         public ActionResult Index()
         {
-            var userId = profileService.GetCurrentProfileId(User);
+            var userId = profileService.GetCurrentUserId(User);
+            Profile profile = profileService.GetProfileByUserId(userId);
+            IEnumerable<Post> posts = postService.GetPosts();
+            ProfileWallViewModel wall = new ProfileWallViewModel()
+            {
+                UserProfile = profile,
+                Posts = posts
+            };
 
-            return View(profileService.GetProfileByUserId(userId));
+            return View(wall);
         }
 
         public ActionResult MyProfile()
         {
 
-            var userId = profileService.GetCurrentProfileId(User);
+            var userId = profileService.GetCurrentUserId(User);
 
             return View(profileService.GetProfileByUserId(userId));
         }
@@ -58,7 +68,7 @@ namespace SportsBarApp.Controllers
         // GET: Profile/Create
         public ActionResult Create()
         {
-            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
             
             return View();
         }
@@ -77,7 +87,7 @@ namespace SportsBarApp.Controllers
                 profileService.Add(profile);
                 return RedirectToAction("Index");
             }
-            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
             return View(profile);
         }
         
@@ -94,7 +104,7 @@ namespace SportsBarApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.Partial = "Edit";
-            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
             return View("MyProfile", profile);
         }
 
@@ -105,7 +115,7 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfileId, FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams,GlobalId")] Profile profile)
         {
-            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
             if (ModelState.IsValid)
             {
                 profileService.Edit(profile);
@@ -145,7 +155,7 @@ namespace SportsBarApp.Controllers
 
         public ActionResult CheckProfileExist()
         {
-            Profile profile = profileService.GetProfileByUserId(profileService.GetCurrentProfileId(User));
+            Profile profile = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
 
             if (Request.IsAuthenticated)
             {
@@ -177,13 +187,34 @@ namespace SportsBarApp.Controllers
             if (ModelState.IsValid)
             {
                 imageService.AddOrUpdate(image);
-                Profile p = profileService.GetProfileByUserId(profileService.GetCurrentProfileId(User));
+                Profile p = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
                 //p.ProfilePic = image;
                 profileService.Edit(p);
                 return RedirectToAction("Index");
             }
 
             return View(image);
+        }
+
+        [HttpPost]
+        public ActionResult UploadPost([Bind(Include = "Id, Message, Timestamp, ProfileId")]Post post)
+        {
+            
+            post.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
+            post.Timestamp = DateTime.Now;
+            postService.Add(post);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UploadComment([Bind(Include = "Id, Text, Timestamp, ProfileId, PostId")]Comment comment)
+        {
+
+            comment.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
+            comment.Timestamp = DateTime.Now;
+            //comment.PostId = int.Parse(id);
+            //postService.Add(comment);
+            return RedirectToAction("Index");
         }
 
 

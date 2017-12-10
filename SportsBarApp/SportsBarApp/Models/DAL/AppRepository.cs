@@ -39,6 +39,11 @@ namespace SportsBarApp.Models.DAL
             return entities.Where(func).FirstOrDefault();
         }
 
+        public List<T> GetElements(Func<T, bool> func)
+        {
+            return entities.Where(func).ToList();
+        }
+
         public void Remove(T element)
         {
             entities.Remove(element);

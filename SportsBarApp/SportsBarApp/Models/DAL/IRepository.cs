@@ -13,6 +13,7 @@ namespace SportsBarApp.Models.DAL
         void Commit();
         void Remove(T element);
         void Update(T element);
+        List<T> GetElements(Func<T, bool> func);
         
 
     }
