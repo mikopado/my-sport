@@ -23,9 +23,14 @@ namespace SportsBarApp.Models
         }
 
         public System.Data.Entity.DbSet<SportsBarApp.Models.Profile> Profiles { get; set; }
-        //public System.Data.Entity.DbSet<SportsBarApp.Models.Team> Teams { get; set; }
-        //public System.Data.Entity.DbSet<SportsBarApp.Models.Sport> Sports { get; set; }
-        //public System.Data.Entity.DbSet<SportsBarApp.Models.Image> Images { get; set; }
+        public System.Data.Entity.DbSet<SportsBarApp.Models.Post> Posts { get; set; }
+        public System.Data.Entity.DbSet<SportsBarApp.Models.Comment> Comments { get; set; }
+        public System.Data.Entity.DbSet<SportsBarApp.Models.Image> Images { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Profile>().HasOptional(e => e.ProfilePic).WithRequired();
+        }
 
     }
 }

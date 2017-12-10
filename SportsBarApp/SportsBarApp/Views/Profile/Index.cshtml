@@ -1,17 +1,26 @@
 ﻿@model SportsBarApp.Models.Profile
+
 @{
     ViewBag.Title = "SportsBar";
     Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";
+
+    
+
 }
-
-
 <div class="container" id="wrapper-wall">
     <div class="row">
         <div class="col-md-3">   
             <table>
                 <tr>
-                    <td>
-                        <img src="~/Content/images/crowd-draw.jpg" />
+                    <td>                         
+                        @if (Model.ProfilePic == null)
+                        {
+                            <img src=' ~/Content/images/crowd-draw.jpg' />
+                        }
+                        else
+                        {
+                            @Html.Image(Model.ProfilePic.BinImage);
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(m => m.FirstName) @Html.DisplayFor(m => m.LastName)
@@ -63,17 +72,19 @@
                     
         </div>
         <div class="col-md-6">
-            @for (var i = 0; i < 6; i++)
-            {
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            }
+            @*@using (Html.BeginForm("UploadPost", "Wall", FormMethod.Post))
+            { 
+                @Html.TextArea("Post", "", 4, 20, null)
+                <div class="form-group">
+                    <div>
+                        <input type="submit" value="Upload Post" class="btn btn-info" />
+                    </div>
+                </div>
+            }*@
+            
+            <div>@Html.Partial("Wall")</div>
+           
+            
                 
         </div>
         <div class="col-md-3">

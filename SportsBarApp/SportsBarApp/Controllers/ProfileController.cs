@@ -12,28 +12,30 @@ using System.IO;
 using System.Security.Principal;
 using SportsBarApp.ServiceLayer;
 using SportsBarApp.Models.DAL;
+using System.Threading.Tasks;
 
 namespace SportsBarApp.Controllers
 {
     [Authorize]
     public class ProfileController : Controller
     {
-        private ProfileService service = new ProfileService(new AppRepository<Profile>(new ProfileDbContext()));
+        private ProfileService profileService = new ProfileService(new AppRepository<Profile>(new ProfileDbContext()));
+        private ProfileService imageService = new ProfileService(new AppRepository<Image>(new ProfileDbContext()));
 
         // GET: Profile
         public ActionResult Index()
         {
-            var userId = service.GetCurrentProfileId(User);
+            var userId = profileService.GetCurrentProfileId(User);
 
-            return View(service.GetProfileByUserId(userId));
+            return View(profileService.GetProfileByUserId(userId));
         }
 
         public ActionResult MyProfile()
         {
 
-            var userId = service.GetCurrentProfileId(User);
+            var userId = profileService.GetCurrentProfileId(User);
 
-            return View(service.GetProfileByUserId(userId));
+            return View(profileService.GetProfileByUserId(userId));
         }
 
         // GET: Profile/Details/5
@@ -43,7 +45,7 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = service.Find(id);
+            Profile profile = profileService.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -56,7 +58,7 @@ namespace SportsBarApp.Controllers
         // GET: Profile/Create
         public ActionResult Create()
         {
-            ViewBag.GlobalId = service.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
             
             return View();
         }
@@ -71,11 +73,11 @@ namespace SportsBarApp.Controllers
            
             if (ModelState.IsValid)
             {
-
-                service.Add(profile);
+                
+                profileService.Add(profile);
                 return RedirectToAction("Index");
             }
-            ViewBag.GlobalId = service.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
             return View(profile);
         }
         
@@ -86,13 +88,13 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = service.Find(id);
+            Profile profile = profileService.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Partial = "Edit";
-            ViewBag.GlobalId = service.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
             return View("MyProfile", profile);
         }
 
@@ -103,10 +105,10 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfileId, FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams,GlobalId")] Profile profile)
         {
-            ViewBag.GlobalId = service.GetCurrentProfileId(User);
+            ViewBag.GlobalId = profileService.GetCurrentProfileId(User);
             if (ModelState.IsValid)
             {
-                service.Edit(profile);
+                profileService.Edit(profile);
                 ViewBag.Partial = "Details";
                 return RedirectToAction("MyProfile", profile);
                 
@@ -123,7 +125,7 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = service.Find(id);
+            Profile profile = profileService.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -136,14 +138,14 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Profile profile = service.Find(id);
-            service.Remove(profile);
+            Profile profile = profileService.Find(id);
+            profileService.Remove(profile);
             return RedirectToAction("Index");
         }
 
         public ActionResult CheckProfileExist()
         {
-            Profile profile = service.GetProfileByUserId(service.GetCurrentProfileId(User));
+            Profile profile = profileService.GetProfileByUserId(profileService.GetCurrentProfileId(User));
 
             if (Request.IsAuthenticated)
             {
@@ -156,11 +158,41 @@ namespace SportsBarApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult ChangeProfilePhoto(int id)
+        {
+            Profile profile = profileService.Find(id);
+            ViewBag.FirstName = profile.FirstName;
+            ViewBag.LastName = profile.LastName;
+            ViewBag.ID = id;
+            if (profile.ProfilePic == null)
+            {
+                return View();
+            }
+            return View(profile.ProfilePic);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeProfilePhoto([Bind(Include = "ImageId, BinImage")]Image image)
+        {
+            if (ModelState.IsValid)
+            {
+                imageService.AddOrUpdate(image);
+                Profile p = profileService.GetProfileByUserId(profileService.GetCurrentProfileId(User));
+                //p.ProfilePic = image;
+                profileService.Edit(p);
+                return RedirectToAction("Index");
+            }
+
+            return View(image);
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                service.DisposeContext();
+                profileService.DisposeContext();
             }
             base.Dispose(disposing);
         }

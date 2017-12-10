@@ -8,7 +8,7 @@ namespace SportsBarApp.Models
 {
     public class Profile
     {
-        [Key]
+        
         public int ProfileId { get; set; }
 
         [Required]
@@ -33,10 +33,10 @@ namespace SportsBarApp.Models
 
         [Display(Name = "Favourite Sports")]
         public string FavouriteSports { get; set; }
-        //[Display(Name = "Profile Image")]
-        //public Image ProfilePic { get; set; }
-       
+        
         public Guid GlobalId { get; set; }
+
+        public Image ProfilePic { get; set; }
 
 
     }

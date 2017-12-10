@@ -1,0 +1,52 @@
+﻿@model SportsBarApp.Models.Image
+
+@{
+    
+    Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
+}
+
+<div class="col-md-6 profile-links">
+    @Html.ActionLink("View", "Details", new { id = ViewBag.ID }, new {@class="not-clicked" })
+    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.ID }, new { @class="not-clicked"})
+    @Html.ActionLink("Change Profile Photo", "ChangeProfilePhoto", new { id = ViewBag.ID }, new { @class="clicked"})
+</div>
+
+@using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ImageId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BinImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @if(Model == null)
+               {
+                <input accept="image/x-png, image/gif, image/jpeg" type="file" id="ProfilePic" name="ProfilePic" />
+               }
+               else
+               {
+                @Html.EditorFor(model => model.BinImage, new { htmlAttributes = new { @class = "form-control", type = "file", accept = ".jpg, .png, .gif|images" } })
+
+               }
+            @Html.ValidationMessageFor(model => model.BinImage, "", new { @class = "text-danger" })
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

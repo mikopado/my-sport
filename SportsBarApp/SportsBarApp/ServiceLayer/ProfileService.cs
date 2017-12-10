@@ -12,10 +12,16 @@ namespace SportsBarApp.ServiceLayer
     public class ProfileService
     {
         private IRepository<Profile> repo;
+        private IRepository<Image> imageRepo;
 
         public ProfileService(IRepository<Profile> repo)
         {
             this.repo = repo;
+            
+        }
+        public ProfileService(IRepository<Image> image)
+        {
+            this.imageRepo = image;
         }
 
         public Profile GetProfileByUserId(Guid id)
@@ -51,6 +57,19 @@ namespace SportsBarApp.ServiceLayer
         public bool EnsureIsUserProfile(Profile profile, IPrincipal user)
         {
             return profile.GlobalId == GetCurrentProfileId(user);
+        }
+
+        public void AddOrUpdate(Image image)
+        {
+            if(imageRepo.GetElement(x => x.ImageId == image.ImageId) != null)
+            {
+                imageRepo.Update(image);
+            }
+            else
+            {
+                imageRepo.Add(image);
+            }
+
         }
 
         

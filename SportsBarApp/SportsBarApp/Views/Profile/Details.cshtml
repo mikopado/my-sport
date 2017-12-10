@@ -1,10 +1,11 @@
 ﻿@model SportsBarApp.Models.Profile
 
 <div class="col-md-6 profile-links">
-    @Html.ActionLink("View", "Details", new { id = Model.ProfileId })
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProfileId }) 
-    @Html.ActionLink("Change Profile Photo", "MyProfile")
+    @Html.ActionLink("View", "Details", new { id = Model.ProfileId }, new { @class = "clicked" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProfileId }, new { @class = "not-clicked" }) 
+    @Html.ActionLink("Change Profile Photo", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
 </div>
+
 <div id="details" >    
     <section>
         <span>
@@ -73,4 +74,6 @@
     
        
 </div>
+
+
 

@@ -19,11 +19,11 @@
             <div class="form-group">
                 <div>
                     @Html.HiddenFor(model => model.GlobalId, new { id = "GlobalId", Value = ViewBag.GlobalId })
+                    
                 </div>
             </div>         
            
                    
-            @*<input accept="image/x-png, image/gif, image/jpeg" type="file" id="ProfilePic.UploadImage" name="ProfilePic.UploadImage"/>*@
            
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })

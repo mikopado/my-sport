@@ -14,16 +14,18 @@
     @Html.Partial("_NavbarProfile")
     <div class="container">
         <section id="cover">
-            <div id="profile-pic"><img />@Model.FirstName @Model.LastName</div>
+            <div id="profile-pic"><img />@*@Model.FirstName @Model.LastName*@</div>
         </section>
         <hr />
         <div class="row">
-            <section class="col-md-4 profile-links">
+            <section class="col-md-3 profile-links">
                 @Html.ActionLink("Profile", "MyProfile", "Profile")
                 @Html.ActionLink("Activity", "")
                 @Html.ActionLink("Friends", "")
-            </section>
-            <section class="col-md-8">
+            </section>      
+
+            <section class="col-md-9">
+               
                 @RenderBody()
             </section>
         </div>

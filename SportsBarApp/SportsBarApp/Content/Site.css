@@ -71,13 +71,30 @@ span.icon-bar{
 #dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active {
         color: navy;
         background-color: transparent;
-    }
+}
 #dropdownMenuLink {
     background-color: transparent;
     color: white;
     font-weight: bold;
     font-size: 1.2em;
+    text-transform: capitalize;   
 }
+ul.navbar-right{
+    display: flex;
+    align-items: center;
+}
+.dropdown-menu {
+    text-align: center;
+    background-color: #68E0FF;
+    border: 0.2px;
+   
+}
+.dropdown-item{
+   display: block; 
+   text-decoration: none !important;
+   color: white;
+}
+
 
 
 /*Login*/
@@ -152,10 +169,20 @@ footer{
 section.profile-links a{
     margin-top: 60px;
 }
+section.profile-links {    
+    height: 100vh;
+}
+.profile-links a.clicked {
+    color: red;
+}
+.profile-links a.not-clicked {
+    color: #4d7499;
+}
 
 div.profile-links {
     display: flex;
-    justify-content: space-between;   
+    justify-content: space-between;
+   
 }
 #details, #edit{
     margin-top: 60px;
