@@ -27,6 +27,10 @@ namespace SportsBarApp.ServiceLayer
         {
             this.imageRepo = image;
         }
+        public ProfileService(IRepository<Comment> comment)
+        {
+            this.commentRepo = comment;
+        }
 
         public ProfileService(IRepository<Post> post)
         {
@@ -93,6 +97,10 @@ namespace SportsBarApp.ServiceLayer
         public void Add(Post post)
         {
             postRepo.Add(post);
+        }
+        public void Add(Comment comment)
+        {
+            commentRepo.Add(comment);
         }
         public IEnumerable<Post> GetPosts()
         {

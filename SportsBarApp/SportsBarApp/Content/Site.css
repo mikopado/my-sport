@@ -224,7 +224,194 @@ h2.text-success{
     top: 50vh;
 }
 
+/********************************************************
+            WALL - POSTS AND COMMENTS
+********************************************************/
 
+div.comment-container ul.comments-list{
+    list-style-type: none;
+}
+
+div.comment-container {   
+    background: #dee1e3;
+    
+}
+.comments-list {
+    margin-top: 30px;
+    position: relative;
+}
+
+.comments-list:after {
+    content: '';
+    position: absolute;
+    background: #c7cacb;
+    bottom: 0;
+    left: 27px;
+    width: 7px;
+    height: 7px;
+    border: 3px solid #dee1e3;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.reply-list:before, .reply-list:after {
+    display: none;
+}
+
+.comments-list li {
+    margin-bottom: 15px;
+    display: block;
+    position: relative;
+}
+.comments-list li:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    width: 0;
+}
+
+.reply-list {
+    padding-left: 88px;
+    clear: both;
+    margin-top: 15px;
+}
+/**
+ * Avatar
+ ---------------------------*/
+.comments-list .comment-avatar {
+    width: 50px;
+    height: 50px;    
+    z-index: 99;
+    float: left;
+    border: 3px solid #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.comments-list .comment-avatar img {
+    width: 100%;
+    height: 100%;
+}
+
+.reply-list .comment-avatar {
+    width: 30px;
+    height: 30px;
+}
+.comment-main-level:after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    clear: both;
+}
+/**
+ * Box comments
+ ---------------------------*/
+.comments-list .comment-box {      
+    position: relative;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+/*.comments-list .comment-box:before {
+    border-width: 11px 13px 11px 0;
+    border-color: transparent rgba(0,0,0,0.05);
+    left: -12px;
+}*/
+
+.comment-box .comment-head {
+    background: #FCFCFC;
+    padding: 10px 12px;
+    border-bottom: 1px solid #E5E5E5;
+    overflow: hidden;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.comment-box .comment-name {
+    color: #283035;
+    font-size: 14px;
+    font-weight: 700;    
+    float: left;
+    margin-left: 10px;
+}
+
+.comment-box .comment-head span {
+    float: right;
+    color: #999;
+    font-size: 13px;
+    position: relative;
+    top: 9px;
+    
+}
+
+.comment-box .comment-content {
+    background: #FFF;
+    padding: 12px;
+    font-size: 15px;
+    color: #595959;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+#comments-collapsible:hover, #comments-collapsible:focus, #comments-collapsible:active, #comments-collapsible:visited, #comments-collapsible{
+    text-decoration: none !important;
+    color: black;
+}
+#comments-collapsible{
+   margin-right: 2px;
+}
+#collapse-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;    
+    border: 1px solid #E5E5E5;
+    
+}
+#write-comment {
+    width: 100%;
+    
+}
+#write-comment form{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    max-height: 40px;
+}
+textarea#Text {
+    max-width: 90%;
+    resize: none;
+    -webkit-box-shadow: 0 0px 0px;
+    -moz-box-shadow: 0 0px 0px;
+    box-shadow: 0 0px 0px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+#comment-btn {
+    width: 10%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 0px 0px;
+    -moz-box-shadow: 0 0px 0px;
+    box-shadow: 0 0px 0px;
+}
+.comment-main-level {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    border-radius: 0 0 4px 4px;
+    border-bottom: 1px solid #E5E5E5;
+}
 
 
 

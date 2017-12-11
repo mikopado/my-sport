@@ -23,7 +23,7 @@ namespace SportsBarApp.Controllers
         private ProfileService profileService = new ProfileService(new AppRepository<Profile>(new ProfileDbContext()));
         private ProfileService imageService = new ProfileService(new AppRepository<Image>(new ProfileDbContext()));
         private ProfileService postService = new ProfileService(new AppRepository<Post>(new ProfileDbContext()));
-        private ProfileService wallService = new ProfileService(new AppRepository<ProfileWallViewModel>(new ProfileDbContext()));
+        private ProfileService commentService = new ProfileService(new AppRepository<Comment>(new ProfileDbContext()));
 
         // GET: Profile
         public ActionResult Index()
@@ -35,6 +35,7 @@ namespace SportsBarApp.Controllers
             {
                 UserProfile = profile,
                 Posts = posts
+                
             };
 
             return View(wall);
@@ -202,7 +203,7 @@ namespace SportsBarApp.Controllers
             
             post.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
             post.Timestamp = DateTime.Now;
-            postService.Add(post);
+            postService.Add(post);            
             return RedirectToAction("Index");
         }
 
@@ -211,9 +212,8 @@ namespace SportsBarApp.Controllers
         {
 
             comment.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
-            comment.Timestamp = DateTime.Now;
-            //comment.PostId = int.Parse(id);
-            //postService.Add(comment);
+            comment.Timestamp = DateTime.Now;           
+            commentService.Add(comment);
             return RedirectToAction("Index");
         }
 

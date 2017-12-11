@@ -9,6 +9,6 @@ namespace SportsBarApp.Models.ViewModels
     {
         public Profile UserProfile { get; set; }
         public IEnumerable<Post> Posts { get; set; }
-        //public Comment Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
