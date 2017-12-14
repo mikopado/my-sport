@@ -144,7 +144,8 @@ footer{
 }
 /*Profile avatar in profile details table*/
 #wrapper-wall table img {
-    width: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -509,6 +510,10 @@ textarea#Message {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.utility-links, .utility-links:focus, .utility-links:visited, .utility-links:hover {
+    text-decoration: none !important;
 }
 
 

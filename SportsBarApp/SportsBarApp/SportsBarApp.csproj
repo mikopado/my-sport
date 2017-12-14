@@ -318,7 +318,6 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Profile\Create.cshtml" />
-    <Content Include="Views\Profile\Delete.cshtml" />
     <Content Include="Views\Profile\Details.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
@@ -329,6 +328,7 @@
     <Content Include="Views\Profile\ChangeProfilePhoto.cshtml" />
     <Content Include="Views\Shared\Wall.cshtml" />
     <Content Include="Views\Profile\Activity.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

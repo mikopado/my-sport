@@ -156,10 +156,12 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+           //TODO IS NOT WORKING issue with Profile ID foreign key in Comment table
             Profile profile = service.Find(id);
             service.Remove(profile);
             service.Save();
-            return RedirectToAction("Index");
+            
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CheckProfileExist()

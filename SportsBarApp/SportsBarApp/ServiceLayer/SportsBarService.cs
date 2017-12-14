@@ -49,6 +49,7 @@ namespace SportsBarApp.ServiceLayer
 
         public void Remove(Profile profile)
         {
+            unit.SportsBarDb.Entry(profile).State = EntityState.Deleted;
             unit.Profiles.Remove(profile);
         }
 

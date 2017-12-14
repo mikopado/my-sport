@@ -14,6 +14,6 @@ namespace SportsBarApp.Models
         public DateTime Timestamp { get; set; }
 
         public virtual Profile Profile { get; set; }
-        public virtual List<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

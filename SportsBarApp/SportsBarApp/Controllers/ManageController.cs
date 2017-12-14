@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SportsBarApp.Models;
+using SportsBarApp.ServiceLayer;
+using SportsBarApp.Models.DAL;
 
 namespace SportsBarApp.Controllers
 {
@@ -218,6 +220,8 @@ namespace SportsBarApp.Controllers
         public ActionResult ChangePassword()
         {
             ViewBag.ViewEmail = User.Identity.GetUserName();
+            SportsBarService service = new SportsBarService(new UnitOfWork(new SportsBarDbContext()));
+            ViewBag.Id = service.GetProfileId(service.GetCurrentUserId(User));
             return View();
         }
 
