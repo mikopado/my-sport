@@ -15,38 +15,26 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div id="photo-upload" class="col-md-7">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ImageId)
-
+       
+         @Html.HiddenFor(model => model.Id)        
+        
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BinImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-               @if(Model == null)
-               {
-                <input accept="image/x-png, image/gif, image/jpeg" type="file" id="ProfilePic" name="ProfilePic" />
-               }
-               else
-               {
-                @Html.EditorFor(model => model.BinImage, new { htmlAttributes = new { @class = "form-control", type = "file", accept = ".jpg, .png, .gif|images" } })
-
-               }
-            @Html.ValidationMessageFor(model => model.BinImage, "", new { @class = "text-danger" })
-
-
+            
+            <div>
+               
+            <input accept="image/x-png, image/gif, image/jpeg" type="file" id="ProfilePic" name="upload" />
+           
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div>
+                <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

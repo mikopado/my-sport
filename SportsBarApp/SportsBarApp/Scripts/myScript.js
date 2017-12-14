@@ -6,8 +6,9 @@
         dateFormat: "dd/mm/yy",
         changeYear: true,
         maxDate : '0'
-    });        
-        
+    });   
+
+      
    
     //$('div.profile-links a').click(function () {
     //    changeColorOnClick('div.profile-links a', $(this));

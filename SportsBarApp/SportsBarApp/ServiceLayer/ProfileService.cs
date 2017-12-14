@@ -82,16 +82,16 @@ namespace SportsBarApp.ServiceLayer
             return profile.GlobalId == GetCurrentUserId(user);
         }
 
-        public void AddOrUpdate(Image image)
+        public void Add(Image image)
         {
-            if(imageRepo.GetElement(x => x.ImageId == image.ImageId) != null)
-            {
-                imageRepo.Update(image);
-            }
-            else
-            {
-                imageRepo.Add(image);
-            }
+            //if(imageRepo.GetElement(x => x.Id == image.Id) != null)
+            //{
+            //    imageRepo.Update(image);
+            //}
+            //else
+            //{
+            imageRepo.Add(image);
+            
 
         }
         public void Add(Post post)

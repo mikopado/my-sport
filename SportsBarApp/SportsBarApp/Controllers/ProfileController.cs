@@ -14,6 +14,7 @@ using SportsBarApp.ServiceLayer;
 using SportsBarApp.Models.DAL;
 using System.Threading.Tasks;
 using SportsBarApp.Models.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace SportsBarApp.Controllers
 {
@@ -30,7 +31,7 @@ namespace SportsBarApp.Controllers
         {
             var userId = profileService.GetCurrentUserId(User);
             Profile profile = profileService.GetProfileByUserId(userId);
-            IEnumerable<Post> posts = postService.GetPosts();
+            IEnumerable<Post> posts = postService.GetPosts().OrderByDescending(p => p.Timestamp);
             ProfileWallViewModel wall = new ProfileWallViewModel()
             {
                 UserProfile = profile,
@@ -179,20 +180,38 @@ namespace SportsBarApp.Controllers
             {
                 return View();
             }
+           
             return View(profile.ProfilePic);
         }
 
         [HttpPost]
-        public ActionResult ChangeProfilePhoto([Bind(Include = "ImageId, BinImage")]Image image)
+        public ActionResult ChangeProfilePhoto([Bind(Include = "ProfilePic, Content")]Image image, HttpPostedFileBase upload)
         {
-            if (ModelState.IsValid)
+            try
             {
-                imageService.AddOrUpdate(image);
-                Profile p = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
-                //p.ProfilePic = image;
-                profileService.Edit(p);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            image.Content = reader.ReadBytes(upload.ContentLength);
+                        }                        
+                        Profile p = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
+                        p.ProfilePic = image;
+                        profileService.Edit(p);
+
+                    }
+                   
+                    return RedirectToAction("Index");
+                }
             }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            
 
             return View(image);
         }

@@ -20,7 +20,7 @@
                     </div>
                     <div class="comment-footer">
                         <div id="collapse-footer">
-                            <a id="comments-collapsible" data-toggle="collapse" href=".reply-list">
+                            <a id="comments-collapsible" data-toggle="collapse" href=".reply-list-@item.Id" aria-expanded="false">
                                 @item.Comments.Count Comments
                             </a>
                         </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <ul class="comments-list reply-list">
+                <ul class="collapse comments-list reply-list reply-list-@item.Id">
                     
                     @foreach (var comm in item.Comments)
                     {

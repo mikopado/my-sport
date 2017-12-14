@@ -11,8 +11,8 @@ namespace SportsBarApp.Models
     public class Image
     {
         
-        public int ImageId { get; set; }
-        public byte[] BinImage { get; set; }
+        public int Id { get; set; }
+        public byte[] Content { get; set; }
 
         
        

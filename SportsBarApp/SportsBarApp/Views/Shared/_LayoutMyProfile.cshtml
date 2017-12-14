@@ -14,7 +14,16 @@
     @Html.Partial("_NavbarProfile")
     <div class="container">
         <section id="cover">
-            <div id="profile-pic"><img />@*@Model.FirstName @Model.LastName*@</div>
+            <div id="profile-pic">
+            @if (Model.GetType().GetProperty("FirstName") != null)
+            {
+                <text>@Model.FirstName  @Model.LastName </text>
+            }
+            else
+            {
+                <text>@ViewBag.FirstName  @ViewBag.LastName</text>
+            }
+            </div>
         </section>
         <hr />
         <div class="row">

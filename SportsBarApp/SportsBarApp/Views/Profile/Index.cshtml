@@ -14,11 +14,11 @@
                     <td>                         
                         @if (Model.UserProfile.ProfilePic == null)
                         {
-                            <img src=' ~/Content/images/crowd-draw.jpg' />
+                            <img src=' ~/Content/images/avatar-default.png' />
                         }
                         else
                         {
-                            @Html.Image(Model.UserProfile.ProfilePic.BinImage);
+                            @Html.Image(Model.UserProfile.ProfilePic.Content);
                         }
                     </td>
                     <td>
@@ -71,15 +71,15 @@
                     
         </div>
         <div class="col-md-6">
-            @using (Html.BeginForm("UploadPost", "Profile", FormMethod.Post))
-            { 
-                
-                @Html.TextArea("Message", "", 4, 20, null)
-                <div class="form-group">
-                    <div>
-                        <input type="submit" value="Upload Post" class="btn btn-info" />
-                    </div>
-                </div>
+            @using (Html.BeginForm("UploadPost", "Profile", FormMethod.Post, new { id = "form-write-post" }))
+            {
+                <section>
+                    @Html.TextArea("Message", "", 4, 20, new { @class = "form-control", @placeholder = "What's up ?" })
+
+                    
+                    <input type="submit" value="Upload Post" class="btn btn-info" />
+                   
+                </section>
             }
            
             @Html.Partial("Wall", Model.Posts)

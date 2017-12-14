@@ -42,7 +42,7 @@ h3{
     font-size: 2.4em;
     font-weight: bold;
 }
-/*Set navbar */
+/*Set navbar _NavbarProfile view*/
 .navbar {
     background-color: #68E0FF;
     border-width: 0;
@@ -72,6 +72,13 @@ span.icon-bar{
         color: navy;
         background-color: transparent;
 }
+/*Search text box in navbar*/
+#search.form-control {
+    display: inline-block;
+    max-width: 70%;
+    margin-top: 5px;
+}
+/*The dropdown menu for MY ACCOUNT on the navbar*/
 #dropdownMenuLink {
     background-color: transparent;
     color: white;
@@ -86,16 +93,13 @@ ul.navbar-right{
 .dropdown-menu {
     text-align: center;
     background-color: #68E0FF;
-    border: 0.2px;
-   
+    border: 0.2px;   
 }
 .dropdown-item{
    display: block; 
    text-decoration: none !important;
    color: white;
 }
-
-
 
 /*Login*/
 .btn-info{
@@ -107,17 +111,16 @@ ul.navbar-right{
 .checkbox{
     margin-left: 20px;
 }
-
 footer{
     position:fixed;
     bottom: 5px;
 }
 
-/*Home Page Profile*/
+/*Home Page Profile Index in ProfileController*/
 
-#wrapper-wall{
-   margin-top: 40px;
-   
+#wrapper-wall {
+    margin-top: 40px;
+    background-color: ghostwhite;
 }
 #wrapper-wall div.col-md-3:first-child{
     padding: 0;
@@ -125,19 +128,16 @@ footer{
 #wrapper-wall div.col-md-3:last-child {
     padding-right: 0;
 }
+/*Side bars*/
 #wrapper-wall div.col-md-3{    
-    border: hidden;
-    height: 100vh;
-    background-color: ghostwhite;
-
+    border: hidden;  
 }
-
+/*Profile side bar*/
 #wrapper-wall table img {
     width: 30px;
     border-radius: 50%;
     margin-right: 10px;
 }
-
 #wrapper-wall table {
     border-collapse: separate;
     border-spacing: 5px 30px; 
@@ -148,11 +148,11 @@ footer{
 #wrapper-wall table tr {
     font-weight: bold;
 }
-#search.form-control{
-    display: inline-block;
-    max-width: 70%;
-    margin-top: 5px;
+
+#wrapper-wall div.col-md-6{
+    background-color: white;
 }
+
 
 /*MyProfile*/
 .profile-links a{
@@ -192,7 +192,6 @@ div.profile-links {
     margin-bottom: 40px;
     margin-left: 10px;
 }
-
     
 #edit .control-label {
     text-align: left;
@@ -205,6 +204,32 @@ div.profile-links {
     margin-bottom: 30px;
     box-shadow: 1px 1px 1px 1px;
     padding: 15px;    
+}
+
+#cover #profile-pic{
+    background: url(../Content/images/profile-wallpaper-default.jpg) no-repeat;
+    background-size: 100% 100%;    
+    height: 30vh;
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+}
+#photo-upload input{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+#photo-upload .btn-info{
+    width: 100%;
+    margin-top: 20px;
+}
+#photo-upload {
+    margin-top: 40px;
+    border: 1px solid #E5E5E5;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);   
+    display: flex;
+    align-content: center;
 }
 /*datePicker*/
 select.ui-datepicker-year {
@@ -238,7 +263,10 @@ div.comment-container {
 }
 .comments-list {
     margin-top: 30px;
-    position: relative;
+    position: relative;    
+}
+#comments-list{
+    padding: 0;
 }
 
 .comments-list:after {
@@ -271,8 +299,7 @@ div.comment-container {
     width: 0;
 }
 
-.reply-list {
-    padding-left: 88px;
+.reply-list {    
     clear: both;
     margin-top: 15px;
 }
@@ -320,11 +347,6 @@ div.comment-container {
     box-shadow: 0 1px 1px rgba(0,0,0,0.15);
 }
 
-/*.comments-list .comment-box:before {
-    border-width: 11px 13px 11px 0;
-    border-color: transparent rgba(0,0,0,0.05);
-    left: -12px;
-}*/
 
 .comment-box .comment-head {
     background: #FCFCFC;
@@ -411,6 +433,28 @@ textarea#Text {
     box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     border-radius: 0 0 4px 4px;
     border-bottom: 1px solid #E5E5E5;
+}
+textarea#Message {
+    resize: none;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomright: 0;
+}
+#form-write-post section input {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-topright: 0;
+}
+#form-write-post section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 
