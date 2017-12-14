@@ -11,7 +11,7 @@ namespace SportsBarApp.Controllers
 {
     public class WallController : Controller
     {
-        private ProfileService service = new ProfileService(new AppRepository<Post>(new ProfileDbContext()));
+        private SportsBarService service = new SportsBarService(new UnitOfWork(new SportsBarDbContext()));
 
         // GET: Wall
         public ActionResult Wall()

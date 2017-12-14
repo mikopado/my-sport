@@ -1,9 +1,9 @@
 ﻿@model SportsBarApp.Models.Profile
 
 <div class="col-md-6 profile-links">
-    @Html.ActionLink("View", "Details", new { id = Model.ProfileId }, new { @class = "not-clicked" })
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProfileId }, new { @class = "clicked" })
-    @Html.ActionLink("Change Profile Photo", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
+    @Html.ActionLink("VIEW", "Details", new { id = Model.ProfileId }, new { @class = "not-clicked" })
+    @Html.ActionLink("EDIT", "Edit", new { id = Model.ProfileId }, new { @class = "clicked" })
+    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
 </div>
 @using (Html.BeginForm())
 {

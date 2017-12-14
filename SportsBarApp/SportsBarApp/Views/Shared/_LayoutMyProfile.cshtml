@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="http://fonts.googleapis.com/css?family=Leckerli+One|Coustard:900" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -15,25 +16,40 @@
     <div class="container">
         <section id="cover">
             <div id="profile-pic">
-            @if (Model.GetType().GetProperty("FirstName") != null)
+            @if (@ViewBag.Domain == "profile")
             {
                 <text>@Model.FirstName  @Model.LastName </text>
+                
             }
-            else
+            else if (@ViewBag.Domain == "image")
             {
                 <text>@ViewBag.FirstName  @ViewBag.LastName</text>
             }
+            else
+            {
+                <text>@Model.UserProfile.FirstName  @Model.UserProfile.LastName </text>
+            }
             </div>
+            
         </section>
-        <hr />
+        
         <div class="row">
             <section class="col-md-3 profile-links">
-                @Html.ActionLink("Profile", "MyProfile", "Profile")
-                @Html.ActionLink("Activity", "")
-                @Html.ActionLink("Friends", "")
+                @if (ViewBag.Domain == "profile" || ViewBag.Domain == "image")
+                {
+                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { @class = "clicked" })
+                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { @class = "not-clicked" })
+                    @Html.ActionLink("FRIENDS", "", "", new { @class = "not-clicked" })
+                }
+                else if (ViewBag.Domain == "post-profile")
+                {
+                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { @class = "not-clicked" })
+                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { @class = "clicked" })
+                    @Html.ActionLink("FRIENDS", "",  "", new { @class = "not-clicked" })
+                }
             </section>      
 
-            <section class="col-md-9">
+            <section class="col-md-offset-1 col-md-8">
                
                 @RenderBody()
             </section>

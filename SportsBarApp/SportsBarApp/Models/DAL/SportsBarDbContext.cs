@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SportsBarApp.Models
 {
-    public class ProfileDbContext : DbContext
+    public class SportsBarDbContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -16,10 +16,10 @@ namespace SportsBarApp.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public ProfileDbContext() : base("name=ProfileDbContext")
+        public SportsBarDbContext() : base("name=SportsBarDbContext")
         {
             //To allow changes in database schema when domain classes are modified. Do not use in production
-            Database.SetInitializer<ProfileDbContext>(new DropCreateDatabaseIfModelChanges<ProfileDbContext>());
+            Database.SetInitializer<SportsBarDbContext>(new DropCreateDatabaseIfModelChanges<SportsBarDbContext>());
         }
 
         public System.Data.Entity.DbSet<SportsBarApp.Models.Profile> Profiles { get; set; }

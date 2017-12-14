@@ -21,17 +21,17 @@ namespace SportsBarApp.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        private ProfileService profileService = new ProfileService(new AppRepository<Profile>(new ProfileDbContext()));
-        private ProfileService imageService = new ProfileService(new AppRepository<Image>(new ProfileDbContext()));
-        private ProfileService postService = new ProfileService(new AppRepository<Post>(new ProfileDbContext()));
-        private ProfileService commentService = new ProfileService(new AppRepository<Comment>(new ProfileDbContext()));
-
+        private SportsBarService service = new SportsBarService(new UnitOfWork(new SportsBarDbContext()));
+        
         // GET: Profile
         public ActionResult Index()
         {
-            var userId = profileService.GetCurrentUserId(User);
-            Profile profile = profileService.GetProfileByUserId(userId);
-            IEnumerable<Post> posts = postService.GetPosts().OrderByDescending(p => p.Timestamp);
+            //The main page after the login or sign up
+            // The page has profile personal details, wall with posts and comments and list of friends
+
+            var userId = service.GetCurrentUserId(User);
+            Profile profile = service.GetProfileByUserId(userId);
+            IEnumerable<Post> posts = service.GetPosts().OrderByDescending(p => p.Timestamp);
             ProfileWallViewModel wall = new ProfileWallViewModel()
             {
                 UserProfile = profile,
@@ -44,10 +44,12 @@ namespace SportsBarApp.Controllers
 
         public ActionResult MyProfile()
         {
+            //Action to launch my profile page where edit, view profile deatils
+            var userId = service.GetCurrentUserId(User);
 
-            var userId = profileService.GetCurrentUserId(User);
-
-            return View(profileService.GetProfileByUserId(userId));
+            ViewBag.Domain = "profile"; //To check from which action the main layout is open. Useful to get the User name into the profile page
+           
+            return View(service.GetProfileByUserId(userId));
         }
 
         // GET: Profile/Details/5
@@ -57,20 +59,21 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = profileService.Find(id);
+            Profile profile = service.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.Partial = "Details";
+            ViewBag.Partial = "Details"; //To check if it's edit or view section in Profile section of My profile page
+            ViewBag.Domain = "profile";
             return View("MyProfile", profile);
         }
 
         // GET: Profile/Create
         public ActionResult Create()
         {
-            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
+            ViewBag.GlobalId = service.GetCurrentUserId(User);
             
             return View();
         }
@@ -85,11 +88,12 @@ namespace SportsBarApp.Controllers
            
             if (ModelState.IsValid)
             {
-                
-                profileService.Add(profile);
+
+                service.Add(profile);
+                service.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
+            ViewBag.GlobalId = service.GetCurrentUserId(User);
             return View(profile);
         }
         
@@ -100,13 +104,14 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = profileService.Find(id);
+            Profile profile = service.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Partial = "Edit";
-            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
+            ViewBag.Domain = "profile";
+            ViewBag.GlobalId = service.GetCurrentUserId(User);
             return View("MyProfile", profile);
         }
 
@@ -117,10 +122,11 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfileId, FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams,GlobalId")] Profile profile)
         {
-            ViewBag.GlobalId = profileService.GetCurrentUserId(User);
+            ViewBag.GlobalId = service.GetCurrentUserId(User);
             if (ModelState.IsValid)
             {
-                profileService.Edit(profile);
+                service.Edit(profile);
+                service.Save();
                 ViewBag.Partial = "Details";
                 return RedirectToAction("MyProfile", profile);
                 
@@ -137,7 +143,7 @@ namespace SportsBarApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = profileService.Find(id);
+            Profile profile = service.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -150,14 +156,17 @@ namespace SportsBarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Profile profile = profileService.Find(id);
-            profileService.Remove(profile);
+            Profile profile = service.Find(id);
+            service.Remove(profile);
+            service.Save();
             return RedirectToAction("Index");
         }
 
         public ActionResult CheckProfileExist()
         {
-            Profile profile = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
+            //Action to verify the user when brand ic clicked to access the main page. If user exists and is not logout redirect to the profile main page(wall)
+            // otherwise redirect to the create or landing page
+            Profile profile = service.GetProfileByUserId(service.GetCurrentUserId(User));
 
             if (Request.IsAuthenticated)
             {
@@ -172,10 +181,12 @@ namespace SportsBarApp.Controllers
 
         public ActionResult ChangeProfilePhoto(int id)
         {
-            Profile profile = profileService.Find(id);
+            Profile profile = service.Find(id);
+            //View bags to keep showing user name in the my profile page
             ViewBag.FirstName = profile.FirstName;
             ViewBag.LastName = profile.LastName;
             ViewBag.ID = id;
+            ViewBag.Domain = "image";
             if (profile.ProfilePic == null)
             {
                 return View();
@@ -198,9 +209,10 @@ namespace SportsBarApp.Controllers
                         {
                             image.Content = reader.ReadBytes(upload.ContentLength);
                         }                        
-                        Profile p = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User));
+                        Profile p = service.GetProfileByUserId(service.GetCurrentUserId(User));
                         p.ProfilePic = image;
-                        profileService.Edit(p);
+                        service.Edit(p);
+                        service.Save();
 
                     }
                    
@@ -217,32 +229,61 @@ namespace SportsBarApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPost([Bind(Include = "Id, Message, Timestamp, ProfileId")]Post post)
+        public ActionResult UploadPost([Bind(Include = "Id, Message, Timestamp, ProfileId")]Post post, string page)
         {
             
-            post.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
+            post.ProfileId = service.GetProfileByUserId(service.GetCurrentUserId(User)).ProfileId;
             post.Timestamp = DateTime.Now;
-            postService.Add(post);            
+            service.Add(post);
+            service.Save();
+            //If the post is uploaded into activity, stay in the activity page
+            if(page.Equals("post-profile"))
+            {
+                return RedirectToAction("Activity");
+            }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult UploadComment([Bind(Include = "Id, Text, Timestamp, ProfileId, PostId")]Comment comment)
+        public ActionResult UploadComment([Bind(Include = "Id, Text, Timestamp, ProfileId, PostId")]Comment comment, string page)
         {
 
-            comment.ProfileId = profileService.GetProfileByUserId(profileService.GetCurrentUserId(User)).ProfileId;
-            comment.Timestamp = DateTime.Now;           
-            commentService.Add(comment);
+            comment.ProfileId = service.GetProfileByUserId(service.GetCurrentUserId(User)).ProfileId;
+            comment.Timestamp = DateTime.Now;
+            service.Add(comment);
+            service.Save();
+            if(page.Equals("post-profile"))
+            {
+                return RedirectToAction("Activity");
+            }
             return RedirectToAction("Index");
         }
 
+        public ActionResult Activity()
+        {
+            //In the my profile page, shows activity for the current user and also the text area t upload new post
+
+            var userId = service.GetCurrentUserId(User);
+            Profile profile = service.GetProfileByUserId(userId);
+
+            //Get a coolections of post by user id. Shows only theposts written by the current user
+            IEnumerable<Post> posts = service.GetPostsByUser(profile.ProfileId).OrderByDescending(p => p.Timestamp);
+
+            ProfileWallViewModel wvm = new ProfileWallViewModel()
+            {
+                UserProfile = profile,
+                Posts = posts
+            };
+            ViewBag.Domain = "post-profile";
+            return View(wvm);
+        }
 
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                profileService.DisposeContext();
+                service.DisposeContext();
             }
             base.Dispose(disposing);
         }

@@ -23,6 +23,9 @@ select,
 textarea {
     max-width: 280px;
 }
+/********************************************************
+                        HOMEPAGE
+********************************************************/
 /*set the home page, image full screen and centralize the welcome message*/
 #wallpaper {
     width: 100%;
@@ -33,7 +36,7 @@ textarea {
     align-items: center;
     justify-content: center; 
 }
-
+/*Sportsbar title*/
 h1{
     font-size: 5em;     
 }
@@ -42,15 +45,20 @@ h3{
     font-size: 2.4em;
     font-weight: bold;
 }
+/********************************************************
+                        NAVBAR
+********************************************************/
 /*Set navbar _NavbarProfile view*/
 .navbar {
     background-color: #68E0FF;
     border-width: 0;
 }
+/*SB logo ont left corner*/
 .navbar-brand, h1, .navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
     font-family: 'Coustard', serif;
     color: navy;
 }
+/*Collapsable button for mobile screen*/
 button.navbar-toggle {
     border: 1px solid #68f0b6;
     background-color: lightgray;
@@ -59,6 +67,7 @@ span.icon-bar{
     background-color: lightyellow;
 }
 
+/*Elements in navabar -i.e. Login, Sign up*/
 .navbar-right li a:active, .navbar-right li a {
     color: white;
     font-weight: bold;
@@ -69,10 +78,11 @@ span.icon-bar{
 }
 .navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus,
 #dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active {
-        color: navy;
-        background-color: transparent;
+    color: navy;
+    background-color: transparent;
 }
-/*Search text box in navbar*/
+
+/*Search text box in navbar in Profile page*/
 #search.form-control {
     display: inline-block;
     max-width: 70%;
@@ -101,7 +111,9 @@ ul.navbar-right{
    color: white;
 }
 
-/*Login*/
+/********************************************************
+                    Login Page
+************************************************************/
 .btn-info{
     width: 70%;
 }
@@ -115,46 +127,67 @@ footer{
     position:fixed;
     bottom: 5px;
 }
-
-/*Home Page Profile Index in ProfileController*/
-
+#login-password{
+    margin-bottom: 0px;
+}
+/*************************************************************
+        Home Page Profile Index in ProfileController
+************************************************************/
+/*All the container of the page*/
 #wrapper-wall {
     margin-top: 40px;
-    background-color: ghostwhite;
+    background-color: ghostwhite;   
 }
+/*Profile details sidebar*/
 #wrapper-wall div.col-md-3:first-child{
     padding: 0;
 }
+/*Profile avatar in profile details table*/
+#wrapper-wall table img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+/*Profile details table*/
+#wrapper-wall table {
+    border-collapse: separate;
+    border-spacing: 0px 30px;
+}
+#wrapper-wall table td {
+    padding: 10px;
+}
+/*Giving shadow to the profile details table - any row*/
+#wrapper-wall table tr {
+    font-weight: bold;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+#wrapper-wall table {
+    margin-left: 5%;
+    width: 90%;
+}
+/*Friends sidebar*/
 #wrapper-wall div.col-md-3:last-child {
     padding-right: 0;
+}
+#wrapper-wall div.col-md-3, #wrapper-wall div.col-md-6 {
+    min-height: 100vh;
 }
 /*Side bars*/
 #wrapper-wall div.col-md-3{    
     border: hidden;  
 }
-/*Profile side bar*/
-#wrapper-wall table img {
-    width: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-#wrapper-wall table {
-    border-collapse: separate;
-    border-spacing: 5px 30px; 
-}
-#wrapper-wall table td{
-    padding-right: 20px;
-}
-#wrapper-wall table tr {
-    font-weight: bold;
-}
-
+/*Central part - the wall*/
 #wrapper-wall div.col-md-6{
     background-color: white;
 }
 
 
-/*MyProfile*/
+/*************************************************************
+                        MY PROFILE
+****************************************************************/
+/*All the links, i.e. Profile, View, Friends etc*/
 .profile-links a{
     color: #4d7499;
     font-weight: bold;
@@ -166,55 +199,72 @@ footer{
     background-color: transparent;
     text-decoration: none;
 }
-section.profile-links a{
-    margin-top: 60px;
+section.profile-links a {
+    padding: 40px 40px 40px 10px;
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
 }
-section.profile-links {    
-    height: 100vh;
-}
+/*Set color when the link is clicked or not clicked*/
 .profile-links a.clicked {
-    color: red;
+    color: limegreen;
 }
 .profile-links a.not-clicked {
-    color: #4d7499;
+    color: rgba(77, 116, 153, 0.69);
 }
-
+section.profile-links {
+    font-size: 1.2em;    
+}
 div.profile-links {
     display: flex;
     justify-content: space-between;
-   
+    padding: 0;
 }
 #details, #edit{
     margin-top: 60px;
 }
+/*View section - personal details displayed*/
 #details dt{
     text-align: start;
     margin-bottom: 40px;
     margin-left: 10px;
 }
-    
-#edit .control-label {
-    text-align: left;
-}
-#details section{
+#details section {
     display: flex;
     justify-content: space-between;
     max-width: 50%;
     flex-wrap: wrap;
     margin-bottom: 30px;
-    box-shadow: 1px 1px 1px 1px;
-    padding: 15px;    
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    padding: 15px;
+}
+ /*Edit section*/  
+#edit .control-label {
+    text-align: left;
+}
+/*datePicker*/
+select.ui-datepicker-year {
+    background-color: #65d2ee;
 }
 
+/*The section above all the screen - where the image is placed*/
+section#cover {
+    margin-bottom: 40px;
+}
 #cover #profile-pic{
-    background: url(../Content/images/profile-wallpaper-default.jpg) no-repeat;
+    background: url(../Content/images/crowd-draw.jpg) no-repeat;
     background-size: 100% 100%;    
-    height: 30vh;
+    height: 35vh;
     font-size: 3em;
     color: white;
     font-weight: bold;
+    margin: 0 -10% 0 -10%;
+    text-align: center;
 }
-#photo-upload input{
+/*Change profile photo section*/
+#photo-upload input {
     margin-top: 30px;
     margin-left: 30px;
 }
@@ -231,12 +281,12 @@ div.profile-links {
     display: flex;
     align-content: center;
 }
-/*datePicker*/
-select.ui-datepicker-year {
-    background-color: #65d2ee;
+/*Activity section*/
+#activity{
+    margin-top: 40px;
 }
 
-/*change password*/
+/******************Change Password Page******************/
 input#ViewEmail.form-control{
     background-color: white;
 }
@@ -252,23 +302,22 @@ h2.text-success{
 /********************************************************
             WALL - POSTS AND COMMENTS
 ********************************************************/
-
+/*Take the bullet (or any symbol) off the list*/
 div.comment-container ul.comments-list{
     list-style-type: none;
 }
-
 div.comment-container {   
-    background: #dee1e3;
-    
+    background: #dee1e3;    
 }
+/*The overall list*/
+#comments-list {
+    padding: 0;
+}
+/*Each sublists either posts or comments*/
 .comments-list {
     margin-top: 30px;
     position: relative;    
 }
-#comments-list{
-    padding: 0;
-}
-
 .comments-list:after {
     content: '';
     position: absolute;
@@ -282,10 +331,15 @@ div.comment-container {
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
+/*Only comments list*/
 .reply-list:before, .reply-list:after {
     display: none;
 }
-
+.reply-list {
+    clear: both;
+    margin-top: 15px;
+}
+/*Any element in the posts and comments lists*/
 .comments-list li {
     margin-bottom: 15px;
     display: block;
@@ -299,13 +353,9 @@ div.comment-container {
     width: 0;
 }
 
-.reply-list {    
-    clear: both;
-    margin-top: 15px;
-}
-/**
- * Avatar
- ---------------------------*/
+/*********************
+         Avatar
+ *******************/
 .comments-list .comment-avatar {
     width: 50px;
     height: 50px;    
@@ -337,17 +387,16 @@ div.comment-container {
     display: block;
     clear: both;
 }
-/**
- * Box comments
- ---------------------------*/
+/**************************
+         Box Comments
+ *************************/
 .comments-list .comment-box {      
     position: relative;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     box-shadow: 0 1px 1px rgba(0,0,0,0.15);
 }
-
-
+/*First section of the comment box where Name is*/
 .comment-box .comment-head {
     background: #FCFCFC;
     padding: 10px 12px;
@@ -357,7 +406,6 @@ div.comment-container {
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
-
 .comment-box .comment-name {
     color: #283035;
     font-size: 14px;
@@ -365,16 +413,15 @@ div.comment-container {
     float: left;
     margin-left: 10px;
 }
-
+/*Date*/
 .comment-box .comment-head span {
     float: right;
     color: #999;
     font-size: 13px;
     position: relative;
-    top: 9px;
-    
+    top: 9px;    
 }
-
+/*The content of the post*/
 .comment-box .comment-content {
     background: #FFF;
     padding: 12px;
@@ -384,30 +431,32 @@ div.comment-container {
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
-#comments-collapsible:hover, #comments-collapsible:focus, #comments-collapsible:active, #comments-collapsible:visited, #comments-collapsible{
+/*The comments link to show or hide the comments of a post*/
+.comments-collapsible:hover, .comments-collapsible:focus, .comments-collapsible:active, .comments-collapsible:visited, .comments-collapsible{
     text-decoration: none !important;
     color: black;
 }
-#comments-collapsible{
+.comments-collapsible{
    margin-right: 2px;
 }
-#collapse-footer {
+.collapse-footer {
     width: 100%;
     display: flex;
     justify-content: flex-end;    
     border: 1px solid #E5E5E5;
     
 }
-#write-comment {
-    width: 100%;
-    
+/*Text field to write new comment*/
+.write-comment {
+    width: 100%;    
 }
-#write-comment form{
+.write-comment form{
     width: 100%;
     display: flex;
     justify-content:space-between;
     max-height: 40px;
 }
+/*The content of new comment*/
 textarea#Text {
     max-width: 90%;
     resize: none;
@@ -418,7 +467,7 @@ textarea#Text {
     -moz-border-radius: 0;
     border-radius: 0;
 }
-#comment-btn {
+.comment-btn {
     width: 10%;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -434,6 +483,7 @@ textarea#Text {
     border-radius: 0 0 4px 4px;
     border-bottom: 1px solid #E5E5E5;
 }
+/*The text fiedl where to write ne post. Sited at the top of the wall*/
 textarea#Message {
     resize: none;
     -webkit-border-bottom-left-radius: 0;
@@ -442,16 +492,20 @@ textarea#Message {
     -webkit-border-bottom-right-radius: 0;
     -moz-border-radius-bottomright: 0;
     -moz-border-radius-bottomright: 0;
+    max-width: 100%;
 }
-#form-write-post section input {
+/**Upload post button*/
+.form-write-post section input {
     -webkit-border-top-left-radius: 0;
     -moz-border-radius-topleft: 0;
     -moz-border-radius-topleft: 0;
     -webkit-border-top-right-radius: 0;
     -moz-border-radius-topright: 0;
     -moz-border-radius-topright: 0;
+    width: 40%;
+    align-self: flex-end;
 }
-#form-write-post section {
+.form-write-post section {
     display: flex;
     align-items: center;
     flex-direction: column;

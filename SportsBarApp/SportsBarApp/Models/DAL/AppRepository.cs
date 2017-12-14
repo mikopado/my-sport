@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace SportsBarApp.Models.DAL
 {
-    public class AppRepository<T> : IDisposable, IRepository<T> where T: class
+    public class AppRepository<T> : IRepository<T> where T: class
     {
         private DbContext dbContext;
         private DbSet<T> entities;
@@ -19,41 +20,26 @@ namespace SportsBarApp.Models.DAL
 
         public void Add(T element)
         {
-            entities.Add(element);
-            Commit();
+            entities.Add(element);           
             
         }
 
-        public void Commit()
-        {
-            dbContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            dbContext.Dispose();
-        }
-
-        public T GetElement(Func<T, bool> func)
+        public T GetElement(Expression<Func<T, bool>> func)
         {
             return entities.Where(func).FirstOrDefault();
         }
 
-        public List<T> GetElements(Func<T, bool> func)
+        public IEnumerable<T> GetElements(Expression<Func<T, bool>> func)
         {
-            return entities.Where(func).ToList();
+            return entities.Where(func);
         }
 
         public void Remove(T element)
         {
             entities.Remove(element);
-            Commit();
+            
         }
 
-        public void Update(T element)
-        {
-            dbContext.Entry(element).State = EntityState.Modified;
-            Commit();
-        }
+        
     }
 }

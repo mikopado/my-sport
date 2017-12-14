@@ -1,0 +1,19 @@
+﻿@model SportsBarApp.Models.ViewModels.ProfileWallViewModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
+}
+<div id="activity" class="col-md-7">
+    @using (Html.BeginForm("UploadPost", "Profile", FormMethod.Post, new { @class = "form-write-post" }))
+    {
+        <section>
+            @Html.TextArea("Message", "", 4, 20, new { @class = "form-control", @placeholder = "What's up ?" })
+
+            @Html.Hidden("page", ViewData["Domain"])
+            <input type="submit" value="Upload Post" class="btn btn-info" />
+
+        </section>
+    }
+
+    @Html.Partial("Wall", Model.Posts)
+</div>

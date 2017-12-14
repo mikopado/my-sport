@@ -71,12 +71,12 @@
                     
         </div>
         <div class="col-md-6">
-            @using (Html.BeginForm("UploadPost", "Profile", FormMethod.Post, new { id = "form-write-post" }))
+            @using (Html.BeginForm("UploadPost", "Profile", FormMethod.Post, new { @class = "form-write-post" }))
             {
                 <section>
-                    @Html.TextArea("Message", "", 4, 20, new { @class = "form-control", @placeholder = "What's up ?" })
+                    @Html.TextArea("Message", "", 4, 20,new { @class = "form-control", @placeholder = "What's up ?" })
 
-                    
+                    @Html.Hidden("page", ViewData["Domain"])
                     <input type="submit" value="Upload Post" class="btn btn-info" />
                    
                 </section>
