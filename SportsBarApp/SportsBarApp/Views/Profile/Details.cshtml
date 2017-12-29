@@ -1,10 +1,18 @@
 ﻿@model SportsBarApp.Models.Profile
 
-<div class="col-md-6 profile-links">
-    @Html.ActionLink("VIEW", "Details", new { id = Model.ProfileId }, new { @class = "clicked" })
-    @Html.ActionLink("EDIT", "Edit", new { id = Model.ProfileId }, new { @class = "not-clicked" }) 
-    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
-</div>
+@if (ViewBag.IsThisUser == null || ViewBag.IsThisUser)
+{
+    <div class="col-md-6 profile-links">
+        @Html.ActionLink("VIEW", "Details", new { id = Model.ProfileId }, new { @class = "clicked" })
+        @Html.ActionLink("EDIT", "Edit", new { id = Model.ProfileId }, new { @class = "not-clicked" })
+        @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
+    </div>
+}
+else
+{ 
+    <div id="guest-details" class="col-md-6 text-center">PROFILE DETAILS</div>
+}
+
 
 <div id="details" >    
     <section>

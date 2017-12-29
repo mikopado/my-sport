@@ -26,39 +26,6 @@ namespace SportsBarApp.Models
         [Display(Name = "Favourite Sport")]
         public string FavouriteSports { get; set; }
 
-        public static implicit operator ProfileViewModel(Profile profile)
-        {
-            return new ProfileViewModel
-            {
-                ProfileId = profile.ProfileId,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
-                Birthday = profile.DateOfBirth,
-                City = profile.City,                
-                Country = profile.Country
-            };
-        }
-
-        public static implicit operator Profile(ProfileViewModel viewModel)
-        {
-            return new Profile
-            {
-                ProfileId = viewModel.ProfileId,
-                FirstName = viewModel.FirstName,
-                LastName = viewModel.LastName,
-                DateOfBirth = viewModel.Birthday,
-                City = viewModel.City,                
-                Country = viewModel.Country
-            };
-        }
-        public static implicit operator ProfileViewModel(RegisterViewModel register)
-        {
-            return new ProfileViewModel
-            {
-                Email = register.Email
-            };
-        }
-
-       
+  
     }
 }

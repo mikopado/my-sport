@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,35 +17,31 @@
     <div class="container">
         <section id="cover">
             <div id="profile-pic">
-            @if (@ViewBag.Domain == "profile")
-            {
-                <text>@Model.FirstName  @Model.LastName </text>
-                
-            }
-            else if (@ViewBag.Domain == "image")
-            {
-                <text>@ViewBag.FirstName  @ViewBag.LastName</text>
-            }
-            else
-            {
-                <text>@Model.UserProfile.FirstName  @Model.UserProfile.LastName </text>
-            }
+                @Model.FirstName  @Model.LastName
+                @if (ViewBag.IsThisUser != null && !ViewBag.IsThisUser)
+                {
+                    if (ViewBag.FriendStatus != null)
+                    {
+                        <section><button id="friend-status" class="btn btn-default @ViewBag.ButtonStatus">@ViewBag.FriendStatus</button></section>
+                    }
+
+                }
             </div>
             
         </section>
         
         <div class="row">
             <section class="col-md-3 profile-links">
-                @if (ViewBag.Domain == "profile" || ViewBag.Domain == "image")
+                @if (ViewBag.Domain == "profile")
                 {
-                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { @class = "clicked" })
-                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { @class = "not-clicked" })
+                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new {id = Model.ProfileId } , new { @class = "clicked" })
+                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.ProfileId } , new { @class = "not-clicked" })
                     @Html.ActionLink("FRIENDS", "", "", new { @class = "not-clicked" })
                 }
-                else if (ViewBag.Domain == "post-profile")
+                else if (ViewBag.Domain == "activity")
                 {
-                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { @class = "not-clicked" })
-                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { @class = "clicked" })
+                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.ProfileId } , new { @class = "not-clicked" })
+                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.ProfileId } , new { @class = "clicked" })
                     @Html.ActionLink("FRIENDS", "",  "", new { @class = "not-clicked" })
                 }
             </section>      

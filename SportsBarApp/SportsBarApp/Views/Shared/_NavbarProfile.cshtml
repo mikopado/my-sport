@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
             </button>
             @Html.ActionLink("Sb", "Index", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.TextBox("Search", null, new { id = "search", @class = "form-control", placeholder = "Search", type = "search" })
+            @Html.TextBox("Search", null, new { id = "search", @class = "form-control", placeholder = "Search", type = "text", required= "required" })
 
         </div>
 
@@ -18,7 +18,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index")</li>
-                    <li>@Html.ActionLink("My Profile", "MyProfile")</li>
+                    <li>@Html.ActionLink("My Profile", "MyProfileNavbar", new {id=Model.ProfileId })</li>
                     <li><div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             My Account
@@ -36,3 +36,4 @@
         </div>
     </div>
 </div>
+

@@ -35,21 +35,60 @@ namespace SportsBarApp.Controllers
             ProfileWallViewModel wall = new ProfileWallViewModel()
             {
                 UserProfile = profile,
-                Posts = posts
+                Posts = posts,
+                ProfileId = profile.ProfileId,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName
                 
             };
 
             return View(wall);
         }
 
-        public ActionResult MyProfile()
+        public ActionResult MyProfile(int? id)
         {
             //Action to launch my profile page where edit, view profile deatils
-            var userId = service.GetCurrentUserId(User);
+            //var userId = service.GetCurrentUserId(User);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Profile profile = service.Find(id);
+            if (profile == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Domain = "profile";
+            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
+            if (!ViewBag.IsThisUser)
+            {
+                var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
+                var friendRequest = service.FindFriend(user.ProfileId, profile.ProfileId);
+                
+                if (friendRequest != null)
+                {
+                    ViewBag.FriendStatus = friendRequest.IsAccepted ? "Friend" : "Pending Request";
+                    ViewBag.ButtonStatus = "disabled";
+                }
+                else
+                {
+                    ViewBag.FriendStatus = "Add friend";
+                    ViewBag.ButtonStatus = "";
+                }
+            }
+            
+            return View(profile);
+        }
 
-            ViewBag.Domain = "profile"; //To check from which action the main layout is open. Useful to get the User name into the profile page
-           
-            return View(service.GetProfileByUserId(userId));
+        public ActionResult MyProfileNavbar(int? id)
+        {
+            Profile profile = service.GetProfileFromId(id);
+            
+            if(service.EnsureIsUserProfile(profile, User))
+            {
+                return RedirectToAction("MyProfile", new {id = id });
+            }
+            return RedirectToAction("MyProfile", new { id = service.GetProfileId(service.GetCurrentUserId(User)) });
         }
 
         // GET: Profile/Details/5
@@ -65,6 +104,8 @@ namespace SportsBarApp.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
+           
             ViewBag.Partial = "Details"; //To check if it's edit or view section in Profile section of My profile page
             ViewBag.Domain = "profile";
             return View("MyProfile", profile);
@@ -105,7 +146,7 @@ namespace SportsBarApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Profile profile = service.Find(id);
-            if (profile == null)
+            if (profile == null || !service.EnsureIsUserProfile(profile, User))
             {
                 return HttpNotFound();
             }
@@ -144,7 +185,7 @@ namespace SportsBarApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Profile profile = service.Find(id);
-            if (profile == null)
+            if (profile == null || !service.EnsureIsUserProfile(profile, User))
             {
                 return HttpNotFound();
             }
@@ -166,7 +207,7 @@ namespace SportsBarApp.Controllers
 
         public ActionResult CheckProfileExist()
         {
-            //Action to verify the user when brand ic clicked to access the main page. If user exists and is not logout redirect to the profile main page(wall)
+            //Action to verify the user when brand logo is clicked to access the main page. If user exists and is not logout redirect to the profile main page(wall)
             // otherwise redirect to the create or landing page
             Profile profile = service.GetProfileByUserId(service.GetCurrentUserId(User));
 
@@ -181,25 +222,42 @@ namespace SportsBarApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult ChangeProfilePhoto(int id)
+        public ActionResult ChangeProfilePhoto(int? id)
         {
-            Profile profile = service.Find(id);
-            //View bags to keep showing user name in the my profile page
-            ViewBag.FirstName = profile.FirstName;
-            ViewBag.LastName = profile.LastName;
-            ViewBag.ID = id;
-            ViewBag.Domain = "image";
-            if (profile.ProfilePic == null)
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
-            return View(profile.ProfilePic);
+            Profile profile = service.Find(id);
+            if (profile == null || !service.EnsureIsUserProfile(profile, User))
+            {
+                return HttpNotFound();
+            }
+            //View bags to keep showing user name in the my profile page
+            //ViewBag.FirstName = profile.FirstName;
+            //ViewBag.LastName = profile.LastName;
+            //ViewBag.ID = id;
+            
+            ChangePhotoViewModel chphoto = new ChangePhotoViewModel
+            {
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+                Photo = profile.ProfilePic,
+                ProfileId = profile.ProfileId
+            };
+
+            //if (profile.ProfilePic == null)
+            //{
+            //    return View();
+            //}            
+            ViewBag.Domain = "profile";
+            return View(chphoto);
         }
 
         [HttpPost]
-        public ActionResult ChangeProfilePhoto([Bind(Include = "ProfilePic, Content")]Image image, HttpPostedFileBase upload)
+        public ActionResult ChangeProfilePhoto([Bind(Include = "Photo")]Image image, HttpPostedFileBase upload)
         {
+            Profile p = service.GetProfileByUserId(service.GetCurrentUserId(User));
             try
             {
                 if (ModelState.IsValid)
@@ -211,7 +269,7 @@ namespace SportsBarApp.Controllers
                         {
                             image.Content = reader.ReadBytes(upload.ContentLength);
                         }                        
-                        Profile p = service.GetProfileByUserId(service.GetCurrentUserId(User));
+                        
                         p.ProfilePic = image;
                         service.Edit(p);
                         service.Save();
@@ -225,9 +283,15 @@ namespace SportsBarApp.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            
-
-            return View(image);
+            ChangePhotoViewModel chphoto = new ChangePhotoViewModel
+            {
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                ProfileId = p.ProfileId,
+                Photo = p.ProfilePic
+            };
+            ViewBag.Domain = "profile";
+            return View(chphoto);
         }
 
         [HttpPost]
@@ -239,9 +303,9 @@ namespace SportsBarApp.Controllers
             service.Add(post);
             service.Save();
             //If the post is uploaded into activity, stay in the activity page
-            if(page.Equals("post-profile"))
+            if(page.Equals("activity"))
             {
-                return RedirectToAction("Activity");
+                return RedirectToAction("Activity", new { id= post.ProfileId });
             }
             return RedirectToAction("Index");
         }
@@ -254,19 +318,27 @@ namespace SportsBarApp.Controllers
             comment.Timestamp = DateTime.Now;
             service.Add(comment);
             service.Save();
-            if(page.Equals("post-profile"))
+            if(page.Equals("activity"))
             {
-                return RedirectToAction("Activity");
+                return RedirectToAction("Activity", new { id = comment.ProfileId });
             }
             return RedirectToAction("Index");
         }
 
-        public ActionResult Activity()
+        public ActionResult Activity(int? id)
         {
             //In the my profile page, shows activity for the current user and also the text area t upload new post
-
-            var userId = service.GetCurrentUserId(User);
-            Profile profile = service.GetProfileByUserId(userId);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Profile profile = service.Find(id);
+            if (profile == null)
+            {
+                return HttpNotFound();
+            }
+            //var userId = service.GetCurrentUserId(User);
+            //Profile profile = service.GetProfileByUserId(userId);
 
             //Get a coolections of post by user id. Shows only theposts written by the current user
             IEnumerable<Post> posts = service.GetPostsByUser(profile.ProfileId).OrderByDescending(p => p.Timestamp);
@@ -274,12 +346,34 @@ namespace SportsBarApp.Controllers
             ProfileWallViewModel wvm = new ProfileWallViewModel()
             {
                 UserProfile = profile,
-                Posts = posts
+                Posts = posts,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+                ProfileId = profile.ProfileId
             };
-            ViewBag.Domain = "post-profile";
+            ViewBag.Domain = "activity";
+            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
             return View(wvm);
         }
+        
+        
+        public ActionResult Search(string search)
+        {
+            //string term = Request["search"];
+            Profile user = service.GetProfileByUserId(service.GetCurrentUserId(User));
+            var friends = service.SearchProfiles(search);
+            List<ProfileWallViewModel> searchResult = new List<ProfileWallViewModel>();
+            foreach (var friend in friends)
+            {
+                if (!friend.Equals(user))
+                {
+                    searchResult.Add(new ProfileWallViewModel { Friend = friend, Name = friend.FirstName + " " + friend.LastName, Photo = friend.ProfilePic?.Content });
 
+                }
+            }
+            return Json(searchResult, JsonRequestBehavior.AllowGet);
+            
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,33 @@
+﻿@model SportsBarApp.Models.ViewModels.ProfileWallViewModel
+
+
+
+
+    <li class='list-group-item'> 
+        <div class='row'> 
+            <div class='col-md-12 search-result-item'> 
+                <div class='col-md-2'> 
+                    <a href='#'> <img class='img-circle' src='http://placehold.it/40x40'> </a>
+                </div> 
+                <div class='col-md-8'> @Model.Name 
+                <div class='col-md-2'>
+                    @if (Model.FriendStatus == SportsBarApp.Models.ViewModels.FriendStatus.AlreadyFriend)
+                    {
+                        <button class='btn btn-primary disabled'>Friend</button>
+                    }
+                    else if (Model.FriendStatus == SportsBarApp.Models.ViewModels.FriendStatus.NoFriend)
+                    {
+                        <button class='btn btn-primary'>Add Friend</button>
+                    }
+                    else
+                    {
+                        <button class='btn btn-primary disabled'>Pending Request</button>
+                    }
+                </div>
+                </div> 
+            </div> 
+        </div> 
+    </li>
+
+
+

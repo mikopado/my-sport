@@ -1,4 +1,4 @@
-﻿@model SportsBarApp.Models.Image
+﻿@model SportsBarApp.Models.ViewModels.ChangePhotoViewModel
 
 @{
     
@@ -6,9 +6,9 @@
 }
 
 <div class="col-md-6 profile-links">
-    @Html.ActionLink("VIEW", "Details", new { id = ViewBag.ID }, new {@class="not-clicked" })
-    @Html.ActionLink("EDIT", "Edit", new { id = ViewBag.ID }, new { @class="not-clicked"})
-    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = ViewBag.ID }, new { @class="clicked"})
+    @Html.ActionLink("VIEW", "Details", new { id = Model.ProfileId }, new {@class="not-clicked" })
+    @Html.ActionLink("EDIT", "Edit", new { id = Model.ProfileId }, new { @class="not-clicked"})
+    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class="clicked"})
 </div>
 
 @using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -18,7 +18,7 @@
     <div id="photo-upload" class="col-md-7">
 
        
-         @Html.HiddenFor(model => model.Id)        
+         @Html.HiddenFor(model => model.Photo.Id)        
         
 
         <div class="form-group">

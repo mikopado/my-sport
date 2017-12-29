@@ -128,7 +128,7 @@ footer{
     bottom: 5px;
 }
 #login-password{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 /*************************************************************
         Home Page Profile Index in ProfileController
@@ -152,7 +152,7 @@ footer{
 /*Profile details table*/
 #wrapper-wall table {
     border-collapse: separate;
-    border-spacing: 0px 30px;
+    border-spacing: 0 30px;
 }
 #wrapper-wall table td {
     padding: 10px;
@@ -189,7 +189,7 @@ footer{
                         MY PROFILE
 ****************************************************************/
 /*All the links, i.e. Profile, View, Friends etc*/
-.profile-links a{
+.profile-links a, #guest-details{
     color: #4d7499;
     font-weight: bold;
     font-size: 1.2em;  
@@ -202,9 +202,9 @@ footer{
 }
 section.profile-links a {
     padding: 40px 40px 40px 10px;
-    -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
-    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
 }
 /*Set color when the link is clicked or not clicked*/
 .profile-links a.clicked {
@@ -236,9 +236,9 @@ div.profile-links {
     max-width: 50%;
     flex-wrap: wrap;
     margin-bottom: 30px;
-    -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
-    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
     padding: 15px;
 }
  /*Edit section*/  
@@ -250,7 +250,7 @@ select.ui-datepicker-year {
     background-color: #65d2ee;
 }
 
-/*The section above all the screen - where the image is placed*/
+/*The section at the top of the screen just under navbar - where the image is placed*/
 section#cover {
     margin-bottom: 40px;
 }
@@ -264,6 +264,15 @@ section#cover {
     margin: 0 -10% 0 -10%;
     text-align: center;
 }
+#profile-pic button, #profile-pic button:hover, #profile-pic button:focus, #profile-pic button:visited {
+    font-size: .3em;
+    margin-top: 4%;
+    color: white;
+    background-color: gray;
+    border-color: gray;
+    border: 0;
+}
+
 /*Change profile photo section*/
 #photo-upload input {
     margin-top: 30px;
@@ -303,10 +312,6 @@ h2.text-success{
 /********************************************************
             WALL - POSTS AND COMMENTS
 ********************************************************/
-/*Take the bullet (or any symbol) off the list*/
-div.comment-container ul.comments-list{
-    list-style-type: none;
-}
 div.comment-container {   
     background: #dee1e3;    
 }
@@ -317,21 +322,10 @@ div.comment-container {
 /*Each sublists either posts or comments*/
 .comments-list {
     margin-top: 30px;
-    position: relative;    
+    position: relative;
+    list-style-type: none;
 }
-.comments-list:after {
-    content: '';
-    position: absolute;
-    background: #c7cacb;
-    bottom: 0;
-    left: 27px;
-    width: 7px;
-    height: 7px;
-    border: 3px solid #dee1e3;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
+
 /*Only comments list*/
 .reply-list:before, .reply-list:after {
     display: none;
@@ -461,9 +455,9 @@ div.comment-container {
 textarea#Text {
     max-width: 90%;
     resize: none;
-    -webkit-box-shadow: 0 0px 0px;
-    -moz-box-shadow: 0 0px 0px;
-    box-shadow: 0 0px 0px;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -473,9 +467,9 @@ textarea#Text {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    -webkit-box-shadow: 0 0px 0px;
-    -moz-box-shadow: 0 0px 0px;
-    box-shadow: 0 0px 0px;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
 }
 .comment-main-level {
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
@@ -514,6 +508,47 @@ textarea#Message {
 
 .utility-links, .utility-links:focus, .utility-links:visited, .utility-links:hover {
     text-decoration: none !important;
+}
+
+
+
+
+
+
+.search-result-item {
+    display: flex;
+    align-items: baseline; 
+    font-size: 1em;
+}
+
+
+
+.search-result-item .img-circle{
+    width: 20px;
+   
+}
+
+.list-group-item:last-child,  .list-group-item:last-child{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+    color: black !important;
+    background: none !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.ui-autocomplete{
+    z-index: 2000;
 }
 
 

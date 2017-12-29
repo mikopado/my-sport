@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SportsBarApp.ServiceLayer
 {
@@ -58,9 +59,14 @@ namespace SportsBarApp.ServiceLayer
             return new Guid(user.Identity.GetUserId());
         }
 
-        public bool EnsureIsUserProfile(Profile profile, IPrincipal user)
+        public Profile GetProfileFromId(int? id)
         {
-            return profile.GlobalId == GetCurrentUserId(user);
+           return unit.Profiles.GetElement(x => x.ProfileId == id);
+        }
+
+        public bool EnsureIsUserProfile(Profile profile, IPrincipal user)
+        {            
+            return profile.GlobalId == new Guid(user.Identity.GetUserId());
         }
 
         public void Add(Image image)
@@ -84,6 +90,17 @@ namespace SportsBarApp.ServiceLayer
         {
             IEnumerable<Post> posts = unit.Posts.GetElements(x => x.ProfileId == id);
             return posts;
+        }
+
+        public IEnumerable<Profile> SearchProfiles(string term)
+        {            
+            return unit.Profiles.GetElements(x => x.FirstName.StartsWith(term) || x.LastName.StartsWith(term)).ToList();
+        }
+
+        public FriendRequest FindFriend(int userId, int friendId)
+        {
+            return unit.FriendRequests.GetElement(x => x.Profile.ProfileId == userId && x.Friend.ProfileId == friendId);
+
         }
 
         public void Save()

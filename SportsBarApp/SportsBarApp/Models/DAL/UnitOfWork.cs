@@ -13,6 +13,7 @@ namespace SportsBarApp.Models.DAL
         public IRepository<Image> Images { get; set; }
         public IRepository<Comment> Comments { get; set; }
         public IRepository<Post> Posts { get; set; }
+        public IRepository<FriendRequest> FriendRequests { get; set; }
 
         public UnitOfWork(SportsBarDbContext db)
         {
@@ -21,6 +22,7 @@ namespace SportsBarApp.Models.DAL
             Images = new AppRepository<Image>(SportsBarDb);
             Comments = new AppRepository<Comment>(SportsBarDb);
             Posts = new AppRepository<Post>(SportsBarDb);
+            FriendRequests = new AppRepository<FriendRequest>(SportsBarDb);
         }
         public void Dispose()
         {
