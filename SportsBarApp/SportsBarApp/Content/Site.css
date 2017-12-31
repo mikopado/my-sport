@@ -523,9 +523,11 @@ textarea#Message {
 
 
 
-.search-result-item .img-circle{
+.search-result-item img{
     width: 20px;
-   
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px
 }
 
 .list-group-item:last-child,  .list-group-item:last-child{

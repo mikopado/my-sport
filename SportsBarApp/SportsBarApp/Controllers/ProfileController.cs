@@ -63,18 +63,9 @@ namespace SportsBarApp.Controllers
             if (!ViewBag.IsThisUser)
             {
                 var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
-                var friendRequest = service.FindFriend(user.ProfileId, profile.ProfileId);
                 
-                if (friendRequest != null)
-                {
-                    ViewBag.FriendStatus = friendRequest.IsAccepted ? "Friend" : "Pending Request";
-                    ViewBag.ButtonStatus = "disabled";
-                }
-                else
-                {
-                    ViewBag.FriendStatus = "Add friend";
-                    ViewBag.ButtonStatus = "";
-                }
+                ViewBag.FriendStatus = service.FriendStatus(user, profile).Item1;
+                ViewBag.ButtonStatus = service.FriendStatus(user, profile).Item2;
             }
             
             return View(profile);
@@ -82,6 +73,8 @@ namespace SportsBarApp.Controllers
 
         public ActionResult MyProfileNavbar(int? id)
         {
+            //Action related to myProfile button on navbar. When user visits other user profiles 
+            //the action must redirect to the current user profile
             Profile profile = service.GetProfileFromId(id);
             
             if(service.EnsureIsUserProfile(profile, User))
@@ -265,9 +258,11 @@ namespace SportsBarApp.Controllers
                     if (upload != null && upload.ContentLength > 0)
                     {
                         
-                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        using (var reader = new BinaryReader(upload.InputStream))
                         {
                             image.Content = reader.ReadBytes(upload.ContentLength);
+                            image.FileName = upload.FileName;
+                            
                         }                        
                         
                         p.ProfilePic = image;
@@ -353,6 +348,13 @@ namespace SportsBarApp.Controllers
             };
             ViewBag.Domain = "activity";
             ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
+            if (!ViewBag.IsThisUser)
+            {
+                var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
+                
+                ViewBag.FriendStatus = service.FriendStatus(user, profile).Item1;
+                ViewBag.ButtonStatus = service.FriendStatus(user, profile).Item2;
+            }
             return View(wvm);
         }
         
@@ -367,7 +369,12 @@ namespace SportsBarApp.Controllers
             {
                 if (!friend.Equals(user))
                 {
-                    searchResult.Add(new ProfileWallViewModel { Friend = friend, Name = friend.FirstName + " " + friend.LastName, Photo = friend.ProfilePic?.Content });
+                    searchResult.Add(new ProfileWallViewModel
+                    {
+                        Friend = friend,
+                        Name = friend.FirstName + " " + friend.LastName,
+                        Photo = friend.ProfilePic != null ? String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(friend.ProfilePic.Content)) : "../Content/images/avatar-default.png"
+                    });
 
                 }
             }

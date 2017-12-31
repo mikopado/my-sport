@@ -23,8 +23,8 @@ namespace SportsBarApp.Models.ViewModels
 
         public Profile Friend { get; set; }
         public string Name { get; set; }
-        public byte[] Photo { get; set; }
-        public FriendStatus FriendStatus { get; set; }
+        public string Photo { get; set; }
+        
 
         
     }

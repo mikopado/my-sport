@@ -8,7 +8,15 @@
         maxDate: '0'
     });
 
+    $("#friend-status").on("click", function () {
+        $(this).addClass("disabled");
+        $(this).text("Pending Request");
+    });
 
+    var friendRequest = $.connection.friendRequestHub;
+    friendRequest.client.notifyUser = function (name, message) {
+
+    };
 
     
 });

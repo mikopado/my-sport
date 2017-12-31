@@ -103,6 +103,25 @@ namespace SportsBarApp.ServiceLayer
 
         }
 
+        public Tuple<string, string> FriendStatus(Profile user, Profile profile)
+        {
+            var friendRequest = FindFriend(user.ProfileId, profile.ProfileId);
+
+            if (friendRequest != null)
+            {
+                return new Tuple<string, string>(friendRequest.IsAccepted ? "Friend" : "Pending Request", "disabled");
+                //ViewBag.FriendStatus = friendRequest.IsAccepted ? "Friend" : "Pending Request";
+                //ViewBag.ButtonStatus = "disabled";
+            }
+            else
+            {
+                return new Tuple<string, string>("Add Friend", "");
+
+                //ViewBag.FriendStatus = "Add friend";
+                //ViewBag.ButtonStatus = "";
+            }
+        }
+
         public void Save()
         {
             unit.Commit();
