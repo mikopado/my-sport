@@ -1,11 +1,11 @@
-﻿@model SportsBarApp.Models.Profile
+﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 
-@if (ViewBag.IsThisUser == null || ViewBag.IsThisUser)
+@if (Model.IsThisUser)
 {
     <div class="col-md-6 profile-links">
-        @Html.ActionLink("VIEW", "Details", new { id = Model.ProfileId }, new { @class = "clicked" })
-        @Html.ActionLink("EDIT", "Edit", new { id = Model.ProfileId }, new { @class = "not-clicked" })
-        @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.ProfileId }, new { @class = "not-clicked" })
+        @Html.ActionLink("VIEW", "Details", new { id = Model.Profile.ProfileId }, new { @class = "clicked" })
+        @Html.ActionLink("EDIT", "Edit", new { id = Model.Profile.ProfileId }, new { @class = "not-clicked" })
+        @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.Profile.ProfileId }, new { @class = "not-clicked" })
     </div>
 }
 else
@@ -17,59 +17,59 @@ else
 <div id="details" >    
     <section>
         <span>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Profile.FirstName)
         </span>
         <span>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Profile.FirstName)
         </span>
     </section>
     <section>
         <span>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Profile.LastName)
         </span>
         <span>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Profile.LastName)
         </span>
     </section>
     
     <section>
         <span>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => model.Profile.DateOfBirth)
         </span>
         <span>
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </span>
-    </section>
-    <section>
-        <span>
-            @Html.DisplayNameFor(model => model.City)
-        </span>
-        <span>
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Profile.DateOfBirth)
         </span>
     </section>
     <section>
         <span>
-            @Html.DisplayNameFor(model => model.Country)
+            @Html.DisplayNameFor(model => model.Profile.City)
         </span>
         <span>
-            @Html.DisplayFor(model => model.Country)
-        </span>
-    </section>
-    <section>
-        <span>
-            @Html.DisplayNameFor(model => model.FavouriteSports)
-        </span>
-        <span>
-            @Html.DisplayFor(model => model.FavouriteSports)
+            @Html.DisplayFor(model => model.Profile.City)
         </span>
     </section>
     <section>
         <span>
-            @Html.DisplayNameFor(model => model.FavouriteTeams)
+            @Html.DisplayNameFor(model => model.Profile.Country)
         </span>
         <span>
-            @Html.DisplayFor(model => model.FavouriteTeams)
+            @Html.DisplayFor(model => model.Profile.Country)
+        </span>
+    </section>
+    <section>
+        <span>
+            @Html.DisplayNameFor(model => model.Profile.FavouriteSports)
+        </span>
+        <span>
+            @Html.DisplayFor(model => model.Profile.FavouriteSports)
+        </span>
+    </section>
+    <section>
+        <span>
+            @Html.DisplayNameFor(model => model.Profile.FavouriteTeams)
+        </span>
+        <span>
+            @Html.DisplayFor(model => model.Profile.FavouriteTeams)
         </span>
     </section>
     

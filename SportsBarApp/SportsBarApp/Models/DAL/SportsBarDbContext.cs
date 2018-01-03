@@ -20,6 +20,7 @@ namespace SportsBarApp.Models
         {
             //To allow changes in database schema when domain classes are modified. Do not use in production
             Database.SetInitializer<SportsBarDbContext>(new DropCreateDatabaseIfModelChanges<SportsBarDbContext>());
+
         }
 
         public DbSet<Profile> Profiles { get; set; }
@@ -29,6 +30,6 @@ namespace SportsBarApp.Models
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
         
-
+        
     }
 }

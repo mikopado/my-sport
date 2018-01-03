@@ -21,7 +21,7 @@ namespace SportsBarApp.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("IdentityDb", throwIfV1Schema: false)
+            : base("AccountDb", throwIfV1Schema: false)
         {
         }
 

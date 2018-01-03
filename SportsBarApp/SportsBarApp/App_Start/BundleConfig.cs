@@ -9,9 +9,7 @@ namespace SportsBarApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.signalR-2.2.2.min.js",    
-                        "~/signalr/hubs",
+                        "~/Scripts/jquery-{version}.js",                        
                         "~/Scripts/myScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using SportsBarApp.Hubs;
 
 [assembly: OwinStartupAttribute(typeof(SportsBarApp.Startup))]
 namespace SportsBarApp

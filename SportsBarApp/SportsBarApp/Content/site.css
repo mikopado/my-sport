@@ -1,0 +1,557 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+/********************************************************
+                        HOMEPAGE
+********************************************************/
+/*set the home page, image full screen and centralize the welcome message*/
+#wallpaper {
+    width: 100%;
+    height: 100vh;
+    background: url("images/crowd-draw.jpg") no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+/*Sportsbar title*/
+h1{
+    font-size: 5em;     
+}
+h3{
+    color: white;
+    font-size: 2.4em;
+    font-weight: bold;
+}
+/********************************************************
+                        NAVBAR
+********************************************************/
+/*Set navbar _NavbarProfile view*/
+.navbar {
+    background-color: #68E0FF;
+    border-width: 0;
+}
+/*SB logo ont left corner*/
+.navbar-brand, h1, .navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
+    font-family: 'Coustard', serif;
+    color: navy;
+}
+/*Collapsable button for mobile screen*/
+button.navbar-toggle {
+    border: 1px solid #68f0b6;
+    background-color: lightgray;
+}
+span.icon-bar{
+    background-color: lightyellow;
+}
+
+/*Elements in navabar -i.e. Login, Sign up*/
+.navbar-right li a:active, .navbar-right li a {
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;    
+}
+.navbar-right li {
+    margin-right: 50px;
+}
+.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus,
+#dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active {
+    color: navy;
+    background-color: transparent;
+}
+
+/*Search text box in navbar in Profile page*/
+#search.form-control {
+    display: inline-block;
+    max-width: 70%;
+    margin-top: 5px;
+}
+/*The dropdown menu for MY ACCOUNT on the navbar*/
+#dropdownMenuLink {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-transform: capitalize;   
+}
+ul.navbar-right{
+    display: flex;
+    align-items: center;
+}
+.dropdown-menu {
+    text-align: center;
+    background-color: #68E0FF;
+    border: 0.2px;   
+}
+.dropdown-item{
+   display: block; 
+   text-decoration: none !important;
+   color: white;
+}
+
+/********************************************************
+                    Login Page
+************************************************************/
+.btn-info{
+    width: 70%;
+}
+.checkbox label{
+    padding-left: 5px;
+}
+.checkbox{
+    margin-left: 20px;
+}
+footer{
+    position:fixed;
+    bottom: 5px;
+}
+#login-password{
+    margin-bottom: 0;
+}
+/*************************************************************
+        Home Page Profile Index in ProfileController
+************************************************************/
+/*All the container of the page*/
+#wrapper-wall {
+    margin-top: 40px;
+    background-color: ghostwhite;   
+}
+/*Profile details sidebar*/
+#wrapper-wall div.col-md-3:first-child{
+    padding: 0;
+}
+/*Profile avatar in profile details table*/
+#wrapper-wall table img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+/*Profile details table*/
+#wrapper-wall table {
+    border-collapse: separate;
+    border-spacing: 0 30px;
+}
+#wrapper-wall table td {
+    padding: 10px;
+}
+/*Giving shadow to the profile details table - any row*/
+#wrapper-wall table tr {
+    font-weight: bold;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+#wrapper-wall table {
+    margin-left: 5%;
+    width: 90%;
+}
+/*Friends sidebar*/
+#wrapper-wall div.col-md-3:last-child {
+    padding-right: 0;
+}
+#wrapper-wall div.col-md-3, #wrapper-wall div.col-md-6 {
+    min-height: 100vh;
+}
+/*Side bars*/
+#wrapper-wall div.col-md-3{    
+    border: hidden;  
+}
+/*Central part - the wall*/
+#wrapper-wall div.col-md-6{
+    background-color: white;
+}
+
+
+/*************************************************************
+                        MY PROFILE
+****************************************************************/
+/*All the links, i.e. Profile, View, Friends etc*/
+.profile-links a, #guest-details{
+    color: #4d7499;
+    font-weight: bold;
+    font-size: 1.2em;  
+    display: block;
+}
+.profile-links a:hover, .profile-links a:active, .profile-links a:focus {
+    color: #4d7499;
+    background-color: transparent;
+    text-decoration: none;
+}
+section.profile-links a {
+    padding: 40px 40px 40px 10px;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+}
+/*Set color when the link is clicked or not clicked*/
+.profile-links a.clicked {
+    color: limegreen;
+}
+.profile-links a.not-clicked {
+    color: rgba(77, 116, 153, 0.69);
+}
+section.profile-links {
+    font-size: 1.2em;    
+}
+div.profile-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+#details, #edit, .friends-window{
+    margin-top: 60px;
+}
+/*View section - personal details displayed*/
+#details dt{
+    text-align: start;
+    margin-bottom: 40px;
+    margin-left: 10px;
+}
+#details section {
+    display: flex;
+    justify-content: space-between;
+    max-width: 50%;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,0.15);
+    padding: 15px;
+}
+ /*Edit section*/  
+#edit .control-label {
+    text-align: left;
+}
+/*datePicker*/
+select.ui-datepicker-year {
+    background-color: #65d2ee;
+}
+
+/*The section at the top of the screen just under navbar - where the image is placed*/
+section#cover {
+    margin-bottom: 40px;
+}
+#cover #profile-pic{
+    background: url(../Content/images/crowd-draw.jpg) no-repeat;
+    background-size: 100% 100%;    
+    height: 35vh;
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+    margin: 0 -10% 0 -10%;
+    text-align: center;
+}
+#profile-pic button, #profile-pic button:hover, #profile-pic button:focus, #profile-pic button:visited {
+    font-size: .3em;
+    margin-top: 4%;
+    color: white;
+    background-color: gray;
+    border-color: gray;
+    border: 0;
+}
+
+/*Change profile photo section*/
+#photo-upload input {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+#photo-upload .btn-info{
+    width: 100%;
+    margin-top: 20px;
+}
+#photo-upload {
+    margin-top: 40px;
+    border: 1px solid #E5E5E5;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);   
+    display: flex;
+    align-content: center;
+}
+/*Activity section*/
+#activity{
+    margin-top: 40px;
+}
+
+/******************Change Password Page******************/
+input#ViewEmail.form-control{
+    background-color: white;
+}
+h2.text-success{   
+    position: relative;
+    top: 30vh;    
+}
+#goback {
+    position: relative;
+    top: 50vh;
+}
+
+/********************************************************
+            WALL - POSTS AND COMMENTS
+********************************************************/
+div.comment-container {   
+    background: #dee1e3;    
+}
+/*The overall list*/
+#comments-list {
+    padding: 0;
+}
+/*Each sublists either posts or comments*/
+.comments-list {
+    margin-top: 30px;
+    position: relative;
+    list-style-type: none;
+}
+
+/*Only comments list*/
+.reply-list:before, .reply-list:after {
+    display: none;
+}
+.reply-list {
+    clear: both;
+    margin-top: 15px;
+}
+/*Any element in the posts and comments lists*/
+.comments-list li {
+    margin-bottom: 15px;
+    display: block;
+    position: relative;
+}
+.comments-list li:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    width: 0;
+}
+
+/*********************
+         Avatar
+ *******************/
+.comments-list .comment-avatar {
+    width: 50px;
+    height: 50px;    
+    z-index: 99;
+    float: left;
+    border: 3px solid #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.comments-list .comment-avatar img {
+    width: 100%;
+    height: 100%;
+}
+
+.reply-list .comment-avatar {
+    width: 30px;
+    height: 30px;
+}
+.comment-main-level:after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    clear: both;
+}
+/**************************
+         Box Comments
+ *************************/
+.comments-list .comment-box {      
+    position: relative;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+/*First section of the comment box where Name is*/
+.comment-box .comment-head {
+    background: #FCFCFC;
+    padding: 10px 12px;
+    border-bottom: 1px solid #E5E5E5;
+    overflow: hidden;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+.comment-box .comment-name {
+    color: #283035;
+    font-size: 14px;
+    font-weight: 700;    
+    float: left;
+    margin-left: 10px;
+}
+/*Date*/
+.comment-box .comment-head span {
+    float: right;
+    color: #999;
+    font-size: 13px;
+    position: relative;
+    top: 9px;    
+}
+/*The content of the post*/
+.comment-box .comment-content {
+    background: #FFF;
+    padding: 12px;
+    font-size: 15px;
+    color: #595959;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+/*The comments link to show or hide the comments of a post*/
+.comments-collapsible:hover, .comments-collapsible:focus, .comments-collapsible:active, .comments-collapsible:visited, .comments-collapsible{
+    text-decoration: none !important;
+    color: black;
+}
+.comments-collapsible{
+   margin-right: 2px;
+}
+.collapse-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;    
+    border: 1px solid #E5E5E5;
+    
+}
+/*Text field to write new comment*/
+.write-comment {
+    width: 100%;    
+}
+.write-comment form{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    max-height: 40px;
+}
+/*The content of new comment*/
+textarea#Text {
+    max-width: 90%;
+    resize: none;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.comment-btn {
+    width: 10%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+}
+.comment-main-level {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    border-radius: 0 0 4px 4px;
+    border-bottom: 1px solid #E5E5E5;
+}
+/*The text fiedl where to write ne post. Sited at the top of the wall*/
+textarea#Message {
+    resize: none;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomright: 0;
+    max-width: 100%;
+}
+/**Upload post button*/
+.form-write-post section input {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-topright: 0;
+    width: 40%;
+    align-self: flex-end;
+}
+.form-write-post section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.utility-links, .utility-links:focus, .utility-links:visited, .utility-links:hover {
+    text-decoration: none !important;
+}
+
+
+
+
+
+
+.search-result-item {
+    display: flex;
+    align-items: baseline; 
+    font-size: 1em;
+}
+
+
+
+.search-result-item img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px
+}
+
+.list-group-item:last-child,  .list-group-item:last-child{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+    color: black !important;
+    background: none !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.ui-autocomplete{
+    z-index: 2000;
+}
+
+
+

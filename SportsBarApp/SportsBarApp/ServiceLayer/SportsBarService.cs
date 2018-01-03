@@ -9,6 +9,10 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using SportsBarApp.Hubs;
+using Microsoft.AspNet.SignalR;
+using System.Web.Security;
+
 
 namespace SportsBarApp.ServiceLayer
 {
@@ -99,27 +103,67 @@ namespace SportsBarApp.ServiceLayer
 
         public FriendRequest FindFriend(int userId, int friendId)
         {
-            return unit.FriendRequests.GetElement(x => x.Profile.ProfileId == userId && x.Friend.ProfileId == friendId);
+            return unit.FriendRequests.GetElement(x => x.ProfileId == userId && x.FriendId == friendId);
 
         }
 
-        public Tuple<string, string> FriendStatus(Profile user, Profile profile)
+        public IEnumerable<Profile> GetPendingRequests(int? id)
+        {
+            List<Profile> profiles = new List<Profile>();
+            if (id != null)
+            {
+                var profilesId = unit.FriendRequests.GetElements(x => !x.IsAccepted && x.FriendId == id).Select(x => x.ProfileId);
+                
+                if (profilesId.Count() > 0)
+                {
+                    foreach (var item in profilesId)
+                    {
+                        profiles.Add(GetProfileFromId(item));
+                    }
+
+                }
+            }
+            
+            return profiles;
+        }
+
+       
+        public void Add(FriendRequest request)
+        {
+            unit.FriendRequests.Add(request);
+        }
+
+        public Tuple<string, string> GetFriendStatus(Profile user, Profile profile)
         {
             var friendRequest = FindFriend(user.ProfileId, profile.ProfileId);
 
             if (friendRequest != null)
             {
                 return new Tuple<string, string>(friendRequest.IsAccepted ? "Friend" : "Pending Request", "disabled");
-                //ViewBag.FriendStatus = friendRequest.IsAccepted ? "Friend" : "Pending Request";
-                //ViewBag.ButtonStatus = "disabled";
+               
             }
             else
             {
                 return new Tuple<string, string>("Add Friend", "");
-
-                //ViewBag.FriendStatus = "Add friend";
-                //ViewBag.ButtonStatus = "";
+                
             }
+        }
+
+        public string GetIdentityFromUserId(int? id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Guid globalId = GetProfileFromId(id).GlobalId;
+
+            return db.Users.Where(x => x.Id == globalId.ToString()).Select(x => x.UserName).FirstOrDefault();
+           
+        }
+
+        public void NotifyUser(string userId, string message)
+        {
+           
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<FriendRequestHub>();            
+           
+            hubContext.Clients.User(userId).sendFriendRequest(message);
         }
 
         public void Save()

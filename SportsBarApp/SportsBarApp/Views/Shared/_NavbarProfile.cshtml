@@ -19,7 +19,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index")</li>
-                    <li>@Html.ActionLink("My Profile", "MyProfileNavbar", new {id=Model.ProfileId })</li>
+                    <li><a href="@Url.Action("MyProfile", "Profile", new { id = Model.IsThisUser ? Model.Profile.ProfileId : Model.User.ProfileId })">@(Model.IsThisUser ? Model.Profile.FirstName : Model.User.FirstName)</a> <a id="count" href="@Url.Action("Friends", "Profile", new { id = Model.Profile.ProfileId })">@Model.PendingRequests.Count</a></li>
                     <li><div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             My Account
@@ -37,4 +37,6 @@
         </div>
     </div>
 </div>
+
+
 

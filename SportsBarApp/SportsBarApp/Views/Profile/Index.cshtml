@@ -1,4 +1,4 @@
-﻿@model SportsBarApp.Models.ViewModels.ProfileWallViewModel
+﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 
 @{
     ViewBag.Title = "SportsBar";
@@ -12,58 +12,58 @@
             <table>
                 <tr>
                     <td>                         
-                        @if (Model.UserProfile.ProfilePic == null)
+                        @if (Model.Profile.ProfilePic == null)
                         {
                             <img src=' ~/Content/images/avatar-default.png' />
                         }
                         else
                         {
-                            @Html.Image(Model.UserProfile.ProfilePic.Content);
+                            @Html.Image(Model.Profile.ProfilePic.Content);
                         }
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.FirstName) @Html.DisplayFor(m => m.LastName)
+                        @Html.DisplayFor(m => m.Profile.FirstName) @Html.DisplayFor(m => m.Profile.LastName)
                     </td>
                 </tr>
                
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.UserProfile.DateOfBirth, "DOB")
+                        @Html.LabelFor(m => m.Profile.DateOfBirth, "DOB")
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.UserProfile.DateOfBirth)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(m => m.UserProfile.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.UserProfile.City)
+                        @Html.DisplayFor(m => m.Profile.DateOfBirth)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.UserProfile.Country)                            
+                        @Html.LabelFor(m => m.Profile.City)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.UserProfile.Country)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(m => m.UserProfile.FavouriteSports, "Sports")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.UserProfile.FavouriteSports)
+                        @Html.DisplayFor(m => m.Profile.City)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.UserProfile.FavouriteTeams, "Teams") 
+                        @Html.LabelFor(m => m.Profile.Country)                            
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.UserProfile.FavouriteTeams)
+                        @Html.DisplayFor(m => m.Profile.Country)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.Profile.FavouriteSports, "Sports")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Profile.FavouriteSports)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.Profile.FavouriteTeams, "Teams") 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Profile.FavouriteTeams)
                     </td>
                 </tr>
             </table>
@@ -76,13 +76,13 @@
                 <section>
                     @Html.TextArea("Message", "", 4, 20,new { @class = "form-control", @placeholder = "What's up ?" })
 
-                    @Html.Hidden("page", ViewData["Domain"])
+                    @Html.Hidden("page", Model.CurrentView)
                     <input type="submit" value="Upload Post" class="btn btn-info" />
                    
                 </section>
             }
            
-            @Html.Partial("Wall", Model.Posts)
+            @Html.Partial("Wall", Model.Posts, new ViewDataDictionary { { "Domain", Model.CurrentView } })
         
 
 
@@ -103,44 +103,18 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript">
-        $(function () {
-            $('#search').autocomplete({ //Autocomplete for jQuery UI
-                source: function (request, response) { // get function with request object who holds a term property and response that is a function
-                    $.ajax({
-                        url: '@Url.Action("Search", "Profile")',
-                        dataType: 'json',
-                        data: { search: request.term },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-
-                                return {
-                                    value: item.Name,
-                                    label: item.Photo,
-                                    id: item.Friend.ProfileId
-                                };
-                            }))
-                        }
-
-                    })
-                },
-                minLength: 1,
-                select: function (event, ui) {
-                    window.location.pathname = "Profile/MyProfile/" + ui.item.id;
-                    return false;
-                },
-            }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                
-                return $('<div/>')
-                    .data('ui-autocomplete-item', item)
-                    .append("<li class='list-group-item'><div class='row'><div class='col-md-12 search-result-item'><div class='col-md-2'><img src=" + item.label +" /></div><div class='col-md-10'>" + item.value + "</div></div></div></li>")
-                    .appendTo(ul);
-                };
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>    
+    <script src="~/Scripts/friendConnection.js"></script>
 
 
 
-        })
-    </script>
 }
+
+
+
+
+
 
 

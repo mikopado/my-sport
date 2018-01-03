@@ -26,7 +26,7 @@ namespace SportsBarApp.Models.DAL
 
         public T GetElement(Expression<Func<T, bool>> func)
         {
-            return entities.Where(func).FirstOrDefault();
+            return entities.FirstOrDefault(func);
         }
 
         public IEnumerable<T> GetElements(Expression<Func<T, bool>> func)

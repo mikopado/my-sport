@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
+@{ 
+    var profile = "not-clicked";
+    var activity =  "not-clicked";
+    var friends = "not-clicked";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,14 +22,18 @@
     <div class="container">
         <section id="cover">
             <div id="profile-pic">
-                @Model.FirstName  @Model.LastName
-                @if (ViewBag.IsThisUser != null && !ViewBag.IsThisUser)
-                {
-                    if (ViewBag.FriendStatus != null)
+                <span>@Model.Profile.FirstName  @Model.Profile.LastName</span>
+                @if (!Model.IsThisUser)
+                {                    
+                    using (Html.BeginForm("AskFriendship", "Profile", FormMethod.Post))
                     {
-                        <section><button id="friend-status" class="btn btn-default @ViewBag.ButtonStatus">@ViewBag.FriendStatus</button></section>
+                        <section>
+                            @Html.HiddenFor(model => model.Friendship.Id)
+                            @Html.Hidden("FriendId", Model.Profile.ProfileId)
+                            @Html.Hidden("ProfileId", Model.User.ProfileId)
+                            <input type="submit" value="@Model.FriendStatus" class="btn btn-default @Model.ButtonStatus" />
+                        </section>
                     }
-
                 }
             </div>
             
@@ -31,22 +41,25 @@
         
         <div class="row">
             <section class="col-md-3 profile-links">
-                @if (ViewBag.Domain == "profile")
+                @if (Model.CurrentView == "profile")
                 {
-                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new {id = Model.ProfileId } , new { @class = "clicked" })
-                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.ProfileId } , new { @class = "not-clicked" })
-                    @Html.ActionLink("FRIENDS", "", "", new { @class = "not-clicked" })
+                    profile = "clicked";
                 }
-                else if (ViewBag.Domain == "activity")
+                else if (Model.CurrentView == "activity")
                 {
-                    @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.ProfileId } , new { @class = "not-clicked" })
-                    @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.ProfileId } , new { @class = "clicked" })
-                    @Html.ActionLink("FRIENDS", "",  "", new { @class = "not-clicked" })
+                    activity = "clicked";
                 }
+                else
+                {
+                    friends = "clicked";
+                }
+                @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.Profile.ProfileId }, new { @class = profile })
+                @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.Profile.ProfileId }, new { @class = activity })
+                @Html.ActionLink("FRIENDS", "Friends", "Profile", new { id = Model.Profile.ProfileId }, new { @class = friends })
+
             </section>      
 
-            <section class="col-md-offset-1 col-md-8">
-               
+            <section class="col-md-offset-1 col-md-8">               
                 @RenderBody()
             </section>
         </div>
@@ -58,6 +71,6 @@
 @RenderSection("scripts", required: false)
 @Scripts.Render("~/bundles/jqueryval")
 
-    
+
 </body>
 </html>

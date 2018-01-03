@@ -1,4 +1,4 @@
-﻿@model SportsBarApp.Models.ViewModels.ProfileWallViewModel
+﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 
 
 
@@ -11,11 +11,11 @@
                 </div> 
                 <div class='col-md-8'> @Model.Name 
                 <div class='col-md-2'>
-                    @if (Model.FriendStatus == SportsBarApp.Models.ViewModels.FriendStatus.AlreadyFriend)
+                    @if (Model.FriendStatus == "Friend")
                     {
                         <button class='btn btn-primary disabled'>Friend</button>
                     }
-                    else if (Model.FriendStatus == SportsBarApp.Models.ViewModels.FriendStatus.NoFriend)
+                    else if (Model.FriendStatus == "Add Friend")
                     {
                         <button class='btn btn-primary'>Add Friend</button>
                     }

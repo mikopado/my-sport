@@ -32,13 +32,12 @@ namespace SportsBarApp.Controllers
             var userId = service.GetCurrentUserId(User);
             Profile profile = service.GetProfileByUserId(userId);
             IEnumerable<Post> posts = service.GetPosts().OrderByDescending(p => p.Timestamp);
-            ProfileWallViewModel wall = new ProfileWallViewModel()
+            ProfileViewModel wall = new ProfileViewModel()
             {
-                UserProfile = profile,
+                Profile = profile,
                 Posts = posts,
-                ProfileId = profile.ProfileId,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName
+                PendingRequests = service.GetPendingRequests(profile.ProfileId),
+                IsThisUser = service.EnsureIsUserProfile(profile, User)
                 
             };
 
@@ -57,33 +56,31 @@ namespace SportsBarApp.Controllers
             if (profile == null)
             {
                 return HttpNotFound();
-            }
-            ViewBag.Domain = "profile";
-            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
-            if (!ViewBag.IsThisUser)
+            }            
+            
+            ProfileViewModel vm = new ProfileViewModel
+            {
+                Profile = profile,
+                IsThisUser = service.EnsureIsUserProfile(profile, User),
+                CurrentView = "profile",                
+            };
+
+            if (!vm.IsThisUser)
             {
                 var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
                 
-                ViewBag.FriendStatus = service.FriendStatus(user, profile).Item1;
-                ViewBag.ButtonStatus = service.FriendStatus(user, profile).Item2;
+                vm.FriendStatus = service.GetFriendStatus(user, profile).Item1;
+                vm.ButtonStatus = service.GetFriendStatus(user, profile).Item2;
+                vm.User = user;
+                id = user.ProfileId;
+                
             }
+            vm.PendingRequests = service.GetPendingRequests(id);
             
-            return View(profile);
+            return View(vm);
         }
 
-        public ActionResult MyProfileNavbar(int? id)
-        {
-            //Action related to myProfile button on navbar. When user visits other user profiles 
-            //the action must redirect to the current user profile
-            Profile profile = service.GetProfileFromId(id);
-            
-            if(service.EnsureIsUserProfile(profile, User))
-            {
-                return RedirectToAction("MyProfile", new {id = id });
-            }
-            return RedirectToAction("MyProfile", new { id = service.GetProfileId(service.GetCurrentUserId(User)) });
-        }
-
+        
         // GET: Profile/Details/5
         public ActionResult Details(int? id)
         {
@@ -97,11 +94,17 @@ namespace SportsBarApp.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
+            ProfileViewModel vm = new ProfileViewModel
+            {
+                Profile = profile,
+                IsThisUser = service.EnsureIsUserProfile(profile, User),
+                CurrentView = "profile",
+                PendingRequests = service.GetPendingRequests(id)
+            };
            
             ViewBag.Partial = "Details"; //To check if it's edit or view section in Profile section of My profile page
-            ViewBag.Domain = "profile";
-            return View("MyProfile", profile);
+           
+            return View("MyProfile", vm);
         }
 
         // GET: Profile/Create
@@ -139,14 +142,25 @@ namespace SportsBarApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Profile profile = service.Find(id);
-            if (profile == null || !service.EnsureIsUserProfile(profile, User))
+            bool isUser = service.EnsureIsUserProfile(profile, User);
+            if (profile == null || !isUser)
             {
                 return HttpNotFound();
             }
+
+            ProfileViewModel vm = new ProfileViewModel
+            {
+                Profile = profile,
+                CurrentView = "profile",
+                IsThisUser = isUser,
+                PendingRequests = service.GetPendingRequests(id)
+
+            };
+
             ViewBag.Partial = "Edit";
-            ViewBag.Domain = "profile";
+           
             ViewBag.GlobalId = service.GetCurrentUserId(User);
-            return View("MyProfile", profile);
+            return View("MyProfile", vm);
         }
 
         // POST: Profile/Edit/5
@@ -154,20 +168,20 @@ namespace SportsBarApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProfileId, FirstName,LastName,DateOfBirth,City,Country,FavouriteSports,FavouriteTeams,GlobalId")] Profile profile)
+        public ActionResult Edit([Bind(Include = "Profile")] ProfileViewModel profileVm)
         {
             ViewBag.GlobalId = service.GetCurrentUserId(User);
             if (ModelState.IsValid)
             {
-                service.Edit(profile);
+                service.Edit(profileVm.Profile);
                 service.Save();
                 ViewBag.Partial = "Details";
-                return RedirectToAction("MyProfile", profile);
+                return RedirectToAction("MyProfile", new {id = profileVm.Profile.ProfileId });
                 
             }
             ViewBag.Partial = "Edit";
             
-            return View("MyProfile", profile);
+            return View("MyProfile", profileVm);
         }
 
         // GET: Profile/Delete/5
@@ -222,33 +236,25 @@ namespace SportsBarApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Profile profile = service.Find(id);
-            if (profile == null || !service.EnsureIsUserProfile(profile, User))
+            bool isUser = service.EnsureIsUserProfile(profile, User);
+            if (profile == null || !isUser)
             {
                 return HttpNotFound();
-            }
-            //View bags to keep showing user name in the my profile page
-            //ViewBag.FirstName = profile.FirstName;
-            //ViewBag.LastName = profile.LastName;
-            //ViewBag.ID = id;
+            }            
             
-            ChangePhotoViewModel chphoto = new ChangePhotoViewModel
+            ProfileViewModel chphoto = new ProfileViewModel
             {
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
-                Photo = profile.ProfilePic,
-                ProfileId = profile.ProfileId
-            };
-
-            //if (profile.ProfilePic == null)
-            //{
-            //    return View();
-            //}            
-            ViewBag.Domain = "profile";
+                Profile = profile,
+                CurrentView = "profile",
+                PendingRequests = service.GetPendingRequests(id),
+                IsThisUser = isUser
+            };                    
+            
             return View(chphoto);
         }
 
         [HttpPost]
-        public ActionResult ChangeProfilePhoto([Bind(Include = "Photo")]Image image, HttpPostedFileBase upload)
+        public ActionResult ChangeProfilePhoto([Bind(Include = "Profile.ProfilePic")]Image image, HttpPostedFileBase upload)
         {
             Profile p = service.GetProfileByUserId(service.GetCurrentUserId(User));
             try
@@ -278,14 +284,12 @@ namespace SportsBarApp.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            ChangePhotoViewModel chphoto = new ChangePhotoViewModel
+            ProfileViewModel chphoto = new ProfileViewModel
             {
-                FirstName = p.FirstName,
-                LastName = p.LastName,
-                ProfileId = p.ProfileId,
-                Photo = p.ProfilePic
+               Profile = p,
+               CurrentView = "profile"
             };
-            ViewBag.Domain = "profile";
+            
             return View(chphoto);
         }
 
@@ -332,46 +336,46 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-            //var userId = service.GetCurrentUserId(User);
-            //Profile profile = service.GetProfileByUserId(userId);
-
+            
             //Get a coolections of post by user id. Shows only theposts written by the current user
             IEnumerable<Post> posts = service.GetPostsByUser(profile.ProfileId).OrderByDescending(p => p.Timestamp);
 
-            ProfileWallViewModel wvm = new ProfileWallViewModel()
+            ProfileViewModel wvm = new ProfileViewModel()
             {
-                UserProfile = profile,
-                Posts = posts,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
-                ProfileId = profile.ProfileId
+                Profile = profile,
+                Posts = posts,                
+                CurrentView = "activity",
+                IsThisUser = service.EnsureIsUserProfile(profile, User),
+                
             };
-            ViewBag.Domain = "activity";
-            ViewBag.IsThisUser = service.EnsureIsUserProfile(profile, User);
-            if (!ViewBag.IsThisUser)
+           
+            if (!wvm.IsThisUser)
             {
                 var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
-                
-                ViewBag.FriendStatus = service.FriendStatus(user, profile).Item1;
-                ViewBag.ButtonStatus = service.FriendStatus(user, profile).Item2;
+
+                wvm.FriendStatus = service.GetFriendStatus(user, profile).Item1;
+                wvm.ButtonStatus = service.GetFriendStatus(user, profile).Item2;
+                wvm.User = user;
+                id = user.ProfileId;
             }
+            wvm.PendingRequests = service.GetPendingRequests(id);
             return View(wvm);
         }
         
         
         public ActionResult Search(string search)
         {
-            //string term = Request["search"];
+            
             Profile user = service.GetProfileByUserId(service.GetCurrentUserId(User));
             var friends = service.SearchProfiles(search);
-            List<ProfileWallViewModel> searchResult = new List<ProfileWallViewModel>();
+            List<ProfileViewModel> searchResult = new List<ProfileViewModel>();
             foreach (var friend in friends)
             {
                 if (!friend.Equals(user))
                 {
-                    searchResult.Add(new ProfileWallViewModel
+                    searchResult.Add(new ProfileViewModel
                     {
-                        Friend = friend,
+                        Profile = friend,
                         Name = friend.FirstName + " " + friend.LastName,
                         Photo = friend.ProfilePic != null ? String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(friend.ProfilePic.Content)) : "../Content/images/avatar-default.png"
                     });
@@ -380,6 +384,59 @@ namespace SportsBarApp.Controllers
             }
             return Json(searchResult, JsonRequestBehavior.AllowGet);
             
+        }
+
+        public ActionResult Friends(int? id)
+        {
+            //In the my profile page, shows activity for the current user and also the text area t upload new post
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Profile profile = service.Find(id);
+            if (profile == null)
+            {
+                return HttpNotFound();
+            }
+
+           
+            ProfileViewModel wvm = new ProfileViewModel()
+            {
+                Profile = profile,                 
+                IsThisUser = service.EnsureIsUserProfile(profile, User),
+                
+            };
+            
+            
+            if (!wvm.IsThisUser)
+            {
+                var user = service.GetProfileByUserId(service.GetCurrentUserId(User));
+
+                wvm.FriendStatus = service.GetFriendStatus(user, profile).Item1;
+                wvm.ButtonStatus = service.GetFriendStatus(user, profile).Item2;
+
+                wvm.User = user;
+                id = user.ProfileId;
+            }
+            wvm.PendingRequests = service.GetPendingRequests(id);
+            return View(wvm);
+        }
+        [HttpPost]
+        public ActionResult AskFriendship([Bind(Include = "FriendId, ProfileId")] FriendRequest friend)
+        {
+            
+            friend.IsAccepted = false;
+
+            if (ModelState.IsValid)
+            {
+                service.Add(friend);
+                service.Save();
+                
+                service.NotifyUser(service.GetIdentityFromUserId(friend.FriendId), "friend request");
+            }
+
+            return  RedirectToAction("Friends", new {id = friend.ProfileId });
+
         }
 
         protected override void Dispose(bool disposing)
