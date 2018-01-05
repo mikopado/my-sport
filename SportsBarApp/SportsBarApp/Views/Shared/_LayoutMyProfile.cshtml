@@ -22,16 +22,16 @@
     <div class="container">
         <section id="cover">
             <div id="profile-pic">
-                <span>@Model.Profile.FirstName  @Model.Profile.LastName</span>
+                <span>@Model.CurrentProfile.FirstName  @Model.CurrentProfile.LastName</span>
                 @if (!Model.IsThisUser)
-                {                    
+                {
                     using (Html.BeginForm("AskFriendship", "Profile", FormMethod.Post))
                     {
                         <section>
                             @Html.HiddenFor(model => model.Friendship.Id)
-                            @Html.Hidden("FriendId", Model.Profile.ProfileId)
+                            @Html.Hidden("FriendId", Model.CurrentProfile.ProfileId)
                             @Html.Hidden("ProfileId", Model.User.ProfileId)
-                            <input type="submit" value="@Model.FriendStatus" class="btn btn-default @Model.ButtonStatus" />
+                            <input type="submit" value="@Model.FriendStatus" class="btn @Model.ButtonStatus" />
                         </section>
                     }
                 }
@@ -53,9 +53,9 @@
                 {
                     friends = "clicked";
                 }
-                @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.Profile.ProfileId }, new { @class = profile })
-                @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.Profile.ProfileId }, new { @class = activity })
-                @Html.ActionLink("FRIENDS", "Friends", "Profile", new { id = Model.Profile.ProfileId }, new { @class = friends })
+                @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = profile })
+                @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = activity })
+                @Html.ActionLink("FRIENDS", "Friends", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = friends })
 
             </section>      
 

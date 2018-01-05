@@ -36,8 +36,11 @@ namespace SportsBarApp.Models
         
         public Guid GlobalId { get; set; }
 
+       
+
         public virtual Image ProfilePic { get; set; }
 
+        
 
     }
 }

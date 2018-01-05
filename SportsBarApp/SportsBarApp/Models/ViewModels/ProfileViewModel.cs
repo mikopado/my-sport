@@ -16,7 +16,7 @@ namespace SportsBarApp.Models.ViewModels
     public class ProfileViewModel
     {
 
-        public Profile Profile { get; set; }
+        public Profile CurrentProfile { get; set; }
 
         public string FriendStatus { get; set; }
 
@@ -38,7 +38,9 @@ namespace SportsBarApp.Models.ViewModels
 
         public Profile User { get; set; }
 
-        public IEnumerable<Profile> PendingRequests { get; set; }
+        public IEnumerable<FriendRequest> PendingRequests { get; set; }
 
+        public IEnumerable<Profile> Friends { get; set; }
+        
     }
 }

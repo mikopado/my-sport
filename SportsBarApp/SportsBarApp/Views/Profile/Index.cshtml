@@ -11,59 +11,53 @@
         <div class="col-md-3">   
             <table>
                 <tr>
-                    <td>                         
-                        @if (Model.Profile.ProfilePic == null)
-                        {
-                            <img src=' ~/Content/images/avatar-default.png' />
-                        }
-                        else
-                        {
-                            @Html.Image(Model.Profile.ProfilePic.Content);
-                        }
+                    <td>  
+                       <img src='@Model.CurrentProfile.ProfilePic.FileName' />
+                        
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Profile.FirstName) @Html.DisplayFor(m => m.Profile.LastName)
+                        @Html.DisplayFor(m => m.CurrentProfile.FirstName) @Html.DisplayFor(m => m.CurrentProfile.LastName)
                     </td>
                 </tr>
                
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.Profile.DateOfBirth, "DOB")
+                        @Html.LabelFor(m => m.CurrentProfile.DateOfBirth, "DOB")
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Profile.DateOfBirth)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(m => m.Profile.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Profile.City)
+                        @Html.DisplayFor(m => m.CurrentProfile.DateOfBirth)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.Profile.Country)                            
+                        @Html.LabelFor(m => m.CurrentProfile.City)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Profile.Country)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(m => m.Profile.FavouriteSports, "Sports")
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Profile.FavouriteSports)
+                        @Html.DisplayFor(m => m.CurrentProfile.City)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.LabelFor(m => m.Profile.FavouriteTeams, "Teams") 
+                        @Html.LabelFor(m => m.CurrentProfile.Country)                            
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Profile.FavouriteTeams)
+                        @Html.DisplayFor(m => m.CurrentProfile.Country)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.CurrentProfile.FavouriteSports, "Sports")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.CurrentProfile.FavouriteSports)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.CurrentProfile.FavouriteTeams, "Teams") 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.CurrentProfile.FavouriteTeams)
                     </td>
                 </tr>
             </table>
@@ -108,7 +102,7 @@
     <script src="~/signalr/hubs"></script>    
     <script src="~/Scripts/friendConnection.js"></script>
 
-
+<script src="~/Scripts/search.js"></script>
 
 }
 

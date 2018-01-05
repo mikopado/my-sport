@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using SportsBarApp.Hubs;
 using Microsoft.AspNet.SignalR;
 using System.Web.Security;
-
+using System.IO;
 
 namespace SportsBarApp.ServiceLayer
 {
@@ -98,40 +98,83 @@ namespace SportsBarApp.ServiceLayer
 
         public IEnumerable<Profile> SearchProfiles(string term)
         {            
-            return unit.Profiles.GetElements(x => x.FirstName.StartsWith(term) || x.LastName.StartsWith(term)).ToList();
+            return unit.Profiles.GetElements(x => x.FirstName.StartsWith(term) || x.LastName.StartsWith(term)).Take(8).ToList();
         }
 
-        public FriendRequest FindFriend(int userId, int friendId)
+        public FriendRequest FindFriend(int? userId, int? friendId)
         {
-            return unit.FriendRequests.GetElement(x => x.ProfileId == userId && x.FriendId == friendId);
+            return unit.FriendRequests.GetElement(x => (x.ProfileId == userId && x.FriendId == friendId) || (x.ProfileId == friendId && x.FriendId == userId));
 
         }
 
-        public IEnumerable<Profile> GetPendingRequests(int? id)
+        //public void AddNewFriend(int? profileId, int? friendId)
+        //{
+        //    Profile profile = GetProfileFromId(profileId);
+        //    Profile friend = GetProfileFromId(friendId);
+        //    profile.Friends.Add(friend);
+        //    friend.Friends.Add(profile);
+        //}
+
+        public List<Profile> GetFriends(int? userID)
         {
             List<Profile> profiles = new List<Profile>();
-            if (id != null)
+            var friendships = unit.FriendRequests.GetElements(x => x.IsAccepted && (x.ProfileId == userID || x.FriendId == userID));
+            foreach (var item in friendships)
             {
-                var profilesId = unit.FriendRequests.GetElements(x => !x.IsAccepted && x.FriendId == id).Select(x => x.ProfileId);
-                
-                if (profilesId.Count() > 0)
-                {
-                    foreach (var item in profilesId)
-                    {
-                        profiles.Add(GetProfileFromId(item));
-                    }
+                Profile p = new Profile();
 
+                if (item.ProfileId != userID)
+                {
+                    p = GetProfileFromId(item.ProfileId);
                 }
+                else if (item.FriendId != userID)
+                {
+                    p = GetProfileFromId(item.FriendId);
+                }
+
+                profiles.Add(p);
             }
-            
             return profiles;
         }
 
+        public List<FriendRequest> GetPendingRequests(int? id)
+        {
+            
+           return unit.FriendRequests.GetElements(x => !x.IsAccepted && x.FriendId == id).ToList();                
+            
+        }
+
+       
+
+        //public void AddPendingRequestToProfile(FriendRequest friendRequest)
+        //{
+        //    Profile friend = GetProfileFromId(friendRequest.FriendId);
+        //    Profile caller = GetProfileFromId(friendRequest.ProfileId);
+        //    friend.PendingRequests.Add(friendRequest);
+        //}
        
         public void Add(FriendRequest request)
         {
             unit.FriendRequests.Add(request);
         }
+
+        public FriendRequest GetRequestById(int? id)
+        {
+            return unit.FriendRequests.GetElement(x => x.Id == id);
+        }
+
+        public void CancelRequest(FriendRequest friendRequest)
+        {          
+            unit.FriendRequests.Remove(friendRequest);
+        }
+
+        //public void CancelFriendship(int? profileId, int? friendId)
+        //{
+        //    Profile profile = GetProfileFromId(profileId);
+        //    Profile friend = GetProfileFromId(friendId);
+        //    profile.Friends.Remove(friend);
+        //    friend.Friends.Remove(profile);
+        //}
 
         public Tuple<string, string> GetFriendStatus(Profile user, Profile profile)
         {
@@ -139,7 +182,7 @@ namespace SportsBarApp.ServiceLayer
 
             if (friendRequest != null)
             {
-                return new Tuple<string, string>(friendRequest.IsAccepted ? "Friend" : "Pending Request", "disabled");
+                return new Tuple<string, string>(friendRequest.IsAccepted ? "Friend" : "Sent Request", "disabled");
                
             }
             else
@@ -158,13 +201,17 @@ namespace SportsBarApp.ServiceLayer
            
         }
 
-        public void NotifyUser(string userId, string message)
+        public void NotifyUser(string friendId, int? userId, int? friendRequestId)
         {
-           
+            Profile prof = GetProfileFromId(userId);
+            string userName = prof.FirstName + " " + prof.LastName;
+            string photoFileName = prof.ProfilePic.FileName;
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<FriendRequestHub>();            
            
-            hubContext.Clients.User(userId).sendFriendRequest(message);
+            hubContext.Clients.User(friendId).sendFriendRequest(userName, photoFileName, friendRequestId);
         }
+
+       
 
         public void Save()
         {
@@ -175,5 +222,9 @@ namespace SportsBarApp.ServiceLayer
         {
             unit.Dispose();
         }
+
+        
+
+                
     }
 }

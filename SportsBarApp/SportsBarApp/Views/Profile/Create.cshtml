@@ -7,7 +7,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm("Create", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Profile", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -19,7 +19,7 @@
             <div class="form-group">
                 <div>
                     @Html.HiddenFor(model => model.GlobalId, new { id = "GlobalId", Value = ViewBag.GlobalId })
-                    
+                   
                 </div>
             </div>         
            

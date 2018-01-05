@@ -237,8 +237,12 @@
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\images\avatar-default.png" />
     <Content Include="Content\images\crowd-draw.jpg" />
+    <Content Include="Content\images\friends-icon-navy.png" />
+    <Content Include="Content\images\friends-icon-white.png" />
     <Content Include="Content\images\profile-wallpaper-default-2.jpg" />
     <Content Include="Content\images\profile-wallpaper-default.jpg" />
+    <Content Include="Content\images\setting-icon.png" />
+    <Content Include="Content\images\settings-icon.png" />
     <Content Include="Content\images\ui-bg_glass_45_0078ae_1x400.png" />
     <Content Include="Content\images\ui-bg_glass_55_f8da4e_1x400.png" />
     <Content Include="Content\images\ui-bg_glass_75_79c9ec_1x400.png" />
@@ -298,6 +302,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\search.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

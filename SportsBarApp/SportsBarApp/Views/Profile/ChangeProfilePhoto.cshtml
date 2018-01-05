@@ -6,9 +6,9 @@
 }
 
 <div class="col-md-6 profile-links">
-    @Html.ActionLink("VIEW", "Details", new { id = Model.Profile.ProfileId }, new {@class="not-clicked" })
-    @Html.ActionLink("EDIT", "Edit", new { id = Model.Profile.ProfileId }, new { @class="not-clicked"})
-    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.Profile.ProfileId }, new { @class="clicked"})
+    @Html.ActionLink("VIEW", "Details", new { id = Model.CurrentProfile.ProfileId }, new {@class="not-clicked" })
+    @Html.ActionLink("EDIT", "Edit", new { id = Model.CurrentProfile.ProfileId }, new { @class="not-clicked"})
+    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.CurrentProfile.ProfileId }, new { @class="clicked"})
 </div>
 
 @using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -18,9 +18,6 @@
     <div id="photo-upload" class="col-md-7">
 
        
-         @Html.HiddenFor(model => model.Profile.ProfilePic.Id)        
-        
-
         <div class="form-group">
             
             <div>
@@ -37,4 +34,9 @@
         </div>
     </div>
 }
+
+@section scripts{
+    
+    <script src="~/Scripts/search.js"></script>
+ }
 

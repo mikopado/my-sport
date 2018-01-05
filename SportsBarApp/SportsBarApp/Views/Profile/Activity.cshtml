@@ -21,3 +21,8 @@
 
     @Html.Partial("Wall", Model.Posts, new ViewDataDictionary { {"Domain", Model.CurrentView } })
 </div>
+
+@section scripts{
+    
+<script src="~/Scripts/search.js"></script>    
+}

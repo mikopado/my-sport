@@ -18,9 +18,7 @@ namespace SportsBarApp.Models
     
         public SportsBarDbContext() : base("name=SportsBarDbContext")
         {
-            //To allow changes in database schema when domain classes are modified. Do not use in production
-            Database.SetInitializer<SportsBarDbContext>(new DropCreateDatabaseIfModelChanges<SportsBarDbContext>());
-
+            
         }
 
         public DbSet<Profile> Profiles { get; set; }
