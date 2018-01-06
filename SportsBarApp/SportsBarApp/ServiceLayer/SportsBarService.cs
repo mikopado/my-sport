@@ -107,14 +107,6 @@ namespace SportsBarApp.ServiceLayer
 
         }
 
-        //public void AddNewFriend(int? profileId, int? friendId)
-        //{
-        //    Profile profile = GetProfileFromId(profileId);
-        //    Profile friend = GetProfileFromId(friendId);
-        //    profile.Friends.Add(friend);
-        //    friend.Friends.Add(profile);
-        //}
-
         public List<Profile> GetFriends(int? userID)
         {
             List<Profile> profiles = new List<Profile>();
@@ -143,15 +135,6 @@ namespace SportsBarApp.ServiceLayer
            return unit.FriendRequests.GetElements(x => !x.IsAccepted && x.FriendId == id).ToList();                
             
         }
-
-       
-
-        //public void AddPendingRequestToProfile(FriendRequest friendRequest)
-        //{
-        //    Profile friend = GetProfileFromId(friendRequest.FriendId);
-        //    Profile caller = GetProfileFromId(friendRequest.ProfileId);
-        //    friend.PendingRequests.Add(friendRequest);
-        //}
        
         public void Add(FriendRequest request)
         {
@@ -168,13 +151,6 @@ namespace SportsBarApp.ServiceLayer
             unit.FriendRequests.Remove(friendRequest);
         }
 
-        //public void CancelFriendship(int? profileId, int? friendId)
-        //{
-        //    Profile profile = GetProfileFromId(profileId);
-        //    Profile friend = GetProfileFromId(friendId);
-        //    profile.Friends.Remove(friend);
-        //    friend.Friends.Remove(profile);
-        //}
 
         public Tuple<string, string> GetFriendStatus(Profile user, Profile profile)
         {
@@ -212,6 +188,64 @@ namespace SportsBarApp.ServiceLayer
         }
 
        
+        public void StoreMetaInfo(Post post)
+        {
+            List<string> hashtags = SplitStringInHashtags(post.Message);
+            foreach (string item in hashtags)
+            {
+                var existingHashtags = unit.MetaData.GetElement(x => x.Hashtag.Equals(item));
+                if(existingHashtags != null)
+                {
+                    existingHashtags.Posts.Add(post);
+                }
+                else
+                {
+                    unit.MetaData.Add(new MetaInfo {Hashtag = item, Posts = new List<Post>() { post } });
+                }
+
+            }
+        }
+
+        private IEnumerable<Post> GetPostsByHashtags(string hashtag)
+        {
+            return unit.MetaData.GetElements(x => x.Hashtag.Equals(hashtag)).SelectMany(x => x.Posts);
+        }
+
+        public IEnumerable<Post> GetPostsByHashtags(string[] hashtags)
+        {
+            if (hashtags.Length > 1)
+            {
+                var posts = new List<Post>();
+                foreach (var item in hashtags)
+                {
+                    posts.AddRange(GetPostsByHashtags(item).Where(x => posts.All(y => y.Id != x.Id)));
+                }
+                return posts;
+            }
+            else if(hashtags.Length == 1)
+            {
+                return GetPostsByHashtags(hashtags[0]);
+            }
+            else
+            {
+                return unit.MetaData.GetElements(x => x.Id != - 1).SelectMany(x => x.Posts);
+            }
+        }
+
+        private List<string> SplitStringInHashtags(string str)
+        {
+            List<string> hashtags = new List<string>();
+            string[] arr = str.Substring(str.IndexOf('#')).Split('#');
+            foreach(string s in arr)
+            {
+                if (!string.IsNullOrWhiteSpace(s) && !s.Contains(" "))
+                {
+                    hashtags.Add(s);
+                }
+               
+            }
+            return hashtags;
+        }
 
         public void Save()
         {

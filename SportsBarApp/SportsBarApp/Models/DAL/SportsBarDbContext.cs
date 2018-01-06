@@ -26,8 +26,8 @@ namespace SportsBarApp.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<MetaInfo> MetaData { get; set; }
 
-        
-        
+
     }
 }

@@ -218,6 +218,7 @@
     <Compile Include="Models\DAL\AppRepository.cs" />
     <Compile Include="Models\DAL\UnitOfWork.cs" />
     <Compile Include="Models\FriendRequest.cs" />
+    <Compile Include="Models\MetaInfo.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

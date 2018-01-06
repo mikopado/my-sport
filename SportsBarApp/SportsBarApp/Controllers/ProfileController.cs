@@ -176,7 +176,7 @@ namespace SportsBarApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Profile")] ProfileViewModel profileVm)
+        public ActionResult Edit([Bind(Include = "CurrentProfile")] ProfileViewModel profileVm)
         {
             ViewBag.GlobalId = service.GetCurrentUserId(User);
             if (ModelState.IsValid)
@@ -416,7 +416,7 @@ namespace SportsBarApp.Controllers
                 IsThisUser = service.EnsureIsUserProfile(profile, User),
                 Friends = service.GetFriends(profile.ProfileId),
                 Photo = profile.ProfilePic.FileName,
-             
+                
 
             };
 
@@ -452,7 +452,7 @@ namespace SportsBarApp.Controllers
                 service.NotifyUser(service.GetIdentityFromUserId(friendRequest.FriendId), friendRequest.ProfileId, friendRequest.Id);
             }
 
-            return RedirectToAction("Friends", new {id = friendRequest.ProfileId });
+            return RedirectToAction("MyProfile", new {id = friendRequest.FriendId });
 
         }
 
@@ -463,7 +463,7 @@ namespace SportsBarApp.Controllers
             friendRequest.IsAccepted = true;
             
             service.Save();
-            //return RedirectToAction("Friends", new {id =  });
+            
         }
 
         [HttpPost]
@@ -473,7 +473,7 @@ namespace SportsBarApp.Controllers
             
             service.CancelRequest(friendRequest);            
             service.Save();
-            //return RedirectToAction("Friends", new {id =  });
+            
         }
 
         [HttpPost]
@@ -488,6 +488,8 @@ namespace SportsBarApp.Controllers
             service.Save();
             //return RedirectToAction("Friends", new { id =  });
         }
+
+       
 
         protected override void Dispose(bool disposing)
         {

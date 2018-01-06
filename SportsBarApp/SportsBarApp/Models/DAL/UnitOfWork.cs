@@ -14,6 +14,7 @@ namespace SportsBarApp.Models.DAL
         public IRepository<Comment> Comments { get; set; }
         public IRepository<Post> Posts { get; set; }
         public IRepository<FriendRequest> FriendRequests { get; set; }
+        public IRepository<MetaInfo> MetaData { get; set; }
 
         public UnitOfWork(SportsBarDbContext db)
         {

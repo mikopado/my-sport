@@ -81,13 +81,11 @@
 
 
             </div>
-        <div class="col-md-3">
+        <div class="col-md-3 friends-window friends-wall">
             <ul>
-                @for (int i = 0; i < 6; i++)
+                @foreach (var item in Model.Friends)
                 {
-                    <li>
-                        Friends list is going to be here.
-                    </li>
+                    <li><img class="img-friends thumbnail" src="@item.ProfilePic.FileName" />@Html.ActionLink(item.FirstName + "  " + item.LastName, "MyProfile", "Profile", new { id = item.ProfileId }, new { @class = "links-to-friends" })</li>
                 }
                     
             </ul>

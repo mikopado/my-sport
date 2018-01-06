@@ -114,9 +114,9 @@ ul.navbar-right{
 .navbar-right .dropdown-menu {
     text-align: center;
     background-color: #68E0FF;
-    border: 0.2px;
-    position: absolute;       
-    left: -50px;    
+    border: .5px solid #E5E5E5;
+    position: absolute;
+    left: -50px;
 }
 .dropdown-item{
    display: block; 
@@ -139,6 +139,7 @@ ul.navbar-right{
     height: 25px;
     border-radius: 50%;
     margin-right: 10px;
+    border: .2px solid #E5E5E5;
 }
 
 /*Label on top of Icon*/
@@ -205,9 +206,14 @@ footer{
 #wrapper-wall table {
     border-collapse: separate;
     border-spacing: 0 30px;
+    opacity: .8;
 }
 #wrapper-wall table td {
     padding: 10px;
+    background-color: white;    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 /*Giving shadow to the profile details table - any row*/
 #wrapper-wall table tr {
@@ -615,27 +621,30 @@ a.ui-button:active,
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
-.friends-list li {     
+.friends-list li {
     width: 50%;
+    margin-bottom: 10px;
 }
 .requests li {
     width: 60%;
 }
-.friends-window.guest li {   
+.friends-window.guest li, .friends-wall li {
     justify-content: flex-start;
 }
-.friends-window.guest .img-friends{
-    margin-right: 120px;
-}
+
 .links-to-friends:hover, .links-to-friends:focus, .links-to-friends:visited {
     text-decoration: none;
 }
 .img-friends {
     width: 40px;
     height: 40px;
-    display: inline-flex;
-    margin-bottom: 0;
+    display: inline-flex;   
+    margin: 2px 2px 2px 2px;
+}
+.friends-window.guest .img-friends {
+    margin-right: 120px;
 }
 .btn-info.btn-friends{
     width: 20%;
@@ -643,6 +652,23 @@ a.ui-button:active,
 .btn-info.btn-requests{
     width: 45%;
 }
+.friends-wall{
+    margin-top: 30px; 
+    padding: 0;   
+}
+.friends-wall .img-friends{   
+    margin-right: 50px;
+}
+.friends-wall li {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 
 
 

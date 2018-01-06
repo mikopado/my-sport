@@ -31,7 +31,7 @@
                             @Html.HiddenFor(model => model.Friendship.Id)
                             @Html.Hidden("FriendId", Model.CurrentProfile.ProfileId)
                             @Html.Hidden("ProfileId", Model.User.ProfileId)
-                            <input type="submit" value="@Model.FriendStatus" class="btn @Model.ButtonStatus" />
+                            <input type="submit" value="@Model.FriendStatus" class="btn btn-success @Model.ButtonStatus" />
                         </section>
                     }
                 }
