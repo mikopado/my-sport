@@ -9,22 +9,24 @@ $(function () {
         if ($('#count').hasClass('hidden')) {
             $('#count').removeClass('hidden');
         }
-        var count = parseInt($('#count').text()) + 1;
-        $('#count').text(count);        
-        
 
+        $.get(window.location.origin + '/Profile/IncreasePendingCookie/',            
+            function (data) {
+                $('#count').text(data);               
+            });
+       
+       
         $('.accept-btn').click(function () {            
             var self = $(this);
             $.ajax({
                 type: 'POST',
                 url: window.location.origin + '/Profile/AcceptFriendship/' + requestId,
-                success: function (response) {
-                   
+                success: function (data) {                   
                     self.parent().parent().remove();
                     $('#friends ul:first-child').prepend('<li><img class="img-friends thumbnail" src="' + photoFileName + '" />' + userName + '<input type="button" id="' + requestId + '" class="btn btn-info btn-friends remove-btn disabled" value="Remove"/></li>');
-                    var newCount = parseInt($('#count').text()) - 1;
-                    $('#count').text(newCount);
-                    if (newCount === 0) {
+                   
+                    $('#count').text(data);
+                    if (parseInt(data) === 0) {
                         $('#count').addClass('hidden');
                     }
                 }
@@ -36,11 +38,10 @@ $(function () {
             $.ajax({
                 type: 'POST',
                 url: window.location.origin + '/Profile/IgnoreFriendshipRequest/' + requestId,
-                success: function (response) {
-                    self.parent().parent().remove();
-                    var newCount = parseInt($('#count').text()) - 1;
-                    $('#count').text(newCount);
-                    if (newCount === 0) {
+                success: function (data) {
+                    self.parent().parent().remove();                                  
+                    $('#count').text(data);                    
+                    if (parseInt(data) === 0) {
                         $('#count').addClass('hidden');
                     }
                 }
@@ -54,7 +55,6 @@ $(function () {
     
 
     
-
 });
 
 

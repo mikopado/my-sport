@@ -13,7 +13,7 @@ namespace SportsBarApp.Models.DAL
         T GetElement(Expression<Func<T, bool>> func);        
         void Remove(T element);       
         IEnumerable<T> GetElements(Expression<Func<T, bool>> func);
-        
+       
 
     }
 }

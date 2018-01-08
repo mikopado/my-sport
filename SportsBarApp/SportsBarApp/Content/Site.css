@@ -241,7 +241,30 @@ footer{
 #wrapper-wall div.col-md-6{
     background-color: white;
 }
-
+#filter {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    position: relative;
+}
+#filter input[type=search] {    
+    flex-grow: 2;      
+    border: none;  
+}
+#filter button {
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    padding: 0;
+    right: 0;
+}
 
 /*************************************************************
                         MY PROFILE
@@ -536,7 +559,7 @@ textarea#Text {
     border-radius: 0 0 4px 4px;
     border-bottom: 1px solid #E5E5E5;
 }
-/*The text fiedl where to write ne post. Sited at the top of the wall*/
+/*The text field where to write post. Sited at the top of the wall*/
 textarea#Message {
     resize: none;
     -webkit-border-bottom-left-radius: 0;
@@ -555,7 +578,7 @@ textarea#Message {
     -webkit-border-top-right-radius: 0;
     -moz-border-radius-topright: 0;
     -moz-border-radius-topright: 0;
-    width: 40%;
+    width: 20%;
     align-self: flex-end;
 }
 .form-write-post section {

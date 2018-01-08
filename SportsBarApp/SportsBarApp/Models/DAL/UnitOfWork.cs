@@ -24,6 +24,7 @@ namespace SportsBarApp.Models.DAL
             Comments = new AppRepository<Comment>(SportsBarDb);
             Posts = new AppRepository<Post>(SportsBarDb);
             FriendRequests = new AppRepository<FriendRequest>(SportsBarDb);
+            MetaData = new AppRepository<MetaInfo>(SportsBarDb);
         }
         public void Dispose()
         {

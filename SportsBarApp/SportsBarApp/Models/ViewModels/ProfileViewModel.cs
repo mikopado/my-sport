@@ -36,8 +36,9 @@ namespace SportsBarApp.Models.ViewModels
 
         public FriendRequest Friendship { get; set; }
 
-
         public Profile User { get; set; }
+
+        public int PendingsCount { get; set; }
 
         public IEnumerable<FriendRequest> PendingRequests { get; set; }
 
