@@ -74,7 +74,7 @@ namespace SportsBarApp.Controllers
             {
                 if (profile == null)
                 {
-                    return RedirectToAction("Create");
+                    return RedirectToAction("Create", "Profile");
                 }
                 return RedirectToAction("NewsFeed");
             }
