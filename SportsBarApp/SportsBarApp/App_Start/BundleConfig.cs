@@ -9,11 +9,11 @@ namespace SportsBarApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",                        
-                        "~/Scripts/myScript.js"));
+                        "~/Scripts/libs/jquery-{version}.js",                        
+                        "~/Scripts/appScripts/myScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/libs/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -21,10 +21,10 @@ namespace SportsBarApp
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/libs/bootstrap.js",
+                      "~/Scripts/libs/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui.min.js"));
+                        "~/Scripts/libs/jquery-ui.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Content/bootstrap-lumen.css",

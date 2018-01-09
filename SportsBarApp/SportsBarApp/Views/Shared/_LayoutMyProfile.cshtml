@@ -25,8 +25,9 @@
                 <span>@Model.CurrentProfile.FirstName  @Model.CurrentProfile.LastName</span>
                 @if (!Model.IsThisUser)
                 {
-                    using (Html.BeginForm("AskFriendship", "Profile", FormMethod.Post))
+                    using (Html.BeginForm("AskFriendship", "Friends", FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken()
                         <section>
                             @Html.HiddenFor(model => model.Friendship.Id)
                             @Html.Hidden("FriendId", Model.CurrentProfile.ProfileId)
@@ -54,8 +55,8 @@
                     friends = "clicked";
                 }
                 @Html.ActionLink("PROFILE", "MyProfile", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = profile })
-                @Html.ActionLink("ACTIVITY", "Activity", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = activity })
-                @Html.ActionLink("FRIENDS", "Friends", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = friends })
+                @Html.ActionLink("ACTIVITY", "Activity", "Activity", new { id = Model.CurrentProfile.ProfileId }, new { @class = activity })
+                @Html.ActionLink("FRIENDS", "Friends", "Friends", new { id = Model.CurrentProfile.ProfileId }, new { @class = friends })
 
             </section>      
 

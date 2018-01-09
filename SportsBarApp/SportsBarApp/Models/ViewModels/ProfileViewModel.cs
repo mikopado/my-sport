@@ -6,13 +6,7 @@ using System.Web;
 
 namespace SportsBarApp.Models.ViewModels
 {
-    public enum FriendStatus
-    {
-        AlreadyFriend,
-        NoFriend,
-        PendingRequest
-    }
-
+   
     public class ProfileViewModel
     {
 

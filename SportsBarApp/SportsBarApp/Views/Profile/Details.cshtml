@@ -3,9 +3,9 @@
 @if (Model.IsThisUser)
 {
     <div class="col-md-6 profile-links">
-        @Html.ActionLink("VIEW", "Details", new { id = Model.CurrentProfile.ProfileId }, new { @class = "clicked" })
-        @Html.ActionLink("EDIT", "Edit", new { id = Model.CurrentProfile.ProfileId }, new { @class = "not-clicked" })
-        @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.CurrentProfile.ProfileId }, new { @class = "not-clicked" })
+        @Html.ActionLink("VIEW", "Details", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = "clicked" })
+        @Html.ActionLink("EDIT", "Edit", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = "not-clicked" })
+        @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class = "not-clicked" })
     </div>
 }
 else

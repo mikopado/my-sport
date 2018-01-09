@@ -6,9 +6,9 @@
 }
 
 <div class="col-md-6 profile-links">
-    @Html.ActionLink("VIEW", "Details", new { id = Model.CurrentProfile.ProfileId }, new {@class="not-clicked" })
-    @Html.ActionLink("EDIT", "Edit", new { id = Model.CurrentProfile.ProfileId }, new { @class="not-clicked"})
-    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", new { id = Model.CurrentProfile.ProfileId }, new { @class="clicked"})
+    @Html.ActionLink("VIEW", "Details", "Profile", new { id = Model.CurrentProfile.ProfileId }, new {@class="not-clicked" })
+    @Html.ActionLink("EDIT", "Edit", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class="not-clicked"})
+    @Html.ActionLink("CHANGE PROFILE PHOTO", "ChangeProfilePhoto", "Profile", new { id = Model.CurrentProfile.ProfileId }, new { @class="clicked"})
 </div>
 
 @using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -37,6 +37,6 @@
 
 @section scripts{
     
-    <script src="~/Scripts/search.js"></script>
+    <script src="~/Scripts/appScripts/search.js"></script>
  }
 

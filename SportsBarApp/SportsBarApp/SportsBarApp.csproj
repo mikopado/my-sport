@@ -204,13 +204,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\WallController.cs" />
+    <Compile Include="Cookies\AppCookie.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlHelperExtensions\HtmlHelperExtensions.cs" />
     <Compile Include="Hubs\FriendRequestHub.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\DAL\IRepository.cs" />
@@ -222,16 +225,12 @@
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\ViewModels\ChangePhotoViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\DAL\SportsBarDbContext.cs" />
-    <Compile Include="Models\ViewModels\PostCommentViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProfileWallViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLayer\SportsBarService.cs" />
-    <Compile Include="Session\SessionState.cs" />
+    <Compile Include="ServiceLayer\AppService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -268,8 +267,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\libs\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -278,32 +277,30 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
-    <Content Include="Scripts\friendConnection.js" />
-    <Content Include="Scripts\jquery-3.2.1.js" />
-    <Content Include="Scripts\jquery-3.2.1.min.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-3.4.2.debug.js" />
-    <Content Include="Scripts\knockout-3.4.2.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\myScript.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\search.js" />
+    <None Include="Scripts\libs\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\libs\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\appScripts\friendConnection.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.slim.min.js" />
+    <None Include="Scripts\libs\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery-ui.js" />
+    <Content Include="Scripts\libs\jquery-ui.min.js" />
+    <Content Include="Scripts\libs\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\libs\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\libs\jquery.validate.js" />
+    <Content Include="Scripts\libs\jquery.validate.min.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libs\modernizr-2.6.2.js" />
+    <Content Include="Scripts\libs\modernizr-2.8.3.js" />
+    <Content Include="Scripts\appScripts\myScript.js" />
+    <Content Include="Scripts\libs\respond.js" />
+    <Content Include="Scripts\libs\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\libs\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\libs\respond.min.js" />
+    <Content Include="Scripts\appScripts\search.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -330,8 +327,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -340,22 +335,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Scripts\libs\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\libs\jquery-3.2.1.min.map" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\Profile\Details.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Wall\NewsFeed.cshtml" />
     <Content Include="Views\Shared\_LayoutProfileWall.cshtml" />
     <Content Include="Views\Profile\MyProfile.cshtml" />
     <Content Include="Views\Shared\_LayoutMyProfile.cshtml" />
     <Content Include="Views\Shared\_NavbarProfile.cshtml" />
     <Content Include="Views\Profile\ChangeProfilePhoto.cshtml" />
-    <Content Include="Views\Shared\Wall.cshtml" />
-    <Content Include="Views\Profile\Activity.cshtml" />
+    <Content Include="Views\Shared\PostsComments.cshtml" />
+    <Content Include="Views\Activity\Activity.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
     <Content Include="Views\Profile\Search.cshtml" />
-    <Content Include="Views\Profile\Friends.cshtml" />
+    <Content Include="Views\Friends\Friends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

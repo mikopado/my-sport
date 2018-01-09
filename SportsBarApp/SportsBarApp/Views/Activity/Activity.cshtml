@@ -1,0 +1,29 @@
+﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
+}
+<div id="activity" class="col-md-7">
+    @if (Model.IsThisUser)
+    {
+        using (Html.BeginForm("UploadPost", "Activity", FormMethod.Post, new { @class = "form-write-post" }))
+        {
+            @Html.AntiForgeryToken()
+            <section>
+                @Html.TextArea("Message", "", 3, 20, new { @class = "form-control", @placeholder = "What's up ?" })
+
+                @Html.Hidden("page", Model.CurrentView)
+                <input type="submit" value="Post" class="btn btn-info" />
+
+            </section>
+        }
+     }
+   
+
+    @Html.Partial("PostsComments", Model.Posts, new ViewDataDictionary { {"Domain", Model.CurrentView } })
+</div>
+
+@section scripts{
+    
+<script src="~/Scripts/appScripts/search.js"></script>    
+}

@@ -220,7 +220,8 @@ namespace SportsBarApp.Controllers
         public ActionResult ChangePassword()
         {
             ViewBag.ViewEmail = User.Identity.GetUserName();
-            SportsBarService service = new SportsBarService(new UnitOfWork(new SportsBarDbContext()));
+            AppService service = new AppService(new UnitOfWork(new SportsBarDbContext()));
+
             ViewBag.Id = service.GetProfileId(service.GetCurrentUserId(User));
             return View();
         }

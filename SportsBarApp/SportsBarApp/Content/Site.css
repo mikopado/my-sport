@@ -629,7 +629,7 @@ a.ui-button:active,
 }
 
 /*FRIENDS PAGE*/
-
+/*List of friends either in activity or in wall page*/
 .friends-window ul{
     list-style-type: none;
     padding: 0;
@@ -650,16 +650,18 @@ a.ui-button:active,
     width: 50%;
     margin-bottom: 10px;
 }
+/*Friendship requests items*/
 .requests li {
     width: 60%;
 }
+/*Modify the friends items in wall page and in guest mode view. This because remove button is not displaying*/
 .friends-window.guest li, .friends-wall li {
     justify-content: flex-start;
 }
-
 .links-to-friends:hover, .links-to-friends:focus, .links-to-friends:visited {
     text-decoration: none;
 }
+/*avatars*/
 .img-friends {
     width: 40px;
     height: 40px;
@@ -675,6 +677,7 @@ a.ui-button:active,
 .btn-info.btn-requests{
     width: 45%;
 }
+/*Friends lit items in wall page*/
 .friends-wall{
     margin-top: 30px; 
     padding: 0;   
