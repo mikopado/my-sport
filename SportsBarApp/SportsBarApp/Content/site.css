@@ -76,12 +76,22 @@ span.icon-bar{
 .navbar-right li {
     margin-right: 50px;
 }
-.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus,
-#dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active {
-    color: navy;
-    background-color: transparent;
+.navbar-right li:nth-child(2){
+    margin-right: 10px;
+    margin-left: -20px;
 }
 
+.navbar-right li a:hover, .navbar-right li a:active, .navbar-right li a:focus{
+    color: navy;
+    background-color: transparent;
+    text-decoration: none;
+}
+#dropdownMenuLink:hover, #dropdownMenuLink:focus, #dropdownMenuLink:active,
+.friend-notifi:hover, .friend-notifi:focus, .friend-notifi:active {
+    opacity: 1;
+    background-color: transparent;
+    
+}
 /*Search text box in navbar in Profile page*/
 #search.form-control {
     display: inline-block;
@@ -90,31 +100,74 @@ span.icon-bar{
 }
 /*The dropdown menu for MY ACCOUNT on the navbar*/
 #dropdownMenuLink {
-    background-color: transparent;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2em;
-    text-transform: capitalize;   
+    background-image: url('images/settings-icon.png'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: .2;  
+    background-size: cover;
+    padding: 11px;
 }
 ul.navbar-right{
     display: flex;
     align-items: center;
 }
-.dropdown-menu {
+.navbar-right .dropdown-menu {
     text-align: center;
     background-color: #68E0FF;
-    border: 0.2px;   
+    border: .5px solid #E5E5E5;
+    position: absolute;
+    left: -50px;
 }
 .dropdown-item{
    display: block; 
    text-decoration: none !important;
-   color: white;
+   color: white;   
+}
+.dropdown{
+    position: relative;
+}
+/* Friend Request Icon*/
+.friend-notifi {
+    background-position: center;
+    background-image: url('images/friends-icon-navy.png');
+    opacity: .2;
 }
 
+.img-prof-nav {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: .2px solid #E5E5E5;
+}
+
+/*Label on top of Icon*/
+#count {
+    display: block;
+    background: #E43C03;
+    text-align: center;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: bold;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    width: 14px;
+    z-index: 1;
+    margin: 0px 1px 0px 18px;
+    position: absolute;
+    padding: 1px;
+}
+
+#prof-nav{
+    display: flex;
+    align-items: center;   
+}
 /********************************************************
                     Login Page
 ************************************************************/
-.btn-info{
+.btn-info {
     width: 70%;
 }
 .checkbox label{
@@ -153,9 +206,14 @@ footer{
 #wrapper-wall table {
     border-collapse: separate;
     border-spacing: 0 30px;
+    opacity: .8;
 }
 #wrapper-wall table td {
     padding: 10px;
+    background-color: white;    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 /*Giving shadow to the profile details table - any row*/
 #wrapper-wall table tr {
@@ -183,13 +241,36 @@ footer{
 #wrapper-wall div.col-md-6{
     background-color: white;
 }
-
+#filter {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    position: relative;
+}
+#filter input[type=search] {    
+    flex-grow: 2;      
+    border: none;  
+}
+#filter button {
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    padding: 0;
+    right: 0;
+}
 
 /*************************************************************
                         MY PROFILE
 ****************************************************************/
 /*All the links, i.e. Profile, View, Friends etc*/
-.profile-links a, #guest-details{
+.profile-links a, .for-guest{
     color: #4d7499;
     font-weight: bold;
     font-size: 1.2em;  
@@ -478,7 +559,7 @@ textarea#Text {
     border-radius: 0 0 4px 4px;
     border-bottom: 1px solid #E5E5E5;
 }
-/*The text fiedl where to write ne post. Sited at the top of the wall*/
+/*The text field where to write post. Sited at the top of the wall*/
 textarea#Message {
     resize: none;
     -webkit-border-bottom-left-radius: 0;
@@ -497,7 +578,7 @@ textarea#Message {
     -webkit-border-top-right-radius: 0;
     -moz-border-radius-topright: 0;
     -moz-border-radius-topright: 0;
-    width: 40%;
+    width: 20%;
     align-self: flex-end;
 }
 .form-write-post section {
@@ -511,23 +592,17 @@ textarea#Message {
 }
 
 
-
-
-
-
+/*AUTOCOMPLETE SEARCH BOX*/
 .search-result-item {
     display: flex;
     align-items: baseline; 
     font-size: 1em;
 }
-
-
-
-.search-result-item img{
+.search-result-item img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 .list-group-item:last-child,  .list-group-item:last-child{
@@ -552,6 +627,76 @@ a.ui-button:active,
 .ui-autocomplete{
     z-index: 2000;
 }
+
+/*FRIENDS PAGE*/
+/*List of friends either in activity or in wall page*/
+.friends-window ul{
+    list-style-type: none;
+    padding: 0;
+}
+.friends-window li {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    border-bottom: 1px solid #E5E5E5;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.friends-list li {
+    width: 50%;
+    margin-bottom: 10px;
+}
+/*Friendship requests items*/
+.requests li {
+    width: 60%;
+}
+/*Modify the friends items in wall page and in guest mode view. This because remove button is not displaying*/
+.friends-window.guest li, .friends-wall li {
+    justify-content: flex-start;
+}
+.links-to-friends:hover, .links-to-friends:focus, .links-to-friends:visited {
+    text-decoration: none;
+}
+/*avatars*/
+.img-friends {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;   
+    margin: 2px 2px 2px 2px;
+}
+.friends-window.guest .img-friends {
+    margin-right: 120px;
+}
+.btn-info.btn-friends{
+    width: 20%;
+}
+.btn-info.btn-requests{
+    width: 45%;
+}
+/*Friends lit items in wall page*/
+.friends-wall{
+    margin-top: 30px; 
+    padding: 0;   
+}
+.friends-wall .img-friends{   
+    margin-right: 50px;
+}
+.friends-wall li {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+
+
 
 
 

@@ -23,7 +23,8 @@ namespace SportsBarApp.Controllers
     public class ProfileController : Controller
     {
         private AppService appService = new AppService(new UnitOfWork(new SportsBarDbContext()));
-
+        
+        
         [Route("profile/{id}")]
         public ActionResult MyProfile(int? id)
         {
@@ -155,14 +156,14 @@ namespace SportsBarApp.Controllers
             if (ModelState.IsValid)
             {
                 appService.Edit(profileVm.CurrentProfile);
-                appService.Save();
-                ViewBag.Partial = "Details";
-                return RedirectToAction("MyProfile", new { id = profileVm.CurrentProfile.ProfileId });
+                appService.Save();                
+                return RedirectToAction("Details", new { id = profileVm.CurrentProfile.ProfileId });
 
             }
-            ViewBag.Partial = "Edit";
+           
 
-            return View("MyProfile", profileVm);
+            return RedirectToAction("MyProfile", new { id = profileVm.CurrentProfile.ProfileId });
+
         }
 
         // GET: Profile/Delete/5
@@ -221,7 +222,7 @@ namespace SportsBarApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public ActionResult ChangeProfilePhoto(HttpPostedFileBase upload)
         {
             //Save new image into database from the file uploaded
@@ -244,7 +245,7 @@ namespace SportsBarApp.Controllers
 
                     }
 
-                    return RedirectToAction("NewsFeed", "Wall");
+                    return RedirectToAction("MyProfile", new {id = profile.ProfileId });
                 }
             }
             catch (RetryLimitExceededException)
@@ -254,7 +255,9 @@ namespace SportsBarApp.Controllers
             ProfileViewModel chphoto = new ProfileViewModel
             {
                 CurrentProfile = profile,
-                CurrentView = "profile"
+                CurrentView = "profile",
+                IsThisUser = appService.EnsureIsUserProfile(profile, User),
+                Photo = profile.ProfilePic.FileName
             };
 
             return PartialView("ChangeProfilePhoto", chphoto);

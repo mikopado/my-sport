@@ -89,8 +89,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockClasses\MockDb.cs" />
+    <Compile Include="MockClasses\MockRepo.cs" />
+    <Compile Include="MockClasses\MockUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="ServiceLayer\AppServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

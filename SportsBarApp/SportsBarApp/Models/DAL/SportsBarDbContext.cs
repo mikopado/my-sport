@@ -28,6 +28,6 @@ namespace SportsBarApp.Models
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<MetaInfo> MetaData { get; set; }
 
-
+        
     }
 }

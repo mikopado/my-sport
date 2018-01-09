@@ -18,9 +18,9 @@ namespace SportsBarApp.ServiceLayer
 {
     public class AppService
     {
-        private readonly UnitOfWork unit;
+        private readonly IUnitOfWork unit;
 
-        public AppService(UnitOfWork unit)
+        public AppService(IUnitOfWork unit)
         {
             this.unit = unit;
             
@@ -43,7 +43,7 @@ namespace SportsBarApp.ServiceLayer
         /// <param name="profile">Profile object to modify</param>
         public void Edit(Profile profile)
         {
-            unit.SportsBarDb.Entry(profile).State = EntityState.Modified;
+            unit.Update(profile);
         }
         /// <summary>
         /// Remove entity from database
@@ -51,8 +51,7 @@ namespace SportsBarApp.ServiceLayer
         /// <param name="profile">Profile object to be removed</param>
         public void Remove(Profile profile)
         {
-            unit.SportsBarDb.Entry(profile).State = EntityState.Deleted;
-            unit.Profiles.Remove(profile);
+            unit.Delete(profile);
         }
         /// <summary>
         /// Add new image to database
@@ -198,7 +197,8 @@ namespace SportsBarApp.ServiceLayer
         /// <returns>IEnumerable of profile which are found from searching</returns>
         public IEnumerable<Profile> SearchProfiles(string term)
         {
-            return unit.Profiles.GetElements(x => x.FirstName.StartsWith(term) || x.LastName.StartsWith(term)).Take(8).ToList();
+            term = term.ToLower();
+            return unit.Profiles.GetElements(x => x.FirstName.ToLower().StartsWith(term) || x.LastName.ToLower().StartsWith(term)).Take(8).ToList();
         }
 
         /// <summary>
@@ -267,9 +267,11 @@ namespace SportsBarApp.ServiceLayer
         /// <returns>IEnumerable of Post objects</returns>
         public IEnumerable<Post> GetPostsFriends(int? userId)
         {
+            //Get all friends by given user, then add to this collection the user itself.
+            // Return. Takes all the posts and filter this collection by any profiles that belongs to friends collection
             var friends = GetFriends(userId).ToList();
             friends.Add(GetProfile(userId));
-            return GetPosts().Where(y => friends.Contains(y.Profile));
+            return GetPosts().Where(y => friends.Contains(GetProfile(y.ProfileId)));
         }
         /// <summary>
         /// Retrieve all posts written by the given user.
@@ -289,9 +291,13 @@ namespace SportsBarApp.ServiceLayer
         /// <returns>iEnumerable of Post objects</returns>
         private IEnumerable<Post> GetPostsByHashtags(string hashtag, int? userId)
         {
+            // get all metainfo objects where the Hashtag property is equal to the given hashtag string
+            // then select any posts where the metadata beolongs and flattens the collection.
             var hashPosts = unit.MetaData.GetElements(x => x.Hashtag.Equals(hashtag)).SelectMany(x => x.Posts);
             return hashPosts.Intersect(GetPostsFriends(userId));
         }
+
+        
         /// <summary>
         /// Retrieve all the posts filter by given keywords (in an array of strings)
         /// </summary>
@@ -300,7 +306,11 @@ namespace SportsBarApp.ServiceLayer
         /// <returns>a collection of Post objects</returns>
         public List<Post> GetPostsByHashtags(string[] hashtags, int? userID)
         {
+            //If hashtags array contains only one item then the returned collection will be posts where the single keyword is found.
+            // If more than one keyword in array, get all posts that belong to all keywords and avoid duplicated posts
+            // If array is empty get all the posts without filtering by any keyword
             var posts = new List<Post>();
+
             if (unit.MetaData != null)
             {
                 if (hashtags.Length > 1)

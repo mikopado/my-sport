@@ -218,6 +218,7 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\DAL\IRepository.cs" />
     <Compile Include="Models\DAL\AppRepository.cs" />
+    <Compile Include="Models\DAL\IUnitOfWork.cs" />
     <Compile Include="Models\DAL\UnitOfWork.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\MetaInfo.cs" />

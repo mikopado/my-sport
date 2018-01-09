@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SportsBarApp.Models.DAL
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         public SportsBarDbContext SportsBarDb { get; set; }
         public IRepository<Profile> Profiles { get; set; }
@@ -15,7 +15,7 @@ namespace SportsBarApp.Models.DAL
         public IRepository<Post> Posts { get; set; }
         public IRepository<FriendRequest> FriendRequests { get; set; }
         public IRepository<MetaInfo> MetaData { get; set; }
-
+        
         public UnitOfWork(SportsBarDbContext db)
         {
             SportsBarDb = db;
@@ -36,6 +36,16 @@ namespace SportsBarApp.Models.DAL
         {
             SportsBarDb.SaveChanges();
         }
-       
+
+        public void Update(Profile element)
+        {
+            SportsBarDb.Entry(element).State = EntityState.Modified;
+        }
+
+        public void Delete(Profile element)
+        {
+            SportsBarDb.Entry(element).State = EntityState.Deleted;
+            Profiles.Remove(element);
+        }
     }
 }

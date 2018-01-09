@@ -10,10 +10,10 @@ namespace SportsBarApp.Models.DAL
     public interface IRepository<T> 
     {
         void Add(T element);
-        T GetElement(Expression<Func<T, bool>> func);        
+        T GetElement(Func<T, bool> func);        
         void Remove(T element);       
-        IEnumerable<T> GetElements(Expression<Func<T, bool>> func);
-       
+        IEnumerable<T> GetElements(Func<T, bool> func);
+        int Count();
 
     }
 }

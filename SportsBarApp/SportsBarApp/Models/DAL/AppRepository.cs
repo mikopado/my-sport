@@ -24,12 +24,17 @@ namespace SportsBarApp.Models.DAL
             
         }
 
-        public T GetElement(Expression<Func<T, bool>> func)
+        public int Count()
+        {
+            return entities.Count();
+        }
+
+        public T GetElement(Func<T, bool> func)
         {
             return entities.FirstOrDefault(func);
         }
 
-        public IEnumerable<T> GetElements(Expression<Func<T, bool>> func)
+        public IEnumerable<T> GetElements(Func<T, bool> func)
         {
             return entities.Where(func);
         }
