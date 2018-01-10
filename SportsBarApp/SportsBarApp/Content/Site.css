@@ -695,8 +695,22 @@ a.ui-button:active,
     border-radius: 4px;
 }
 
-
-
-
+@media screen and (max-width: 640px) {
+    #search.form-control{
+        max-width: 40%;
+    }
+    #filter {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .comment-btn{
+        width: 15%;
+    }
+ 
+    #details section{
+        max-width: 100%;
+    }
+}
 
 

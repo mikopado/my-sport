@@ -13,6 +13,7 @@ using SportsBarApp.Hubs;
 using Microsoft.AspNet.SignalR;
 using System.Web.Security;
 using System.IO;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SportsBarApp.ServiceLayer
 {
@@ -172,12 +173,12 @@ namespace SportsBarApp.ServiceLayer
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns>A string representing Account's username</returns>
-        public string GetIdentityFromUserId(int? id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
+        public string GetIdentityFromUserId(int? id)        {
+            
             Guid globalId = GetProfile(id).GlobalId;
-            return db.Users.Where(x => x.Id == globalId.ToString()).Select(x => x.UserName).FirstOrDefault();
-
+            ApplicationUser user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(globalId.ToString());
+            return user.UserName;
+            
         }        
         /// <summary>
         /// Check if the profile belongs to the current user
