@@ -21,7 +21,7 @@
         },
         minLength: 1,
         select: function (event, ui) {
-            window.location.pathname = "Profile/" + ui.item.id;
+            window.location.pathname = "Profile/MyProfile/" + ui.item.id;
             return false;
         }
     }).data("ui-autocomplete")._renderItem = function (ul, item) {       

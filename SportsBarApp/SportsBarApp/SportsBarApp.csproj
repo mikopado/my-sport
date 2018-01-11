@@ -374,7 +374,6 @@
     <Content Include="Views\Shared\PostsComments.cshtml" />
     <Content Include="Views\Activity\Activity.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
-    <Content Include="Views\Profile\Search.cshtml" />
     <Content Include="Views\Friends\Friends.cshtml" />
   </ItemGroup>
   <ItemGroup>
