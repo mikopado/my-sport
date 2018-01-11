@@ -18,7 +18,7 @@ namespace SportsBarApp.Models
     
         public SportsBarDbContext() : base("name=SportsBarDbContext")
         {
-            
+            Database.SetInitializer<SportsBarDbContext>(new CreateDatabaseIfNotExists<SportsBarDbContext>());
         }
 
         public DbSet<Profile> Profiles { get; set; }
