@@ -1,10 +1,7 @@
-﻿using SportsBarApp.Models.DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
+using SportsBarApp.Models.DAL;
 
 namespace SportsBarApp.Tests.MockClasses
 {

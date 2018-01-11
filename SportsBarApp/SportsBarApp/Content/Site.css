@@ -58,11 +58,7 @@ h3{
     font-family: 'Coustard', serif;
     color: navy;
 }
-/*Collapsable button for mobile screen*/
-button.navbar-toggle {
-    border: 1px solid #68f0b6;
-    background-color: lightgray;
-}
+
 span.icon-bar{
     background-color: lightyellow;
 }
@@ -75,6 +71,9 @@ span.icon-bar{
 }
 .navbar-right li {
     margin-right: 50px;
+}
+.navbar-right li:last-child {
+    margin-right: 25px;
 }
 .navbar-right li:nth-child(2){
     margin-right: 10px;
@@ -95,8 +94,12 @@ span.icon-bar{
 /*Search text box in navbar in Profile page*/
 #search.form-control {
     display: inline-block;
-    max-width: 70%;
+    max-width: 52%;
     margin-top: 5px;
+}
+
+.navbar-header{
+    width: 40%;
 }
 /*The dropdown menu for MY ACCOUNT on the navbar*/
 #dropdownMenuLink {
@@ -159,7 +162,7 @@ ul.navbar-right{
     position: absolute;
     padding: 1px;
 }
-
+/*Profile name with the avatar on navbar*/
 #prof-nav{
     display: flex;
     align-items: center;   
@@ -695,9 +698,30 @@ a.ui-button:active,
     border-radius: 4px;
 }
 
+/* iPads (portrait) ----------- */
+@media screen and (min-width : 768px) and (max-width : 1024px) and (orientation : portrait) {
+    #wrapper-wall {
+        margin-top: 120px;
+    }
+
+
+}
+
 @media screen and (max-width: 640px) {
     #search.form-control{
         max-width: 40%;
+    }
+    .navbar-header {
+        width: 200%;
+    }
+    .navbar-right li {
+        margin-right: 20px;
+    }
+    .navbar-right li:first-child {
+        margin-left: 20px;
+    }
+    .navbar-right li:last-child {
+        margin-left: 20px;
     }
     #filter {
         width: 80%;
@@ -707,7 +731,9 @@ a.ui-button:active,
     .comment-btn{
         width: 15%;
     }
- 
+    #wrapper-wall {
+        margin-top: 80px;
+    }
     #details section{
         max-width: 100%;
     }

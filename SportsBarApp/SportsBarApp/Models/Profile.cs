@@ -34,9 +34,7 @@ namespace SportsBarApp.Models
         [Display(Name = "Favourite Sports")]
         public string FavouriteSports { get; set; }
         
-        public Guid GlobalId { get; set; }
-
-       
+        public Guid GlobalId { get; set; }       
 
         public virtual Image ProfilePic { get; set; }
 

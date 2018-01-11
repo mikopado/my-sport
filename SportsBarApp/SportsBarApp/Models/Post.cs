@@ -9,9 +9,10 @@ namespace SportsBarApp.Models
     {
         public int Id { get; set; }
 
-        public string Message { get; set; }
-        public int? ProfileId { get; set; }
+        public string Message { get; set; }        
         public DateTime Timestamp { get; set; }
+
+        public int? ProfileId { get; set; }
 
         public virtual Profile Profile { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

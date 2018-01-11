@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SportsBarApp.Models;
 using SportsBarApp.ServiceLayer;
-using SportsBarApp.Tests.MockClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportsBarApp.Tests.MockClasses;
 
 namespace SportsBarApp.ServiceLayer.Tests
 {
@@ -91,7 +89,9 @@ namespace SportsBarApp.ServiceLayer.Tests
         {
             Profile profile = new Profile { ProfileId = 4, FirstName = "Bill", LastName = "Kop", DateOfBirth = new DateTime(1960, 8, 2), GlobalId = new Guid("c04d45ff-3bc4-32f7-b7ec-c556f7e20c14") };
 
-            Profile actual = service.GetProfile(4);
+            var actual = service.GetProfile(4);
+
+            Assert.IsInstanceOfType(actual, typeof(Profile));
 
             Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(profile),
                 Newtonsoft.Json.JsonConvert.SerializeObject(actual));
@@ -114,12 +114,13 @@ namespace SportsBarApp.ServiceLayer.Tests
                 new Profile{ProfileId = 1, FirstName = "Mark", LastName = "Lannon", DateOfBirth = new DateTime(1980, 12, 23), GlobalId = new Guid("c04d45ff-3bc4-42f7-b7ec-b556f7e20c14") },
             };
 
-            List<Profile> actual = service.SearchProfiles("M").ToList();
+            var actual = service.SearchProfiles("M").ToList();
             
 
             Assert.AreEqual(expected.Count, actual.Count);
             if (actual.Count == expected.Count)
             {
+                Assert.IsInstanceOfType(actual[0], typeof(Profile));
                 Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[0]),
                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[0]));
             }
@@ -134,7 +135,7 @@ namespace SportsBarApp.ServiceLayer.Tests
                 new Profile{ProfileId = 4, FirstName = "Bill", LastName = "Kop", DateOfBirth = new DateTime(1960, 8, 2), GlobalId = new Guid("c04d45ff-3bc4-32f7-b7ec-c556f7e20c14") },
              };
 
-            List<Profile> actual = service.SearchProfiles("B").ToList();
+            var actual = service.SearchProfiles("B").ToList();
 
 
             Assert.AreEqual(expected.Count, actual.Count);
@@ -142,6 +143,7 @@ namespace SportsBarApp.ServiceLayer.Tests
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(Profile));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                    Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
                 
@@ -167,18 +169,22 @@ namespace SportsBarApp.ServiceLayer.Tests
         {
             List<Profile> expected = new List<Profile>()
             {
-                new Profile{ProfileId = 1, FirstName = "Mark", LastName = "Lannon", DateOfBirth = new DateTime(1980, 12, 23), GlobalId = new Guid("c04d45ff-3bc4-42f7-b7ec-b556f7e20c14") },
-                new Profile{ProfileId = 2, FirstName = "John", LastName = "Bell", DateOfBirth = new DateTime(1990, 10, 13), GlobalId = new Guid("c14d45ff-3bc4-42f7-b5ec-b556f7e20c14")},
+                new Profile{ProfileId = 1, FirstName = "Mark", LastName = "Lannon",
+                            DateOfBirth = new DateTime(1980, 12, 23), GlobalId = new Guid("c04d45ff-3bc4-42f7-b7ec-b556f7e20c14") },
+                new Profile{ProfileId = 2, FirstName = "John", LastName = "Bell",
+                            DateOfBirth = new DateTime(1990, 10, 13), GlobalId = new Guid("c14d45ff-3bc4-42f7-b5ec-b556f7e20c14")},
                 
             };
 
-            List<Profile> actual = service.GetFriends(3).ToList();
+            var actual = service.GetFriends(3).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
+
             if (actual.Count == expected.Count)
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(Profile));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                    Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
 
@@ -208,12 +214,12 @@ namespace SportsBarApp.ServiceLayer.Tests
 
             };
 
-            List<Profile> actual = service.GetFriends(2).ToList();
+            var actual = service.GetFriends(2).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
             if (actual.Count == expected.Count)
             {
-                
+                Assert.IsInstanceOfType(actual[0], typeof(Profile));
                 Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[0]),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[0]));               
 
@@ -233,13 +239,14 @@ namespace SportsBarApp.ServiceLayer.Tests
                 
             };
 
-            List<Post> actual = service.GetPostsFriends(3).ToList();
+            var actual = service.GetPostsFriends(3).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
             if (actual.Count == expected.Count)
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(Post));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
                 }
@@ -256,13 +263,14 @@ namespace SportsBarApp.ServiceLayer.Tests
 
             };
 
-            List<Post> actual = service.GetPostsFriends(4).ToList();
+            var actual = service.GetPostsFriends(4).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
             if (actual.Count == expected.Count)
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(Post));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
                 }
@@ -278,7 +286,7 @@ namespace SportsBarApp.ServiceLayer.Tests
 
             };
 
-            List<Post> actual = service.GetPostsByUser(3).ToList();
+            var actual = service.GetPostsByUser(3).ToList();
 
             Assert.AreEqual(expected.Count, actual.Count);
 
@@ -286,6 +294,7 @@ namespace SportsBarApp.ServiceLayer.Tests
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(Post));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
                 }
@@ -311,13 +320,14 @@ namespace SportsBarApp.ServiceLayer.Tests
 
             var actual = service.FindFriend(2, 4);
 
+            Assert.IsInstanceOfType(actual, typeof(FriendRequest));
             Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual));
 
-            var actual2 = service.FindFriend(4, 2);
-
+            var actualOpposite = service.FindFriend(4, 2);
+            Assert.IsInstanceOfType(actualOpposite, typeof(FriendRequest));
             Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected),
-                               Newtonsoft.Json.JsonConvert.SerializeObject(actual));
+                               Newtonsoft.Json.JsonConvert.SerializeObject(actualOpposite));
 
         }       
 
@@ -334,6 +344,7 @@ namespace SportsBarApp.ServiceLayer.Tests
             {
                 for (int i = 0; i < actual.Count; i++)
                 {
+                    Assert.IsInstanceOfType(actual[i], typeof(FriendRequest));
                     Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(expected[i]),
                                 Newtonsoft.Json.JsonConvert.SerializeObject(actual[i]));
                 }

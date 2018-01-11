@@ -1,29 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsBarApp.Models;
 using System.IO;
-using System.Security.Principal;
 using SportsBarApp.ServiceLayer;
 using SportsBarApp.Models.DAL;
-using System.Threading.Tasks;
 using SportsBarApp.Models.ViewModels;
 using System.Data.Entity.Infrastructure;
-using SportsBarApp.Cookies;
+
+
+
 
 namespace SportsBarApp.Controllers
 {
     [Authorize]    
     public class ProfileController : Controller
     {
-        private AppService appService = new AppService(new UnitOfWork(new SportsBarDbContext()));
-        
+        private AppService appService; 
+
+        //For testing purpose
+        public ProfileController()
+        {
+            appService = new AppService(new UnitOfWork(new SportsBarDbContext()));
+        }
+        //For testing purpose
+        public ProfileController(IUnitOfWork unit)
+        {
+            appService = new AppService(unit);
+        }
         
         [Route("profile/{id}")]
         public ActionResult MyProfile(int? id)
@@ -32,7 +37,7 @@ namespace SportsBarApp.Controllers
             
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
             }
             Profile profile = appService.GetProfile(id);
             if (profile == null)
@@ -68,7 +73,7 @@ namespace SportsBarApp.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
             }
             Profile profile = appService.GetProfile(id);
             if (profile == null)
@@ -122,7 +127,7 @@ namespace SportsBarApp.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
             }
             Profile profile = appService.GetProfile(id);
             bool isUser = appService.EnsureIsUserProfile(profile, User);
@@ -171,7 +176,7 @@ namespace SportsBarApp.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
             }
             Profile profile = appService.GetProfile(id);
             if (profile == null || !appService.EnsureIsUserProfile(profile, User))
@@ -199,7 +204,7 @@ namespace SportsBarApp.Controllers
             //Change the profile photo
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
             }
             Profile profile = appService.GetProfile(id);
             bool isUser = appService.EnsureIsUserProfile(profile, User);

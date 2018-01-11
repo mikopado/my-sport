@@ -119,7 +119,7 @@ namespace SportsBarApp.ServiceLayer
                 {
                     if (!string.IsNullOrWhiteSpace(s) && !s.Contains(" "))
                     {
-                        hashtags.Add(s);
+                        hashtags.Add(s.ToLower());
                     }
 
                 }
@@ -294,7 +294,7 @@ namespace SportsBarApp.ServiceLayer
         {
             // get all metainfo objects where the Hashtag property is equal to the given hashtag string
             // then select any posts where the metadata beolongs and flattens the collection.
-            var hashPosts = unit.MetaData.GetElements(x => x.Hashtag.Equals(hashtag)).SelectMany(x => x.Posts);
+            var hashPosts = unit.MetaData.GetElements(x => x.Hashtag.Equals(hashtag.ToLower())).SelectMany(x => x.Posts);
             return hashPosts.Intersect(GetPostsFriends(userId));
         }
 

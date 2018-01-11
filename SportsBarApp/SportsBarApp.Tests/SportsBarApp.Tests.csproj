@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="MockClasses\MockDb.cs" />
     <Compile Include="MockClasses\MockRepo.cs" />
     <Compile Include="MockClasses\MockUnit.cs" />

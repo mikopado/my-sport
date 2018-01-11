@@ -1,10 +1,6 @@
 ﻿using SportsBarApp.Models;
-using SportsBarApp.Models.DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportsBarApp.Tests.MockClasses
 {
@@ -23,10 +19,14 @@ namespace SportsBarApp.Tests.MockClasses
             {
                 Entities = new HashSet<Profile>
                 {
-                    new Profile{ProfileId = 1, FirstName = "Mark", LastName = "Lannon", DateOfBirth = new DateTime(1980, 12, 23), GlobalId = new Guid("c04d45ff-3bc4-42f7-b7ec-b556f7e20c14") },
-                    new Profile{ProfileId = 2, FirstName = "John", LastName = "Bell", DateOfBirth = new DateTime(1990, 10, 13), GlobalId = new Guid("c14d45ff-3bc4-42f7-b5ec-b556f7e20c14")},
-                    new Profile{ProfileId = 3, FirstName = "Carl", LastName = "Cox", DateOfBirth = new DateTime(1988, 2, 3), GlobalId = new Guid("a04d45ff-3bc7-42f7-b7ec-b556f7e20c14") },
-                    new Profile{ProfileId = 4, FirstName = "Bill", LastName = "Kop", DateOfBirth = new DateTime(1960, 8, 2), GlobalId = new Guid("c04d45ff-3bc4-32f7-b7ec-c556f7e20c14") },
+                    new Profile{ProfileId = 1, FirstName = "Mark", LastName = "Lannon",
+                                DateOfBirth = new DateTime(1980, 12, 23), GlobalId = new Guid("c04d45ff-3bc4-42f7-b7ec-b556f7e20c14") },
+                    new Profile{ProfileId = 2, FirstName = "John", LastName = "Bell",
+                                DateOfBirth = new DateTime(1990, 10, 13), GlobalId = new Guid("c14d45ff-3bc4-42f7-b5ec-b556f7e20c14")},
+                    new Profile{ProfileId = 3, FirstName = "Carl", LastName = "Cox",
+                                DateOfBirth = new DateTime(1988, 2, 3), GlobalId = new Guid("a04d45ff-3bc7-42f7-b7ec-b556f7e20c14") },
+                    new Profile{ProfileId = 4, FirstName = "Bill", LastName = "Kop",
+                                DateOfBirth = new DateTime(1960, 8, 2), GlobalId = new Guid("c04d45ff-3bc4-32f7-b7ec-c556f7e20c14") },
 
                 }
             };
