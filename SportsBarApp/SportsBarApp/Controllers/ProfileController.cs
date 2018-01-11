@@ -112,7 +112,7 @@ namespace SportsBarApp.Controllers
 
             if (ModelState.IsValid)
             {
-                Image pic = new Image { FileName = "../../Content/images/avatar-default.png" };
+                //Image pic = new Image { FileName = "../../Content/images/avatar-default.png" };
                 profile.ProfilePic = pic;
                 appService.Add(profile);
                 appService.Save();
