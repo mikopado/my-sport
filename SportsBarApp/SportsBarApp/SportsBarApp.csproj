@@ -215,6 +215,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\FriendRequestHub.cs" />
+    <Compile Include="Migrations\201801071200156_InitialCreate.cs" />
+    <Compile Include="Migrations\201801071200156_InitialCreate.Designer.cs">
+      <DependentUpon>201801071200156_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\SportsBarDb\201801071200314_InitialCreate.cs" />
+    <Compile Include="Migrations\SportsBarDb\201801071200314_InitialCreate.Designer.cs">
+      <DependentUpon>201801071200314_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\SportsBarDb\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\DAL\IRepository.cs" />
     <Compile Include="Models\DAL\AppRepository.cs" />
@@ -359,6 +369,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801071200156_InitialCreate.resx">
+      <DependentUpon>201801071200156_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\SportsBarDb\201801071200314_InitialCreate.resx">
+      <DependentUpon>201801071200314_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
