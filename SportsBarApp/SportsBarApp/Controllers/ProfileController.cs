@@ -14,10 +14,10 @@ using System.Data.Entity.Infrastructure;
 
 namespace SportsBarApp.Controllers
 {
-    [Authorize]    
+    [Authorize]
     public class ProfileController : Controller
     {
-        private AppService appService; 
+        private AppService appService;
 
         //For testing purpose
         public ProfileController()
@@ -29,12 +29,12 @@ namespace SportsBarApp.Controllers
         {
             appService = new AppService(unit);
         }
-        
+
         [Route("profile/{id}")]
         public ActionResult MyProfile(int? id)
         {
             //Action to launch my profile page where edit, view profile deatils
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "An error occurred whilst processing your request.");
@@ -52,7 +52,7 @@ namespace SportsBarApp.Controllers
                 CurrentView = "profile",
                 Photo = profile.ProfilePic.FileName
             };
-            
+
             if (!vm.IsThisUser)
             {
                 var user = appService.GetProfile(appService.GetCurrentUserId(User));
@@ -60,15 +60,16 @@ namespace SportsBarApp.Controllers
                 vm.FriendStatus = appService.GetFriendStatus(user, profile).Item1;
                 vm.ButtonStatus = appService.GetFriendStatus(user, profile).Item2;
                 vm.User = user;
-                
+
                 vm.Photo = user.ProfilePic.FileName;
             }
-            
+
             return View(vm);
         }
 
 
         // GET: Profile/Details/5
+        [Route("profile/details/{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -80,7 +81,7 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-           
+
             ProfileViewModel vm = new ProfileViewModel
             {
                 CurrentProfile = profile,
@@ -90,11 +91,12 @@ namespace SportsBarApp.Controllers
             };
 
             ViewBag.Partial = "Details"; //To check if it's edit or view section in Profile section of My profile page
-           
+
             return View("MyProfile", vm);
         }
 
         // GET: Profile/Create
+        [Route("profile/create")]
         public ActionResult Create()
         {
             ViewBag.GlobalId = appService.GetCurrentUserId(User);
@@ -112,8 +114,8 @@ namespace SportsBarApp.Controllers
 
             if (ModelState.IsValid)
             {
-                //Image pic = new Image { FileName = "../../Content/images/avatar-default.png" };
-                //profile.ProfilePic = pic;
+                Image pic = new Image { FileName = "../../Content/images/avatar-default.png" };
+                profile.ProfilePic = pic;
                 appService.Add(profile);
                 appService.Save();
                 return RedirectToAction("NewsFeed", "Wall");
@@ -123,6 +125,7 @@ namespace SportsBarApp.Controllers
         }
 
         // GET: Profile/Edit/5
+        [Route("profile/edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -135,7 +138,7 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-           
+
             ProfileViewModel vm = new ProfileViewModel
             {
                 CurrentProfile = profile,
@@ -145,7 +148,7 @@ namespace SportsBarApp.Controllers
             };
 
             ViewBag.Partial = "Edit";
-            
+
             ViewBag.GlobalId = appService.GetCurrentUserId(User);
             return View("MyProfile", vm);
         }
@@ -161,17 +164,18 @@ namespace SportsBarApp.Controllers
             if (ModelState.IsValid)
             {
                 appService.Edit(profileVm.CurrentProfile);
-                appService.Save();                
+                appService.Save();
                 return RedirectToAction("Details", new { id = profileVm.CurrentProfile.ProfileId });
 
             }
-           
+
 
             return RedirectToAction("MyProfile", new { id = profileVm.CurrentProfile.ProfileId });
 
         }
 
         // GET: Profile/Delete/5
+        [Route("profile/delete/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -197,8 +201,9 @@ namespace SportsBarApp.Controllers
             appService.Save();
 
             return RedirectToAction("Index", "Home");
-        }       
+        }
 
+        [Route("profile/changeprofilephoto/{id}")]
         public ActionResult ChangeProfilePhoto(int? id)
         {
             //Change the profile photo
@@ -213,21 +218,20 @@ namespace SportsBarApp.Controllers
             {
                 return HttpNotFound();
             }
-             
+
             ProfileViewModel chphoto = new ProfileViewModel
             {
                 CurrentProfile = profile,
                 CurrentView = "profile",
                 IsThisUser = isUser,
                 Photo = profile.ProfilePic.FileName,
-                
+
             };
-            
+
             return PartialView("ChangeProfilePhoto", chphoto);
         }
 
         [HttpPost]
-       
         public ActionResult ChangeProfilePhoto(HttpPostedFileBase upload)
         {
             //Save new image into database from the file uploaded
@@ -250,7 +254,7 @@ namespace SportsBarApp.Controllers
 
                     }
 
-                    return RedirectToAction("MyProfile", new {id = profile.ProfileId });
+                    return RedirectToAction("MyProfile", new { id = profile.ProfileId });
                 }
             }
             catch (RetryLimitExceededException)
@@ -267,7 +271,7 @@ namespace SportsBarApp.Controllers
 
             return PartialView("ChangeProfilePhoto", chphoto);
         }
-       
+
         [Route("Profile/Search")]
         public ActionResult Search(string search)
         {
@@ -295,7 +299,7 @@ namespace SportsBarApp.Controllers
         }
 
 
-       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -305,6 +309,6 @@ namespace SportsBarApp.Controllers
             base.Dispose(disposing);
         }
 
-        
+
     }
 }
