@@ -113,7 +113,7 @@ namespace SportsBarApp.Controllers
             if (ModelState.IsValid)
             {
                 //Image pic = new Image { FileName = "../../Content/images/avatar-default.png" };
-                profile.ProfilePic = pic;
+                //profile.ProfilePic = pic;
                 appService.Add(profile);
                 appService.Save();
                 return RedirectToAction("NewsFeed", "Wall");
