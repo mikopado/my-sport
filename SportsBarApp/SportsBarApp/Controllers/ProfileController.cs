@@ -30,7 +30,6 @@ namespace SportsBarApp.Controllers
             appService = new AppService(unit);
         }
 
-        [Route("profile/{id}")]
         public ActionResult MyProfile(int? id)
         {
             //Action to launch my profile page where edit, view profile deatils
@@ -68,8 +67,7 @@ namespace SportsBarApp.Controllers
         }
 
 
-        // GET: Profile/Details/5
-        [Route("profile/details/{id}")]
+        // GET: Profile/Details/5       
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -96,7 +94,7 @@ namespace SportsBarApp.Controllers
         }
 
         // GET: Profile/Create
-        [Route("profile/create")]
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.GlobalId = appService.GetCurrentUserId(User);
@@ -124,8 +122,7 @@ namespace SportsBarApp.Controllers
             return View(profile);
         }
 
-        // GET: Profile/Edit/5
-        [Route("profile/edit/{id}")]
+        // GET: Profile/Edit/5      
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -174,8 +171,7 @@ namespace SportsBarApp.Controllers
 
         }
 
-        // GET: Profile/Delete/5
-        [Route("profile/delete/{id}")]
+        // GET: Profile/Delete/5   
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -203,7 +199,6 @@ namespace SportsBarApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Route("profile/changeprofilephoto/{id}")]
         public ActionResult ChangeProfilePhoto(int? id)
         {
             //Change the profile photo
@@ -272,7 +267,7 @@ namespace SportsBarApp.Controllers
             return PartialView("ChangeProfilePhoto", chphoto);
         }
 
-        [Route("Profile/Search")]
+
         public ActionResult Search(string search)
         {
             //Handles the autocomplete search box at the left side of navbar
