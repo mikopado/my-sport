@@ -23,6 +23,7 @@ namespace SportsBarApp.Models
         public ApplicationDbContext()
             : base("AccountDb", throwIfV1Schema: false)
         {
+
         }
 
         public static ApplicationDbContext Create()
