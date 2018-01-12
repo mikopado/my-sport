@@ -92,6 +92,7 @@ namespace SportsBarApp.ServiceLayer
             foreach (string item in hashtags)
             {
                 var existingHashtags = unit.MetaData.GetElement(x => x.Hashtag.Equals(item));
+                
                 if (existingHashtags != null)
                 {
                     existingHashtags.Posts.Add(post);
@@ -117,9 +118,9 @@ namespace SportsBarApp.ServiceLayer
                 string[] arr = str.Substring(str.IndexOf('#')).Split('#');
                 foreach (string s in arr)
                 {
-                    if (!string.IsNullOrWhiteSpace(s) && !s.Contains(" "))
+                    if (!string.IsNullOrWhiteSpace(s))
                     {
-                        hashtags.Add(s.ToLower());
+                        hashtags.Add(s.Trim().ToLower());
                     }
 
                 }

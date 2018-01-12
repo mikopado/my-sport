@@ -16,5 +16,6 @@ namespace SportsBarApp.Models
 
         public virtual Profile Profile { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<MetaInfo> Hashtags { get; set; }
     }
 }
