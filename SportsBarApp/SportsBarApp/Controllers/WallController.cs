@@ -24,10 +24,11 @@ namespace SportsBarApp.Controllers
             var userId = appService.GetCurrentUserId(User);
             Profile profile = appService.GetProfile(userId);
 
-            //Retrieves cookies if any
-            var queryCookie = AppCookie.GetCookie(this, "filterQuery");
+            //Retrieves cookies if any. Added the profile Id to uniquely identify the cookie.
+            // Otherwise on the same browser session if two different users login. One user would get the cookie of the other user. Bad thing
+            var queryCookie = AppCookie.GetCookie(this, "filterQuery" + profile.ProfileId);
             var filters = queryCookie != null ? queryCookie[0].Split() : new string[0];
-            var pendings = AppCookie.GetCookie(this, "pendingRequests");
+            var pendings = AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId);
 
             //Get posts to display in the center page
             IEnumerable<Post> posts = appService.GetPostsByHashtags(filters, profile.ProfileId).OrderByDescending(p => p.Timestamp);
@@ -43,8 +44,8 @@ namespace SportsBarApp.Controllers
 
             };
             //Save cookies
-            AppCookie.SaveCookie(this, "filterQuery", queryCookie);
-            AppCookie.SaveCookie(this, "pendingRequests", wall.PendingsCount.ToString());
+            AppCookie.SaveCookie(this, "filterQuery" + profile.ProfileId, queryCookie);
+            AppCookie.SaveCookie(this, "pendingRequests" + profile.ProfileId, wall.PendingsCount.ToString());
 
             return View(wall);
         }
@@ -59,7 +60,7 @@ namespace SportsBarApp.Controllers
 
             IEnumerable<Post> posts = appService.GetPostsByHashtags(filters, profile.ProfileId).OrderByDescending(p => p.Timestamp);
 
-            AppCookie.SaveCookie(this, "filterQuery", query);
+            AppCookie.SaveCookie(this, "filterQuery" + profile.ProfileId, query);
 
             return PartialView("PostsComments", posts);
         }

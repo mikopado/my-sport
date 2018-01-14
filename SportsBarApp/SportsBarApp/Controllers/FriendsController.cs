@@ -38,8 +38,8 @@ namespace SportsBarApp.Controllers
                 CurrentProfile = profile,
                 IsThisUser = appService.EnsureIsUserProfile(profile, User),
                 Friends = appService.GetFriends(profile.ProfileId),
-                Photo = profile.ProfilePic.FileName
-
+                Photo = profile.ProfilePic.FileName,
+                
             };
             //If the examined profile doesn't belong to current user then change some properties to display
             if (!wvm.IsThisUser)
@@ -52,7 +52,7 @@ namespace SportsBarApp.Controllers
                 wvm.User = user;
                 wvm.Photo = user.ProfilePic.FileName;
                 wvm.PendingRequests = appService.GetPendingRequests(user.ProfileId);
-
+               
             }
             else
             {
@@ -90,7 +90,8 @@ namespace SportsBarApp.Controllers
         [Route("Friends/AcceptFriendship/{id}")]
         public int AcceptFriendship(int? id)
         {
-            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests")[0]);
+            Profile profile = appService.GetProfile(appService.GetCurrentUserId(User));
+            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId)[0]);
             if(id != null)
             {
                 FriendRequest friendRequest = appService.GetRequestById(id);
@@ -98,7 +99,7 @@ namespace SportsBarApp.Controllers
                 appService.Save();
                 //Save the new pending request count as cookie
                 --count;
-                AppCookie.SaveCookie(this, "pendingRequests", count.ToString());
+                AppCookie.SaveCookie(this, "pendingRequests" + profile.ProfileId, count.ToString());
             }            
 
             return count;
@@ -108,7 +109,8 @@ namespace SportsBarApp.Controllers
         [Route("Friends/IgnoreFriendshipRequest/{id}")]
         public int IgnoreFriendshipRequest(int? id)
         {
-            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests")[0]);
+            Profile profile = appService.GetProfile(appService.GetCurrentUserId(User));
+            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId)[0]);
             if (id != null)
             {
                 FriendRequest friendRequest = appService.GetRequestById(id);
@@ -117,7 +119,7 @@ namespace SportsBarApp.Controllers
 
                 //Edit the pending request cookie with new value
                 --count;
-                AppCookie.SaveCookie(this, "pendingRequests", count.ToString());                
+                AppCookie.SaveCookie(this, "pendingRequests" + profile.ProfileId, count.ToString());                
             }
             return count;
         }
@@ -126,9 +128,10 @@ namespace SportsBarApp.Controllers
         [Route("Friends/IncreasePendingCookie")]
         public int IncreasePendingCookie()
         {
+            Profile profile = appService.GetProfile(appService.GetCurrentUserId(User));
             //Increase the pending request cookie when a friendship request has been sent
-            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests")[0]) + 1;
-            AppCookie.SaveCookie(this, "pendingRequests", count.ToString());
+            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId)[0]) + 1;
+            AppCookie.SaveCookie(this, "pendingRequests" + profile.ProfileId, count.ToString());
             return count;
         }
 

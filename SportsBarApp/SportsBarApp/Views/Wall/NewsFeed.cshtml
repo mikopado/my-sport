@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "SportsBar";
-    Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";    
+    Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";
+    var filterSearch = Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId] != null ? Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId].Value : "";
+    
 
 }
 
@@ -60,8 +62,7 @@
                         @Html.DisplayFor(m => m.CurrentProfile.FavouriteTeams)
                     </td>
                 </tr>
-            </table>
-                
+            </table>               
                     
         </div>
         <div class="col-md-6 col-sm-12">
@@ -78,7 +79,7 @@
             }
            
             <div id="filter" class="form-control">
-                <input type="search" placeholder="Filter posts i.e. soccer basketball" />
+                <input type="search" placeholder="Filter posts i.e. soccer basketball" value="@filterSearch" />
                 <button class="btn btn-info"><i class="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
             </div>
