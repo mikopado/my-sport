@@ -10,8 +10,6 @@ using SportsBarApp.Models.ViewModels;
 using System.Data.Entity.Infrastructure;
 
 
-
-
 namespace SportsBarApp.Controllers
 {
     [Authorize]

@@ -7,7 +7,9 @@
     var requestLink = "not-clicked";
     var friendsView = "";
     var requestView = "hidden";
-    if (int.Parse(Request.Cookies["pendingRequests"].Value) > 0)
+    var profileId = Model.IsThisUser ? Model.CurrentProfile.ProfileId : Model.User.ProfileId;
+
+    if (int.Parse(Request.Cookies["pendingRequests" + profileId].Value) > 0)
     {
         friendsLink = "not-clicked";
         requestLink = "clicked";
