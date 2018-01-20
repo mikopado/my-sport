@@ -1,6 +1,6 @@
 # SportsBar 
 
-#### ASP.NET web application. Social network for sports fans.
+#### ASP.NET MVC application. Social network for sports fans.
 
 Social network application for sports fans. The application functionalities are:
 
