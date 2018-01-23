@@ -1,9 +1,12 @@
 ﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 
 @{
-    ViewBag.Title = "SportsBar";
+    var name = Model.IsThisUser ? Model.CurrentProfile.FirstName : Model.User.FirstName;
+
+    ViewBag.Title = "SportsBar - " + name;
+   
     Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";
-    var filterSearch = Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId] != null ? Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId].Value : "";    
+    var filterSearch = Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId] != null ? Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId].Value : "";
 
 }
 
