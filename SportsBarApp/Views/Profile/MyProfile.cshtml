@@ -1,6 +1,8 @@
 ﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 @{
-    ViewBag.Title = "My Profile";
+    var name = Model.IsThisUser ? Model.CurrentProfile.FirstName : Model.User.FirstName;
+
+    ViewBag.Title = "SportsBar - " + name;
     Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
 
     var partial = "Details";

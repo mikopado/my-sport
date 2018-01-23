@@ -1,5 +1,8 @@
 ﻿@model SportsBarApp.Models.ViewModels.ProfileViewModel
 @{
+    var name = Model.IsThisUser ? Model.CurrentProfile.FirstName : Model.User.FirstName;
+
+    ViewBag.Title = "SportsBar - " + name;
     Layout = "~/Views/Shared/_LayoutMyProfile.cshtml";
     var removeBtnVisible = "hidden";
     var guestView = "guest";
