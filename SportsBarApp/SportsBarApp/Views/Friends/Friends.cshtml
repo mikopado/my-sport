@@ -90,7 +90,8 @@ else
                     type: 'POST',
                     url: window.location.origin + '/Friends/AcceptFriendship/' + id,
                     success: function (data) {                        
-                        self.parent().parent().remove();                       
+                        self.parent().parent().remove(); 
+                        
                         $('#count').text(data);
                         if (parseInt(data) === 0) {
                             $('#count').addClass('hidden');

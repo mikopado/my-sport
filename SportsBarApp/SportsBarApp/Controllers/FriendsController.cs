@@ -130,7 +130,8 @@ namespace SportsBarApp.Controllers
         {
             Profile profile = appService.GetProfile(appService.GetCurrentUserId(User));
             //Increase the pending request cookie when a friendship request has been sent
-            var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId)[0]) + 1;
+            //var count = int.Parse(AppCookie.GetCookie(this, "pendingRequests" + profile.ProfileId)[0]) + 1;
+            var count = appService.GetPendingRequests(profile.ProfileId).Count;
             AppCookie.SaveCookie(this, "pendingRequests" + profile.ProfileId, count.ToString());
             return count;
         }

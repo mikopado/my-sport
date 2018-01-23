@@ -68,6 +68,21 @@ namespace SportsBarApp.Cookies
             return null;
         }
 
+        public static void DeleteCookie(Controller contr, string key)
+        {
+            string[] cookies = contr.Request.Cookies.AllKeys;
+            foreach (string cookie in cookies)
+            {
+                if (cookie.Contains(key))
+                {
+                    contr.Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+                }
+            }
+
+        }
+
+
+
 
     }
 }

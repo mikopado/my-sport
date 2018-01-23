@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "SportsBar";
     Layout = "~/Views/Shared/_LayoutProfileWall.cshtml";
-    var filterSearch = Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId] != null ? Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId].Value : "";
-    
+    var filterSearch = Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId] != null ? Request.Cookies["filterQuery" + Model.CurrentProfile.ProfileId].Value : "";    
 
 }
 
@@ -112,12 +111,12 @@
 
             $("#filter button").click(function () {
                 var query = $('#filter input').val();
-               
-                $.get('@Url.Action("FilterPosts", "Wall")',
-                    { query: query },
+
+                $.get(window.location.origin + '/Wall/FilterPosts/' + query,
+                   
                     function (data) {
                         $('#posts-wrapper').html(data);
-                        
+
                     });
 
             });

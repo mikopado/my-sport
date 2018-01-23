@@ -211,7 +211,7 @@ namespace SportsBarApp.ServiceLayer
         public IEnumerable<Profile> GetFriends(int? userID)
         {
             List<Profile> profiles = new List<Profile>();
-            var friendships = unit.FriendRequests.GetElements(x => x.IsAccepted && (x.ProfileId == userID || x.FriendId == userID));
+            var friendships = unit.FriendRequests.GetElements(x => x.IsAccepted && (x.ProfileId == userID || x.FriendId == userID)).ToList();
             foreach (var item in friendships)
             {
                 Profile p = new Profile();
@@ -273,7 +273,7 @@ namespace SportsBarApp.ServiceLayer
             // Return. Takes all the posts and filter this collection by any profiles that belongs to friends collection
             var friends = GetFriends(userId).ToList();
             friends.Add(GetProfile(userId));
-            return GetPosts().Where(y => friends.Contains(GetProfile(y.ProfileId)));
+            return GetPosts().Where(y => friends.Any(x => x.ProfileId == y.ProfileId)).ToList();
         }
         /// <summary>
         /// Retrieve all posts written by the given user.
@@ -295,8 +295,12 @@ namespace SportsBarApp.ServiceLayer
         {
             // get all metainfo objects where the Hashtag property is equal to the given hashtag string
             // then select any posts where the metadata beolongs and flattens the collection.
-            var hashPosts = unit.MetaData.GetElements(x => x.Hashtag.Equals(hashtag.ToLower())).SelectMany(x => x.Posts);
-            return hashPosts.Intersect(GetPostsFriends(userId));
+            var hash = hashtag.ToLower();
+            //Turn Enumerable to list to overcome open data reader issue.
+            var hashPosts = unit.MetaData.GetElements(x => x.Hashtag.Equals(hash)).ToList().SelectMany(x => x.Posts).ToList();
+            var friendsPosts = GetPostsFriends(userId).ToList();
+
+            return hashPosts.Intersect(friendsPosts);
         }
 
         

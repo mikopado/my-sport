@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SportsBarApp.Models;
+using SportsBarApp.Cookies;
 
 namespace SportsBarApp.Controllers
 {
@@ -400,6 +401,7 @@ namespace SportsBarApp.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AppCookie.DeleteCookie(this, "pendingRequests");
             return RedirectToAction("Index", "Home");
         }
 

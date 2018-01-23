@@ -30,11 +30,11 @@ textarea {
 #wallpaper {
     width: 100%;
     height: 100vh;
-    background: url("images/crowd-draw.jpg") no-repeat;
+    background: url("../Content/images/crowd-draw.jpg") no-repeat;
     background-size: 100% 100%;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 /*Sportsbar title*/
 h1{
@@ -103,10 +103,10 @@ span.icon-bar{
 }
 /*The dropdown menu for MY ACCOUNT on the navbar*/
 #dropdownMenuLink {
-    background-image: url('images/settings-icon.png'); 
+    background-image: url('../Content/images/settings-icon.png');
     background-position: center;
     background-repeat: no-repeat;
-    opacity: .2;  
+    opacity: .2;
     background-size: cover;
     padding: 11px;
 }
@@ -132,7 +132,7 @@ ul.navbar-right{
 /* Friend Request Icon*/
 .friend-notifi {
     background-position: center;
-    background-image: url('images/friends-icon-navy.png');
+    background-image: url('../Content/images/friends-icon-navy.png');
     opacity: .2;
 }
 

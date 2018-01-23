@@ -29,6 +29,7 @@ $(function () {
                 url: window.location.origin + '/Friends/AcceptFriendship/' + requestId,
                 success: function (data) {                   
                     self.parent().parent().remove();
+                    
                     $('#friends ul:first-child').prepend('<li><img class="img-friends thumbnail" src="' + photoFileName + '" />' + userName + '<input type="button" id="' + requestId + '" class="btn btn-info btn-friends remove-btn disabled" value="Remove"/></li>');
                    
                     $('#count').text(data);
