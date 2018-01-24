@@ -17,7 +17,7 @@
         @Html.HiddenFor(model => model.CurrentProfile.GlobalId, new {id="GlobalId", value=ViewBag.GlobalID })
        
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.FirstName, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.FirstName, "", new { @class = "text-danger" })
@@ -25,14 +25,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.LastName, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.DateOfBirth, new { htmlAttributes = new { @class = "form-control datePicker" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.DateOfBirth, "", new { @class = "text-danger" })
@@ -40,28 +40,28 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.City, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.City, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.City, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.Country, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.Country, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.Country, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.FavouriteSports, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.FavouriteSports, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.FavouriteSports, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.FavouriteSports, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CurrentProfile.FavouriteTeams, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentProfile.FavouriteTeams, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentProfile.FavouriteTeams, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CurrentProfile.FavouriteTeams, "", new { @class = "text-danger" })
@@ -71,7 +71,7 @@
         
        
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </div>

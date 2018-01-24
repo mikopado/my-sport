@@ -6,7 +6,7 @@ $(function () {
         dateFormat: "dd/mm/yy",
         changeYear: true,
         maxDate: '0',
-        yearRange: "c-100:c+00"
+        yearRange: "-100:+00"
     });
 
     
