@@ -11,7 +11,7 @@
 }
 <div class="navbar navbar-fixed-top">
     <div class="container">
-        <div class="navbar-header">           
+        <div id="nav-profile" class="navbar-header">           
             @Html.ActionLink("Sb", "NewsFeed", "Wall", new { area = "" }, new { @class = "navbar-brand" })
             @Html.TextBox("Search", null, new { id = "search", @class = "form-control", placeholder = "Search", type = "text", required= "required" })
 
@@ -22,7 +22,7 @@
             {
                 @Html.AntiForgeryToken()
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul id="nav-items-profile" class="nav navbar-nav navbar-right">
                     <li><div id="prof-nav"><img class="img-prof-nav" src="@Model.Photo" /><a href="@Url.Action("MyProfile", "Profile", new { id = Model.IsThisUser ? Model.CurrentProfile.ProfileId : Model.User.ProfileId })">@(Model.IsThisUser ? Model.CurrentProfile.FirstName : Model.User.FirstName)</a></div></li>
                     <li class="hidden-xs">|</li>
                     <li>@Html.ActionLink("Home", "NewsFeed", "Wall")</li>

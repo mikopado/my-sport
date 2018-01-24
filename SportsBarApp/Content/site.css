@@ -58,11 +58,6 @@ h3{
     font-family: 'Coustard', serif;
     color: navy;
 }
-
-span.icon-bar{
-    background-color: lightyellow;
-}
-
 /*Elements in navabar -i.e. Login, Sign up*/
 .navbar-right li a:active, .navbar-right li a {
     color: white;
@@ -110,7 +105,7 @@ span.icon-bar{
     background-size: cover;
     padding: 11px;
 }
-ul.navbar-right{
+#nav-items-profile {
     display: flex;
     align-items: center;
 }
@@ -166,6 +161,13 @@ ul.navbar-right{
 #prof-nav{
     display: flex;
     align-items: center;   
+}
+button.navbar-toggle {
+    border: 1px solid #68f0b6;
+    background-color: lightgray;
+}
+span.icon-bar {
+    background-color: lightyellow;
 }
 /********************************************************
                     Login Page
@@ -703,16 +705,33 @@ a.ui-button:active,
     #search.form-control{
         max-width: 40%;
     }
-    .navbar-header {
+    .navbar-header{
+        width: 100%;
+    }
+    button.navbar-toggle{
+        margin-right: 0;
+    }
+    .navbar-brand{
+        margin-left: 10px;
+    }
+    #nav-profile {
         width: 200%;
     }
-    .navbar-right li {
+    .home-nav{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;        
+    }
+    .home-nav.navbar-right li{
         margin-right: 20px;
     }
-    .navbar-right li:first-child {
+    #nav-items-profile li {
+        margin-right: 20px;
+    }
+    #nav-items-profile li:first-child {
         margin-left: 20px;
     }
-    .navbar-right li:last-child {
+    #nav-items-profile li:last-child {
         margin-left: 20px;
     }
     #filter {

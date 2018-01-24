@@ -5,7 +5,7 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right home-nav">
         
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
     </ul>
@@ -14,7 +14,7 @@
 else
 {
    
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right home-nav">
         <li>@Html.ActionLink("Sign up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 
