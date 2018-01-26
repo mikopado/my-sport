@@ -10,4 +10,5 @@ Social network application for sports fans. The application functionalities are:
 - Searching users. Autocomplete search functionality to find other users in the network.
 - Filtering posts by specific topic or by a series of topics (e.g. soccer, football etc.). This is achieved by tagging each post with hashtags (e.g. #soccer #football). 
 
-Application's link ## http://sportsbar.apphb.com/
+Application's link:
+### http://sportsbar.apphb.com/
